@@ -8,10 +8,10 @@ import EmployeeList from './components/employee/EmployeeList';
 import AddEmployee from './components/employee/AddEmployee';
 import LeaveList from './components/employee/LeaveList';
 import LeaveForm from './components/employee/LeaveForm';
-import InterviewScheduler from './components/candidates/InterviewScheduler';
-import OfferManagement from './components/candidates/OfferManagement';
-import JobPostingForm from './components/candidates/JobPostingForm';
-import JobApplicationsList from './components/candidates/JobApplicationsList';
+import InterviewScheduler from './components/candidate/InterviewScheduler';
+import OfferManagement from './components/candidate/OfferManagement';
+import JobPostingForm from './components/candidate/JobPostingForm';
+import JobApplicationList from './components/candidate/JobApplicationList';
 
 
 const App = () => {
@@ -30,8 +30,8 @@ const App = () => {
               <Route path="/add-leave" element={<LeaveForm />} />
               <Route path="/schedule-interview" element={<InterviewScheduler />} />
               <Route path="/manage-offers" element={<OfferManagement />} />
-              <Route path="/job-posting" element={<JobPostingForm />} />
-              <Route path="/job-application-list" element={<JobApplicationsList />} />
+              <Route path="/manage-offers" element={<JobPostingForm />} />
+              <Route path="/manage-offers" element={<J />} />
               {/* Add more routes as needed */}
             </Routes>
           </Flex>

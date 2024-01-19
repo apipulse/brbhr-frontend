@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/candidates/JobPostingForm.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705678800462,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705678800462,
+            "name": "Commit-0",
+            "content": "import React, { useState } from 'react';\nimport { Box, FormControl, FormLabel, Input, Button, Textarea } from '@chakra-ui/react';\nimport { postJob } from '../../services/CandidateService';\n\nconst JobPostingForm = () => {\n    const [jobPosting, setJobPosting] = useState({\n        title: '',\n        description: '',\n        // Add other fields as necessary\n    });\n\n    const handleChange = (e) => {\n        setJobPosting({ ...jobPosting, [e.target.name]: e.target.value });\n    };\n\n    const handleSubmit = async (e) => {\n        e.preventDefault();\n        try {\n            const response = await postJob(jobPosting);\n            console.log('Job Posted:', response);\n            // Handle success (e.g., clear form, display message)\n        } catch (error) {\n            console.error('Error posting job:', error);\n            // Handle error\n        }\n    };\n\n    return (\n        <Box p={4}>\n            <form onSubmit={handleSubmit}>\n                <FormControl id=\"title\" isRequired>\n                    <FormLabel>Title</FormLabel>\n                    <Input name=\"title\" type=\"text\" onChange={handleChange} />\n                </FormControl>\n                <FormControl id=\"description\" isRequired mt={4}>\n                    <FormLabel>Description</FormLabel>\n                    <Textarea name=\"description\" onChange={handleChange} />\n                </FormControl>\n                {/* Add other form controls */}\n                <Button mt={4} colorScheme=\"blue\" type=\"submit\">Post Job</Button>\n            </form>\n        </Box>\n    );\n};\n\nexport default JobPostingForm;\n"
+        }
+    ]
+}

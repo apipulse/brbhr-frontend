@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/components/layout/SideBar.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1705672439171,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705672987688,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n       <VStack spacing={4} align=\"stretch\">\n         <Link as={RouterLink} to=\"/dashboard\">\n           Dashboard\n         </Link>\n-        <Link as={RouterLink} to=\"/employees\">\n+        <Link as={RouterLink} to=\"/leaves\">\n           View Employees\n         </Link>\n         <Link as={RouterLink} to=\"/add-employee\">\n           Add Employee\n"
+                },
+                {
+                    "date": 1705673008833,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         </Link>\n         <Link as={RouterLink} to=\"/leaves\">\n           View Employees\n         </Link>\n-        <Link as={RouterLink} to=\"/add-employee\">\n+        <Link as={RouterLink} to=\"/add-leave\">\n           Add Employee\n         </Link>\n         {/* Add more links as needed */}\n       </VStack>\n"
+                },
+                {
+                    "date": 1705673017984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n         <Link as={RouterLink} to=\"/dashboard\">\n           Dashboard\n         </Link>\n         <Link as={RouterLink} to=\"/leaves\">\n-          View Employees\n+          View Leaves\n         </Link>\n         <Link as={RouterLink} to=\"/add-leave\">\n           Add Employee\n         </Link>\n"
+                },
+                {
+                    "date": 1705673023364,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         <Link as={RouterLink} to=\"/leaves\">\n           View Leaves\n         </Link>\n         <Link as={RouterLink} to=\"/add-leave\">\n-          Add Employee\n+          Add Leave\n         </Link>\n         {/* Add more links as needed */}\n       </VStack>\n     </Box>\n"
+                },
+                {
+                    "date": 1705677433208,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,28 +1,74 @@\n-import React from 'react';\n-import { Box, Link, VStack } from '@chakra-ui/react';\n+import React, { useState } from 'react';\n+import { Box, Link, VStack, Collapse, Button, useDisclosure } from '@chakra-ui/react';\n import { Link as RouterLink } from 'react-router-dom';\n \n+const SidebarLinkGroup = ({ title, children }) => {\n+  const { isOpen, onToggle } = useDisclosure();\n+  return (\n+    <Box>\n+      <Button variant=\"ghost\" onClick={onToggle} width=\"100%\" justifyContent=\"flex-start\">\n+        {title}\n+      </Button>\n+      <Collapse in={isOpen} animateOpacity>\n+        <VStack spacing={2} align=\"stretch\" pl={4}>\n+          {children}\n+        </VStack>\n+      </Collapse>\n+    </Box>\n+  );\n+};\n+\n const Sidebar = () => {\n   return (\n-    <Box\n-      bg=\"blue.500\"\n-      h=\"100vh\" // Set the height to 100% of the viewport height\n-      w=\"250px\" // Set the width of the sidebar\n-      color=\"white\"\n-      p=\"4\"\n-    >\n+    <Box bg=\"blue.500\" h=\"100vh\" w=\"250px\" color=\"white\" p=\"4\">\n       <VStack spacing={4} align=\"stretch\">\n-        <Link as={RouterLink} to=\"/dashboard\">\n-          Dashboard\n-        </Link>\n-        <Link as={RouterLink} to=\"/leaves\">\n-          View Leaves\n-        </Link>\n-        <Link as={RouterLink} to=\"/add-leave\">\n-          Add Leave\n-        </Link>\n-        {/* Add more links as needed */}\n+        {/* Dashboard */}\n+        <Link as={RouterLink} to=\"/dashboard\">Dashboard</Link>\n+\n+        {/* Employees */}\n+        <SidebarLinkGroup title=\"Employees\">\n+          <Link as={RouterLink} to=\"/employees/list\">Employee List</Link>\n+          <Link as={RouterLink} to=\"/employees/add\">Add Employee</Link>\n+          {/* Additional Employee-related links */}\n+        </SidebarLinkGroup>\n+\n+        {/* Attendance */}\n+        <SidebarLinkGroup title=\"Attendance\">\n+          <Link as={RouterLink} to=\"/attendance/records\">Attendance Records</Link>\n+          <Link as={RouterLink} to=\"/attendance/report\">Attendance Report</Link>\n+          {/* Additional Attendance-related links */}\n+        </SidebarLinkGroup>\n+\n+        {/* Leaves */}\n+        <SidebarLinkGroup title=\"Leaves\">\n+          <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n+          {/* Additional Leaves-related links */}\n+        </SidebarLinkGroup>\n+\n+        {/* Payroll */}\n+        <SidebarLinkGroup title=\"Payroll\">\n+          <Link as={RouterLink} to=\"/payroll/salary\">Salary Details</Link>\n+          <Link as={RouterLink} to=\"/payroll/statements\">Payroll Statements</Link>\n+          {/* Additional Payroll-related links */}\n+        </SidebarLinkGroup>\n+\n+        {/* Assets */}\n+        <SidebarLinkGroup title=\"Assets\">\n+          <Link as={RouterLink} to=\"/assets/manage\">Manage Assets</Link>\n+          <Link as={RouterLink} to=\"/assets/assign\">Assign Assets</Link>\n+          {/* Additional Asset-related links */}\n+        </SidebarLinkGroup>\n+\n+        {/* Performance (PMS) */}\n+        <SidebarLinkGroup title=\"Performance\">\n+          <Link as={RouterLink} to=\"/performance/reviews\">Performance Reviews</Link>\n+          <Link as={RouterLink} to=\"/performance/goals\">Set Goals</Link>\n+          {/* Additional Performance-related links */}\n+        </SidebarLinkGroup>\n+\n+        {/* Additional main categories as needed */}\n       </VStack>\n     </Box>\n   );\n };\n"
+                },
+                {
+                    "date": 1705679464001,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,10 @@\n       <VStack spacing={4} align=\"stretch\">\n         {/* Dashboard */}\n         <Link as={RouterLink} to=\"/dashboard\">Dashboard</Link>\n \n+        \n+\n         {/* Employees */}\n         <SidebarLinkGroup title=\"Employees\">\n           <Link as={RouterLink} to=\"/employees/list\">Employee List</Link>\n           <Link as={RouterLink} to=\"/employees/add\">Add Employee</Link>\n"
+                }
+            ],
+            "date": 1705672439171,
+            "name": "Commit-0",
+            "content": "import React from 'react';\nimport { Box, Link, VStack } from '@chakra-ui/react';\nimport { Link as RouterLink } from 'react-router-dom';\n\nconst Sidebar = () => {\n  return (\n    <Box\n      bg=\"blue.500\"\n      h=\"100vh\" // Set the height to 100% of the viewport height\n      w=\"250px\" // Set the width of the sidebar\n      color=\"white\"\n      p=\"4\"\n    >\n      <VStack spacing={4} align=\"stretch\">\n        <Link as={RouterLink} to=\"/dashboard\">\n          Dashboard\n        </Link>\n        <Link as={RouterLink} to=\"/employees\">\n          View Employees\n        </Link>\n        <Link as={RouterLink} to=\"/add-employee\">\n          Add Employee\n        </Link>\n        {/* Add more links as needed */}\n      </VStack>\n    </Box>\n  );\n};\n\nexport default Sidebar;\n"
+        }
+    ]
+}

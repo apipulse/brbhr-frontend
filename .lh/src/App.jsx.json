@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 56,
             "patches": [
                 {
                     "date": 1705665244171,
@@ -40,6 +40,198 @@
                 {
                     "date": 1705666189226,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import React from 'react';\n import { ChakraProvider } from '@chakra-ui/react';\n-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n@@ -10,14 +10,14 @@\n   return (\n     <ChakraProvider>\n       <Router>\n         <NavBar />\n-        <Switch>\n-          <Route exact path=\"/\" component={Home} />\n-          <Route path=\"/employees\" component={EmployeeList} />\n-          <Route path=\"/add-employee\" component={AddEmployee} />\n+        <Routes>\n+          <Route exact path=\"/\" element={<Home />} />\n+          <Route path=\"/employees\" element={<EmployeeList />} />\n+          <Route path=\"/add-employee\" element={<AddEmployee />} />\n           {/* Add more routes as needed */}\n-        </Switch>\n+        </Routes>\n       </Router>\n     </ChakraProvider>\n   );\n };\n"
+                },
+                {
+                    "date": 1705672483190,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n import React from 'react';\n import { ChakraProvider } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n+import NavBar from './components/layout/NavBar';\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n \n"
+                },
+                {
+                    "date": 1705672491992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React from 'react';\n import { ChakraProvider } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n-import NavBar from './components/layout/NavBar';\n+import Side from './components/layout/SideBar';\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n \n"
+                },
+                {
+                    "date": 1705672502880,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React from 'react';\n import { ChakraProvider } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n-import Side from './components/layout/SideBar';\n+import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n \n"
+                },
+                {
+                    "date": 1705672508712,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n   return (\n     <ChakraProvider>\n       <Router>\n         <NavBar />\n+        <\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n"
+                },
+                {
+                    "date": 1705672515112,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n   return (\n     <ChakraProvider>\n       <Router>\n         <NavBar />\n-        <\n+        <SideBar/>\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n"
+                },
+                {
+                    "date": 1705672638234,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n   return (\n     <ChakraProvider>\n       <Router>\n         <NavBar />\n-        <SideBar/>\n+        {/* <SideBar/> */}\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n"
+                },
+                {
+                    "date": 1705672663500,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n   return (\n     <ChakraProvider>\n       <Router>\n         <NavBar />\n-        {/* <SideBar/> */}\n+        <SideBar/>\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n"
+                },
+                {
+                    "date": 1705672741414,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n-import EmployeeList from './components/employee/EmployeeList';\n+import EmployeeList from './components/employee/LeaveList';\n import AddEmployee from './components/employee/AddEmployee';\n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705672747186,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n import NavBar from './components/layout/NavBar';\n import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/LeaveList';\n-import AddEmployee from './components/employee/AddEmployee';\n+import AddEmployee from './components/employee/LeaveForm';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672755817,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,10 @@\n import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n-import EmployeeList from './components/employee/LeaveList';\n-import AddEmployee from './components/employee/LeaveForm';\n+import LeaveList from './components/employee/LeaveList';\n+import LeaveForm from './components/employee/LeaveForm';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672765312,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n         <NavBar />\n         <SideBar/>\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n-          <Route path=\"/employees\" element={<EmployeeList />} />\n+          <Route path=\"/employees\" element={<LeaveList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n"
+                },
+                {
+                    "date": 1705672771593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n         <SideBar/>\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<LeaveList />} />\n-          <Route path=\"/add-employee\" element={<AddEmployee />} />\n+          <Route path=\"/add-employee\" element={<Lea />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n     </ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672782007,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,10 @@\n         <NavBar />\n         <SideBar/>\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n-          <Route path=\"/employees\" element={<LeaveList />} />\n-          <Route path=\"/add-employee\" element={<Lea />} />\n+          <Route path=\"/leaveList\" element={<LeaveList />} />\n+          <Route path=\"/add-employee\" element={<LeaveForm />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n     </ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672788244,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n         <SideBar/>\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/leaveList\" element={<LeaveList />} />\n-          <Route path=\"/add-employee\" element={<LeaveForm />} />\n+          <Route path=\"/leave\" element={<LeaveForm />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n     </ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672812455,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n         <SideBar/>\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/leaveList\" element={<LeaveList />} />\n-          <Route path=\"/leave\" element={<LeaveForm />} />\n+          <Route path=\"/leaveForm\" element={<LeaveForm />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n     </ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672837972,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,10 @@\n         <NavBar />\n         <SideBar/>\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n-          <Route path=\"/leaveList\" element={<LeaveList />} />\n-          <Route path=\"/leaveForm\" element={<LeaveForm />} />\n+          <Route path=\"/employees\" element={<LeaveList />} />\n+          <Route path=\"/add-employee\" element={<LeaveForm />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n     </ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672844481,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,10 @@\n import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n-import LeaveList from './components/employee/LeaveList';\n-import LeaveForm from './components/employee/LeaveForm';\n+import EmployeeList from './components/employee/LeaveList';\n+import AddEmployee from './components/employee/LeaveForm';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n@@ -14,10 +14,10 @@\n         <NavBar />\n         <SideBar/>\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n-          <Route path=\"/employees\" element={<LeaveList />} />\n-          <Route path=\"/add-employee\" element={<LeaveForm />} />\n+          <Route path=\"/employees\" element={<EmployeeList />} />\n+          <Route path=\"/add-employee\" element={<AddEmployee />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n     </ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672856633,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,10 @@\n import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n-import EmployeeList from './components/employee/LeaveList';\n-import AddEmployee from './components/employee/LeaveForm';\n+import EmployeeList from './components/employee/EmployeeList';\n+import AddEmployee from './components/employee/AddEmployee';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672864934,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,10 @@\n import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n+import EmployeeList from './components/employee/EmployeeList';\n+import AddEmployee from './components/employee/AddEmployee';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672881050,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,10 +5,10 @@\n import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n-import EmployeeList from './components/employee/EmployeeList';\n-import AddEmployee from './components/employee/AddEmployee';\n+import EmployeeList from './components/employee/LeaveList';\n+import AddEmployee from './components/employee/LeaveForm';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672887042,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n-import EmployeeList from './components/employee/LeaveList';\n+import LeaveList from './components/employee/LeaveList';\n import AddEmployee from './components/employee/LeaveForm';\n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705672893720,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n import LeaveList from './components/employee/LeaveList';\n-import AddEmployee from './components/employee/LeaveForm';\n+import LeaveForm from './components/employee/LeaveForm';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672904055,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,10 @@\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n+          <Route path=\"/employees\" element={<EmployeeList />} />\n+          <Route path=\"/add-employee\" element={<AddEmployee />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n     </ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672909286,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n-          <Route path=\"/employees\" element={<EmployeeList />} />\n+          <Route path=\"/leaves\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n"
+                },
+                {
+                    "date": 1705672922780,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n           <Route path=\"/leaves\" element={<EmployeeList />} />\n-          <Route path=\"/add-employee\" element={<AddEmployee />} />\n+          <Route path=\"/add-leave\" element={<AddEmployee />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n     </ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672928179,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n           <Route path=\"/leaves\" element={<EmployeeList />} />\n-          <Route path=\"/add-leave\" element={<AddEmployee />} />\n+          <Route path=\"/add-leave\" element={<LeaveForm />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n     </ChakraProvider>\n"
+                },
+                {
+                    "date": 1705672933465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n-          <Route path=\"/leaves\" element={<EmployeeList />} />\n+          <Route path=\"/leaves\" element={< />} />\n           <Route path=\"/add-leave\" element={<LeaveForm />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n"
+                },
+                {
+                    "date": 1705672938602,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         <Routes>\n           <Route exact path=\"/\" element={<Home />} />\n           <Route path=\"/employees\" element={<EmployeeList />} />\n           <Route path=\"/add-employee\" element={<AddEmployee />} />\n-          <Route path=\"/leaves\" element={< />} />\n+          <Route path=\"/leaves\" element={<LeaveList />} />\n           <Route path=\"/add-leave\" element={<LeaveForm />} />\n           {/* Add more routes as needed */}\n         </Routes>\n       </Router>\n"
+                },
+                {
+                    "date": 1705677558569,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React from 'react';\n-import { ChakraProvider } from '@chakra-ui/react';\n+import { ChakraProvider, Flex } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import SideBar from './components/layout/SideBar';\n import Home from './components/pages/Home';\n@@ -12,18 +12,22 @@\n const App = () => {\n   return (\n     <ChakraProvider>\n       <Router>\n-        <NavBar />\n-        <SideBar/>\n-        <Routes>\n-          <Route exact path=\"/\" element={<Home />} />\n-          <Route path=\"/employees\" element={<EmployeeList />} />\n-          <Route path=\"/add-employee\" element={<AddEmployee />} />\n-          <Route path=\"/leaves\" element={<LeaveList />} />\n-          <Route path=\"/add-leave\" element={<LeaveForm />} />\n-          {/* Add more routes as needed */}\n-        </Routes>\n+        <Flex>\n+          <SideBar />\n+          <Flex flexDirection=\"column\" width=\"calc(100vw - 250px)\"> {/* Adjust the width */}\n+            <NavBar />\n+            <Routes>\n+              <Route exact path=\"/\" element={<Home />} />\n+              <Route path=\"/employees\" element={<EmployeeList />} />\n+              <Route path=\"/add-employee\" element={<AddEmployee />} />\n+              <Route path=\"/leaves\" element={<LeaveList />} />\n+              <Route path=\"/add-leave\" element={<LeaveForm />} />\n+              {/* Add more routes as needed */}\n+            </Routes>\n+          </Flex>\n+        </Flex>\n       </Router>\n     </ChakraProvider>\n   );\n };\n"
+                },
+                {
+                    "date": 1705679015930,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,13 @@\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n import LeaveList from './components/employee/LeaveList';\n import LeaveForm from './components/employee/LeaveForm';\n+// ... existing imports\n+import InterviewScheduler from './components/candidate/InterviewScheduler';\n+import OfferManagement from './components/candidate/OfferManagement';\n \n+\n const App = () => {\n   return (\n     <ChakraProvider>\n       <Router>\n"
+                },
+                {
+                    "date": 1705679036403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,8 @@\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n import LeaveList from './components/employee/LeaveList';\n import LeaveForm from './components/employee/LeaveForm';\n-// ... existing imports\n import InterviewScheduler from './components/candidate/InterviewScheduler';\n import OfferManagement from './components/candidate/OfferManagement';\n \n \n@@ -26,8 +25,11 @@\n               <Route path=\"/employees\" element={<EmployeeList />} />\n               <Route path=\"/add-employee\" element={<AddEmployee />} />\n               <Route path=\"/leaves\" element={<LeaveList />} />\n               <Route path=\"/add-leave\" element={<LeaveForm />} />\n+              <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n+              <Route path=\"/manage-offers\" element={<OfferManagement />} />\n+              {/* Add more routes \n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705679043320,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,8 @@\n               <Route path=\"/leaves\" element={<LeaveList />} />\n               <Route path=\"/add-leave\" element={<LeaveForm />} />\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n-              {/* Add more routes \n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705679054074,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,9 @@\n import LeaveList from './components/employee/LeaveList';\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidate/InterviewScheduler';\n import OfferManagement from './components/candidate/OfferManagement';\n+import OfferManagement from './components/candidate/OfferManagement';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705679086380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n import LeaveList from './components/employee/LeaveList';\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidate/InterviewScheduler';\n import OfferManagement from './components/candidate/OfferManagement';\n-import OfferManagement from './components/candidate/OfferManagement';\n+import OfferManagement from './components/candidate/JobPostingForm';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705679107958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,10 @@\n import LeaveList from './components/employee/LeaveList';\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidate/InterviewScheduler';\n import OfferManagement from './components/candidate/OfferManagement';\n-import OfferManagement from './components/candidate/JobPostingForm';\n+import JobPostingForm from './components/candidate/JobPostingForm';\n+import JobPostingForm from './components/candidate/JobPostingForm';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705679120643,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidate/InterviewScheduler';\n import OfferManagement from './components/candidate/OfferManagement';\n import JobPostingForm from './components/candidate/JobPostingForm';\n-import JobPostingForm from './components/candidate/JobPostingForm';\n+import JobPostingForm from './components/candidate/';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705679129992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidate/InterviewScheduler';\n import OfferManagement from './components/candidate/OfferManagement';\n import JobPostingForm from './components/candidate/JobPostingForm';\n-import JobPostingForm from './components/candidate/';\n+import JobPostingForm from './components/candidate/JobApplication';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705679137874,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidate/InterviewScheduler';\n import OfferManagement from './components/candidate/OfferManagement';\n import JobPostingForm from './components/candidate/JobPostingForm';\n-import JobPostingForm from './components/candidate/JobApplication';\n+import JobApplicationList from './components/candidate/JobApplicationList';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705679152951,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,8 +29,10 @@\n               <Route path=\"/leaves\" element={<LeaveList />} />\n               <Route path=\"/add-leave\" element={<LeaveForm />} />\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n+              <Route path=\"/manage-offers\" element={<OfferManagement />} />\n+              <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705679158163,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,10 +29,10 @@\n               <Route path=\"/leaves\" element={<LeaveList />} />\n               <Route path=\"/add-leave\" element={<LeaveForm />} />\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n+              <Route path=\"/manage-offers\" element={<JobPostingForm />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n-              <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705679167593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,10 +29,10 @@\n               <Route path=\"/leaves\" element={<LeaveList />} />\n               <Route path=\"/add-leave\" element={<LeaveForm />} />\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n-              <Route path=\"/manage-offers\" element={<JobPostingForm />} />\n-              <Route path=\"/manage-offers\" element={<OfferManagement />} />\n+              <Route path=\"/job\" element={<JobPostingForm />} />\n+              <Route path=\"/manage-offers\" element={<JobApplicationList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705679176873,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,10 +29,10 @@\n               <Route path=\"/leaves\" element={<LeaveList />} />\n               <Route path=\"/add-leave\" element={<LeaveForm />} />\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n-              <Route path=\"/job\" element={<JobPostingForm />} />\n-              <Route path=\"/manage-offers\" element={<JobApplicationList />} />\n+              <Route path=\"/job-posting\" element={<JobPostingForm />} />\n+              <Route path=\"/job\" element={<JobApplicationList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705679182086,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n               <Route path=\"/add-leave\" element={<LeaveForm />} />\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n-              <Route path=\"/job\" element={<JobApplicationList />} />\n+              <Route path=\"/job-application-list\" element={<JobApplicationList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705679208294,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n import LeaveList from './components/employee/LeaveList';\n import LeaveForm from './components/employee/LeaveForm';\n-import InterviewScheduler from './components/candidate/InterviewScheduler';\n+import InterviewScheduler from './components/candidates/InterviewScheduler';\n import OfferManagement from './components/candidate/OfferManagement';\n import JobPostingForm from './components/candidate/JobPostingForm';\n import JobApplicationList from './components/candidate/JobApplicationList';\n \n"
+                },
+                {
+                    "date": 1705679214313,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,10 +8,10 @@\n import AddEmployee from './components/employee/AddEmployee';\n import LeaveList from './components/employee/LeaveList';\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidates/InterviewScheduler';\n-import OfferManagement from './components/candidate/OfferManagement';\n-import JobPostingForm from './components/candidate/JobPostingForm';\n+import OfferManagement from './components/candidates/OfferManagement';\n+import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationList from './components/candidate/JobApplicationList';\n \n \n const App = () => {\n"
+                },
+                {
+                    "date": 1705679228120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidates/InterviewScheduler';\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n-import JobApplicationList from './components/candidate/JobApplicationList';\n+import JobApplicationList from './components/candidates/JobApplicationList';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705679338001,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidates/InterviewScheduler';\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n-import JobApplicationList from './components/candidates/JobApplicationList';\n+import JobApplicationList from './components/candidates/JobApplicationsList';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705679344941,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n import LeaveForm from './components/employee/LeaveForm';\n import InterviewScheduler from './components/candidates/InterviewScheduler';\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n-import JobApplicationList from './components/candidates/JobApplicationsList';\n+import JobApplicationsList from './components/candidates/JobApplicationsList';\n \n \n const App = () => {\n   return (\n@@ -30,9 +30,9 @@\n               <Route path=\"/add-leave\" element={<LeaveForm />} />\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n-              <Route path=\"/job-application-list\" element={<JobApplicationList />} />\n+              <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
                 }
             ],
             "date": 1705665244171,

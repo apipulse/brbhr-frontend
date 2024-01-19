@@ -6,9 +6,9 @@ const NavBar = () => {
 
   return (
     <Flex
-    bg="green.500"
+    bg="blue.500"
     p="4"
-    color="black"
+    color="white"
     width="full" // Adjust to take full width of the parent container
     direction={isLargerThan768 ? 'row' : 'column'}
     align="center"

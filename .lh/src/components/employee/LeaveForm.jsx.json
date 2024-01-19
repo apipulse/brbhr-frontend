@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/employee/LeaveForm.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705671552955,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705671552955,
+            "name": "Commit-0",
+            "content": "import React, { useState, useEffect } from 'react';\nimport { Box, FormControl, FormLabel, Input, Button, Select } from '@chakra-ui/react';\nimport { applyForLeave, updateLeave } from '../../services/LeaveService';\n\nconst LeaveForm = ({ employeeId, leave, isEditing }) => {\n    const [leaveData, setLeaveData] = useState({\n        type: '',\n        startDate: '',\n        endDate: '',\n        reason: ''\n        // ...other relevant fields\n    });\n\n    useEffect(() => {\n        if (isEditing && leave) {\n            setLeaveData({ ...leave });\n        }\n    }, [leave, isEditing]);\n\n    const handleChange = (e) => {\n        setLeaveData({ ...leaveData, [e.target.name]: e.target.value });\n    };\n\n    const handleSubmit = async (e) => {\n        e.preventDefault();\n        try {\n            const response = isEditing\n                ? await updateLeave(leave.id, leaveData)\n                : await applyForLeave({ ...leaveData, employeeId });\n            console.log('Leave Response:', response);\n            // Handle success (e.g., display success message, redirect)\n        } catch (error) {\n            console.error('Error submitting leave:', error);\n            // Handle error (e.g., display error message)\n        }\n    };\n\n    return (\n        <Box p={4}>\n            <form onSubmit={handleSubmit}>\n                <FormControl id=\"type\" isRequired>\n                    <FormLabel>Type</FormLabel>\n                    <Select name=\"type\" onChange={handleChange} value={leaveData.type}>\n                        <option value=\"annual\">Annual</option>\n                        <option value=\"sick\">Sick</option>\n                        {/* Add other leave types */}\n                    </Select>\n                </FormControl>\n                <FormControl id=\"startDate\" isRequired mt={4}>\n                    <FormLabel>Start Date</FormLabel>\n                    <Input name=\"startDate\" type=\"date\" onChange={handleChange} value={leaveData.startDate} />\n                </FormControl>\n                <FormControl id=\"endDate\" mt={4}>\n                    <FormLabel>End Date</FormLabel>\n                    <Input name=\"endDate\" type=\"date\" onChange={handleChange} value={leaveData.endDate} />\n                </FormControl>\n                <FormControl id=\"reason\" mt={4}>\n                    <FormLabel>Reason</FormLabel>\n                    <Input name=\"reason\" type=\"text\" onChange={handleChange} value={leaveData.reason} />\n                </FormControl>\n                {/* Add other form controls as needed */}\n                <Button mt={4} colorScheme=\"blue\" type=\"submit\">\n                    {isEditing ? 'Update Leave' : 'Apply for Leave'}\n                </Button>\n            </form>\n        </Box>\n    );\n};\n\nexport default LeaveForm;\n"
+        }
+    ]
+}

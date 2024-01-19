@@ -1,0 +1,66 @@
+{
+    "sourceFile": "src/services/CandidateService.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 12,
+            "patches": [
+                {
+                    "date": 1705678614851,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705683276871,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import axios from './axiosInstance'; // Assuming axiosInstance is set up for making API calls\n \n export const postJob = async (jobPosting) => {\n     try {\n-        const response = await axios.post('/candidates/post-job', jobPosting);\n+        const response = await axios.post('api/candidates/post-job', jobPosting);\n         return response.data;\n     } catch (error) {\n         throw error;\n     }\n"
+                },
+                {
+                    "date": 1705683287723,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import axios from './axiosInstance'; // Assuming axiosInstance is set up for making API calls\n \n export const postJob = async (jobPosting) => {\n     try {\n-        const response = await axios.post('api/candidates/post-job', jobPosting);\n+        const response = await axios.post('/api/candidates/post-job', jobPosting);\n         return response.data;\n     } catch (error) {\n         throw error;\n     }\n"
+                },
+                {
+                    "date": 1705683357585,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import axios from './axiosInstance'; // Assuming axiosInstance is set up for making API calls\n \n export const postJob = async (jobPosting) => {\n     try {\n-        const response = await axios.post('/api/candidates/post-job', jobPosting);\n+        const response = await axios.post('candidates/post-job', jobPosting);\n         return response.data;\n     } catch (error) {\n         throw error;\n     }\n"
+                },
+                {
+                    "date": 1705683365475,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n };\n \n export const getAllJobPostings = async () => {\n     try {\n-        const response = await axios.get('/candidates/job-postings');\n+        const response = await axios.get('candidates/job-postings');\n         return response.data;\n     } catch (error) {\n         throw error;\n     }\n"
+                },
+                {
+                    "date": 1705683371664,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,18 +19,18 @@\n };\n \n export const applyForJob = async (application) => {\n     try {\n-        const response = await axios.post('/candidates/apply', application);\n+        const response = await axios.post('candidates/apply', application);\n         return response.data;\n     } catch (error) {\n         throw error;\n     }\n };\n \n export const getCandidateApplications = async (candidateId) => {\n     try {\n-        const response = await axios.get(`/candidates/applications/${candidateId}`);\n+        const response = await axios.get(`candidates/applications/${candidateId}`);\n         return response.data;\n     } catch (error) {\n         throw error;\n     }\n"
+                },
+                {
+                    "date": 1705683377187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,18 +37,18 @@\n };\n \n export const scheduleInterview = async (interview) => {\n     try {\n-        const response = await axios.post('/candidates/schedule-interview', interview);\n+        const response = await axios.post('candidates/schedule-interview', interview);\n         return response.data;\n     } catch (error) {\n         throw error;\n     }\n };\n \n export const extendOffer = async (offer) => {\n     try {\n-        const response = await axios.post('/candidates/extend-offer', offer);\n+        const response = await axios.post('candidates/extend-offer', offer);\n         return response.data;\n     } catch (error) {\n         throw error;\n     }\n"
+                },
+                {
+                    "date": 1705683525017,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n     try {\n         const response = await axios.post('candidates/post-job', jobPosting);\n         return response.data;\n     } catch (error) {\n+        \n         throw error;\n     }\n };\n \n@@ -55,9 +56,9 @@\n };\n \n export const acceptOffer = async (offerId) => {\n     try {\n-        const response = await axios.post(`/candidates/accept-offer/${offerId}`);\n+        const response = await axios.post(`candidates/accept-offer/${offerId}`);\n         return response.data;\n     } catch (error) {\n         throw error;\n     }\n"
+                },
+                {
+                    "date": 1705683530538,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n     try {\n         const response = await axios.post('candidates/post-job', jobPosting);\n         return response.data;\n     } catch (error) {\n-        \n+        console.\n         throw error;\n     }\n };\n \n"
+                },
+                {
+                    "date": 1705683537422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n     try {\n         const response = await axios.post('candidates/post-job', jobPosting);\n         return response.data;\n     } catch (error) {\n-        console.\n+        console.log(error);\n         throw error;\n     }\n };\n \n"
+                },
+                {
+                    "date": 1705683544082,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n     try {\n         const response = await axios.get('candidates/job-postings');\n         return response.data;\n     } catch (error) {\n+        console.log(error);\n         throw error;\n     }\n };\n \n"
+                },
+                {
+                    "date": 1705683551431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,9 @@\n     try {\n         const response = await axios.post('candidates/apply', application);\n         return response.data;\n     } catch (error) {\n+        console.log(error);\n         throw error;\n     }\n };\n \n@@ -33,8 +34,9 @@\n     try {\n         const response = await axios.get(`candidates/applications/${candidateId}`);\n         return response.data;\n     } catch (error) {\n+        console.log(error);\n         throw error;\n     }\n };\n \n"
+                },
+                {
+                    "date": 1705683558906,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,8 +44,9 @@\n     try {\n         const response = await axios.post('candidates/schedule-interview', interview);\n         return response.data;\n     } catch (error) {\n+        console.log(error);\n         throw error;\n     }\n };\n \n@@ -53,8 +54,9 @@\n     try {\n         const response = await axios.post('candidates/extend-offer', offer);\n         return response.data;\n     } catch (error) {\n+        console.log(error);\n         throw error;\n     }\n };\n \n@@ -62,8 +64,9 @@\n     try {\n         const response = await axios.post(`candidates/accept-offer/${offerId}`);\n         return response.data;\n     } catch (error) {\n+        console.log(error);\n         throw error;\n     }\n };\n \n"
+                }
+            ],
+            "date": 1705678614851,
+            "name": "Commit-0",
+            "content": "import axios from './axiosInstance'; // Assuming axiosInstance is set up for making API calls\n\nexport const postJob = async (jobPosting) => {\n    try {\n        const response = await axios.post('/candidates/post-job', jobPosting);\n        return response.data;\n    } catch (error) {\n        throw error;\n    }\n};\n\nexport const getAllJobPostings = async () => {\n    try {\n        const response = await axios.get('/candidates/job-postings');\n        return response.data;\n    } catch (error) {\n        throw error;\n    }\n};\n\nexport const applyForJob = async (application) => {\n    try {\n        const response = await axios.post('/candidates/apply', application);\n        return response.data;\n    } catch (error) {\n        throw error;\n    }\n};\n\nexport const getCandidateApplications = async (candidateId) => {\n    try {\n        const response = await axios.get(`/candidates/applications/${candidateId}`);\n        return response.data;\n    } catch (error) {\n        throw error;\n    }\n};\n\nexport const scheduleInterview = async (interview) => {\n    try {\n        const response = await axios.post('/candidates/schedule-interview', interview);\n        return response.data;\n    } catch (error) {\n        throw error;\n    }\n};\n\nexport const extendOffer = async (offer) => {\n    try {\n        const response = await axios.post('/candidates/extend-offer', offer);\n        return response.data;\n    } catch (error) {\n        throw error;\n    }\n};\n\nexport const acceptOffer = async (offerId) => {\n    try {\n        const response = await axios.post(`/candidates/accept-offer/${offerId}`);\n        return response.data;\n    } catch (error) {\n        throw error;\n    }\n};\n\n// Additional functions for updating/deleting job postings, interviews, offers, etc.\n"
+        }
+    ]
+}

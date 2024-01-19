@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1705668054810,
@@ -12,6 +12,38 @@
                 {
                     "date": 1705668140209,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,10 +8,12 @@\n     <Flex\n       bg=\"blue.500\"\n       p=\"4\"\n       color=\"white\"\n+      width=\"100vw\" // Set the width to 100% of the viewport width\n       direction={isLargerThan768 ? 'row' : 'column'}\n       align=\"center\"\n+      justify={isLargerThan768 ? \"space-between\" : \"center\"} // Adjust justification\n     >\n       <Box>\n         <Heading size=\"md\">brbhr-front-end</Heading>\n       </Box>\n"
+                },
+                {
+                    "date": 1705677599247,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,16 +5,16 @@\n   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n \n   return (\n     <Flex\n-      bg=\"blue.500\"\n-      p=\"4\"\n-      color=\"white\"\n-      width=\"100vw\" // Set the width to 100% of the viewport width\n-      direction={isLargerThan768 ? 'row' : 'column'}\n-      align=\"center\"\n-      justify={isLargerThan768 ? \"space-between\" : \"center\"} // Adjust justification\n-    >\n+    bg=\"blue.500\"\n+    p=\"4\"\n+    color=\"white\"\n+    width=\"full\" // Adjust to take full width of the parent container\n+    direction={isLargerThan768 ? 'row' : 'column'}\n+    align=\"center\"\n+    justify={isLargerThan768 ? \"space-between\" : \"center\"}\n+  >\n       <Box>\n         <Heading size=\"md\">brbhr-front-end</Heading>\n       </Box>\n       <Spacer />\n"
+                },
+                {
+                    "date": 1705677626063,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n \n   return (\n     <Flex\n-    bg=\"blue.500\"\n+    bg=\".500\"\n     p=\"4\"\n     color=\"white\"\n     width=\"full\" // Adjust to take full width of the parent container\n     direction={isLargerThan768 ? 'row' : 'column'}\n"
+                },
+                {
+                    "date": 1705677639880,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n \n   return (\n     <Flex\n-    bg=\".500\"\n+    bg=\"blue.500\"\n     p=\"4\"\n     color=\"white\"\n     width=\"full\" // Adjust to take full width of the parent container\n     direction={isLargerThan768 ? 'row' : 'column'}\n"
+                },
+                {
+                    "date": 1705677664266,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,11 +5,11 @@\n   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n \n   return (\n     <Flex\n-    bg=\"blue.500\"\n+    bg=\"grey.500\"\n     p=\"4\"\n-    color=\"white\"\n+    color=\"black\"\n     width=\"full\" // Adjust to take full width of the parent container\n     direction={isLargerThan768 ? 'row' : 'column'}\n     align=\"center\"\n     justify={isLargerThan768 ? \"space-between\" : \"center\"}\n"
+                },
+                {
+                    "date": 1705677675292,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n \n   return (\n     <Flex\n-    bg=\"grey.500\"\n+    bg=\"blue.500\"\n     p=\"4\"\n     color=\"black\"\n     width=\"full\" // Adjust to take full width of the parent container\n     direction={isLargerThan768 ? 'row' : 'column'}\n"
+                },
+                {
+                    "date": 1705677720901,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n \n   return (\n     <Flex\n-    bg=\"blue.500\"\n+    bg=\"red.500\"\n     p=\"4\"\n     color=\"black\"\n     width=\"full\" // Adjust to take full width of the parent container\n     direction={isLargerThan768 ? 'row' : 'column'}\n"
+                },
+                {
+                    "date": 1705677746560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n \n   return (\n     <Flex\n-    bg=\"red.500\"\n+    bg=\"gray.500\"\n     p=\"4\"\n     color=\"black\"\n     width=\"full\" // Adjust to take full width of the parent container\n     direction={isLargerThan768 ? 'row' : 'column'}\n"
+                },
+                {
+                    "date": 1705677765826,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n \n   return (\n     <Flex\n-    bg=\"gray.500\"\n+    bg=\"green.500\"\n     p=\"4\"\n     color=\"black\"\n     width=\"full\" // Adjust to take full width of the parent container\n     direction={isLargerThan768 ? 'row' : 'column'}\n"
                 }
             ],
             "date": 1705668054810,

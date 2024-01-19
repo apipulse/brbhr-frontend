@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/employee/LeaveList.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705671416985,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705671416985,
+            "name": "Commit-0",
+            "content": "import React, { useState, useEffect } from 'react';\nimport { getLeavesByEmployee } from '../../services/LeaveService';\nimport { Box, VStack, Text } from '@chakra-ui/react';\n\nconst LeaveList = ({ employeeId }) => {\n    const [leaves, setLeaves] = useState([]);\n\n    useEffect(() => {\n        const fetchLeaves = async () => {\n            try {\n                const data = await getLeavesByEmployee(employeeId);\n                setLeaves(data);\n            } catch (error) {\n                console.error('Error fetching leaves:', error);\n            }\n        };\n\n        fetchLeaves();\n    }, [employeeId]);\n\n    return (\n        <VStack spacing={4}>\n            {leaves.map(leave => (\n                <Box key={leave.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n                    <Text>{`Type: ${leave.type}, Status: ${leave.status}`}</Text>\n                    {/* Display other leave details */}\n                </Box>\n            ))}\n        </VStack>\n    );\n};\n\nexport default LeaveList;\n"
+        }
+    ]
+}

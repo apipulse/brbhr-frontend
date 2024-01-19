@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/candidates/InterviewScheduler.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705678918083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705678918083,
+            "name": "Commit-0",
+            "content": "import React, { useState } from 'react';\nimport { Box, FormControl, FormLabel, Input, Button, Select } from '@chakra-ui/react';\nimport { scheduleInterview } from '../../services/CandidateService';\n\nconst InterviewScheduler = () => {\n    const [interview, setInterview] = useState({\n        candidateId: '',\n        jobId: '',\n        interviewDate: '',\n        interviewTime: '',\n        interviewer: ''\n        // Add other fields as necessary\n    });\n\n    const handleChange = (e) => {\n        setInterview({ ...interview, [e.target.name]: e.target.value });\n    };\n\n    const handleSubmit = async (e) => {\n        e.preventDefault();\n        try {\n            const response = await scheduleInterview(interview);\n            console.log('Interview Scheduled:', response);\n            // Handle success (e.g., clear form, display message)\n        } catch (error) {\n            console.error('Error scheduling interview:', error);\n            // Handle error\n        }\n    };\n\n    return (\n        <Box p={4}>\n            <form onSubmit={handleSubmit}>\n                {/* Form fields for interview scheduling */}\n                {/* Example: Candidate ID, Job ID, Date, Time, Interviewer */}\n                <FormControl id=\"candidateId\" isRequired>\n                    <FormLabel>Candidate ID</FormLabel>\n                    <Input name=\"candidateId\" type=\"text\" onChange={handleChange} />\n                </FormControl>\n                {/* Add other form controls */}\n                <Button mt={4} colorScheme=\"blue\" type=\"submit\">Schedule Interview</Button>\n            </form>\n        </Box>\n    );\n};\n\nexport default InterviewScheduler;\n"
+        }
+    ]
+}

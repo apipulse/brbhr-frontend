@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/candidates/OfferManagement.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705679278629,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705679278629,
+            "name": "Commit-0",
+            "content": "import React, { useState } from 'react';\nimport { Box, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';\nimport { extendOffer } from '../../services/CandidateService';\n\nconst OfferManagement = () => {\n    const [offer, setOffer] = useState({\n        candidateId: '',\n        jobId: '',\n        offerDetails: ''\n        // Add other fields as necessary\n    });\n\n    const handleChange = (e) => {\n        setOffer({ ...offer, [e.target.name]: e.target.value });\n    };\n\n    const handleSubmit = async (e) => {\n        e.preventDefault();\n        try {\n            const response = await extendOffer(offer);\n            console.log('Offer Extended:', response);\n            // Handle success (e.g., clear form, display message)\n        } catch (error) {\n            console.error('Error extending offer:', error);\n            // Handle error\n        }\n    };\n\n    return (\n        <Box p={4}>\n            <form onSubmit={handleSubmit}>\n                {/* Form fields for extending an offer */}\n                {/* Example: Candidate ID, Job ID, Offer Details */}\n                <FormControl id=\"candidateId\" isRequired>\n                    <FormLabel>Candidate ID</FormLabel>\n                    <Input name=\"candidateId\" type=\"text\" onChange={handleChange} />\n                </FormControl>\n                {/* Add other form controls */}\n                <Button mt={4} colorScheme=\"blue\" type=\"submit\">Extend Offer</Button>\n            </form>\n        </Box>\n    );\n};\n\nexport default OfferManagement;\n"
+        }
+    ]
+}
