@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/employee/EmployeeList.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705664927849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705664927849,
+            "name": "Commit-0",
+            "content": "import React, { useState, useEffect } from 'react';\nimport { getEmployees } from './EmployeeService';\nimport { Box, VStack, Text } from '@chakra-ui/react';\n\nconst EmployeeList = () => {\n    const [employees, setEmployees] = useState([]);\n\n    useEffect(() => {\n        const fetchEmployees = async () => {\n            try {\n                const data = await getEmployees();\n                setEmployees(data);\n            } catch (error) {\n                console.error('Failed to fetch employees:', error);\n            }\n        };\n\n        fetchEmployees();\n    }, []);\n\n    return (\n        <VStack spacing={4}>\n            {employees.map(employee => (\n                <Box key={employee.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n                    <Text>{employee.name}</Text>\n                    {/* Display other employee details */}\n                </Box>\n            ))}\n        </VStack>\n    );\n};\n\nexport default EmployeeList;\n"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/components/layout/NavBar.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1705668054810,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705668140209,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,10 +8,12 @@\n     <Flex\n       bg=\"blue.500\"\n       p=\"4\"\n       color=\"white\"\n+      width=\"100vw\" // Set the width to 100% of the viewport width\n       direction={isLargerThan768 ? 'row' : 'column'}\n       align=\"center\"\n+      justify={isLargerThan768 ? \"space-between\" : \"center\"} // Adjust justification\n     >\n       <Box>\n         <Heading size=\"md\">brbhr-front-end</Heading>\n       </Box>\n"
+                }
+            ],
+            "date": 1705668054810,
+            "name": "Commit-0",
+            "content": "import { Box, Flex, Link, Heading, Spacer, useMediaQuery } from '@chakra-ui/react';\nimport { Link as RouterLink } from 'react-router-dom';\n\nconst NavBar = () => {\n  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n\n  return (\n    <Flex\n      bg=\"blue.500\"\n      p=\"4\"\n      color=\"white\"\n      direction={isLargerThan768 ? 'row' : 'column'}\n      align=\"center\"\n    >\n      <Box>\n        <Heading size=\"md\">brbhr-front-end</Heading>\n      </Box>\n      <Spacer />\n      <Box mt={!isLargerThan768 ? 4 : 0}>\n        <Link as={RouterLink} to=\"/employees\" mx=\"4\">View Employees</Link>\n        <Link as={RouterLink} to=\"/add-employee\">Add Employee</Link>\n        {/* Add more links as needed */}\n      </Box>\n    </Flex>\n  );\n};\n\nexport default NavBar;\n"
+        }
+    ]
+}

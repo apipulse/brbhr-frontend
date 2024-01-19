@@ -1,0 +1,46 @@
+{
+    "sourceFile": "src/components/employee/EmployeeList.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1705665943713,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705665950256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { getEmployees } from '...//EmployeeService';\n+import { getEmployees } from '../EmployeeService';\n import { Box, VStack, Text } from '@chakra-ui/react';\n \n const EmployeeList = () => {\n     const [employees, setEmployees] = useState([]);\n"
+                },
+                {
+                    "date": 1705665955302,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { getEmployees } from '../EmployeeService';\n+import { getEmployees } from '..//EmployeeService';\n import { Box, VStack, Text } from '@chakra-ui/react';\n \n const EmployeeList = () => {\n     const [employees, setEmployees] = useState([]);\n"
+                },
+                {
+                    "date": 1705665961360,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { getEmployees } from '..//EmployeeService';\n+import { getEmployees } from '../employee/EmployeeService';\n import { Box, VStack, Text } from '@chakra-ui/react';\n \n const EmployeeList = () => {\n     const [employees, setEmployees] = useState([]);\n"
+                },
+                {
+                    "date": 1705666016668,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { getEmployees } from '../employee/EmployeeService';\n+import { getEmployees } from '../ser/EmployeeService';\n import { Box, VStack, Text } from '@chakra-ui/react';\n \n const EmployeeList = () => {\n     const [employees, setEmployees] = useState([]);\n"
+                },
+                {
+                    "date": 1705666022656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n import React, { useState, useEffect } from 'react';\n-import { getEmployees } from '../ser/EmployeeService';\n+import { getEmployees } from '<div className=\"\" />\n+<services></services>/EmployeeService';\n import { Box, VStack, Text } from '@chakra-ui/react';\n \n const EmployeeList = () => {\n     const [employees, setEmployees] = useState([]);\n"
+                },
+                {
+                    "date": 1705666033862,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { getEmployees } from '<div className=\"\" />\n-<services></services>/EmployeeService';\n+import { getEmployees } from '../../services/EmployeeService';\n import { Box, VStack, Text } from '@chakra-ui/react';\n \n const EmployeeList = () => {\n     const [employees, setEmployees] = useState([]);\n"
+                },
+                {
+                    "date": 1705668317015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,11 @@\n import React, { useState, useEffect } from 'react';\n import { getEmployees } from '../../services/EmployeeService';\n-import { Box, VStack, Text } from '@chakra-ui/react';\n+import { Box, Flex, Text, useMediaQuery } from '@chakra-ui/react';\n \n const EmployeeList = () => {\n     const [employees, setEmployees] = useState([]);\n+    const [isLargerThan768] = useMediaQuery('(min-width: 768px)');\n \n     useEffect(() => {\n         const fetchEmployees = async () => {\n             try {\n@@ -18,16 +19,18 @@\n         fetchEmployees();\n     }, []);\n \n     return (\n-        <VStack spacing={4}>\n-            {employees.map(employee => (\n-                <Box key={employee.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n-                    <Text>{employee.name}</Text>\n-                    {/* Display other employee details */}\n-                </Box>\n-            ))}\n-        </VStack>\n+        <Flex direction=\"column\" align=\"center\" minHeight={isLargerThan768 ? \"100vh\" : \"auto\"}>\n+            <Box width={isLargerThan768 ? \"80%\" : \"90%\"} p={4}>\n+                {employees.map(employee => (\n+                    <Box key={employee.id} shadow=\"md\" borderWidth=\"1px\" p={4} mb={4}>\n+                        <Text fontSize=\"lg\">{employee.name}</Text>\n+                        {/* Display other employee details */}\n+                    </Box>\n+                ))}\n+            </Box>\n+        </Flex>\n     );\n };\n \n export default EmployeeList;\n"
+                }
+            ],
+            "date": 1705665943713,
+            "name": "Commit-0",
+            "content": "import React, { useState, useEffect } from 'react';\nimport { getEmployees } from '...//EmployeeService';\nimport { Box, VStack, Text } from '@chakra-ui/react';\n\nconst EmployeeList = () => {\n    const [employees, setEmployees] = useState([]);\n\n    useEffect(() => {\n        const fetchEmployees = async () => {\n            try {\n                const data = await getEmployees();\n                setEmployees(data);\n            } catch (error) {\n                console.error('Failed to fetch employees:', error);\n            }\n        };\n\n        fetchEmployees();\n    }, []);\n\n    return (\n        <VStack spacing={4}>\n            {employees.map(employee => (\n                <Box key={employee.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n                    <Text>{employee.name}</Text>\n                    {/* Display other employee details */}\n                </Box>\n            ))}\n        </VStack>\n    );\n};\n\nexport default EmployeeList;\n"
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+{
+    "sourceFile": "src/App.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1705665244171,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705665413609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n import { ChakraProvider } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import Home from './pages/Home';\n-import EmployeeList from './pages/EmployeeList';\n+import EmployeeList from './employee/EmployeeList';\n import AddEmployee from './pages/AddEmployee';\n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705665419119,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import Home from './pages/Home';\n import EmployeeList from './employee/EmployeeList';\n-import AddEmployee from './pages/AddEmployee';\n+import AddEmployee from './emp/AddEmployee';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705665809483,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n import React from 'react';\n import { ChakraProvider } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n-import Home from './pages/Home';\n+import Home from './pages/Home.js';\n import EmployeeList from './employee/EmployeeList';\n-import AddEmployee from './emp/AddEmployee';\n+import AddEmployee from './employee/AddEmployee';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705665818111,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n import React from 'react';\n import { ChakraProvider } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n-import Home from './pages/Home.js';\n-import EmployeeList from './employee/EmployeeList';\n-import AddEmployee from './employee/AddEmployee';\n+import Home from './pages/Home.jsx';\n+import EmployeeList from './employee/EmployeeList.jsx';\n+import AddEmployee from './employee/AddEmployee.jsx';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705665862810,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React from 'react';\n import { ChakraProvider } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n-import Home from './pages/Home.jsx';\n+import Home from './pages/Home';\n import EmployeeList from './employee/EmployeeList.jsx';\n import AddEmployee from './employee/AddEmployee.jsx';\n \n const App = () => {\n"
+                },
+                {
+                    "date": 1705665880432,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n import React from 'react';\n import { ChakraProvider } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n-import Home from './pages/Home';\n-import EmployeeList from './employee/EmployeeList.jsx';\n-import AddEmployee from './employee/AddEmployee.jsx';\n+import Home from './components/pages/Home';\n+import EmployeeList from './employee/EmployeeList';\n+import AddEmployee from './employee/AddEmployee';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705665909138,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,10 +2,10 @@\n import { ChakraProvider } from '@chakra-ui/react';\n import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import Home from './components/pages/Home';\n-import EmployeeList from './employee/EmployeeList';\n-import AddEmployee from './employee/AddEmployee';\n+import EmployeeList from './components/employee/EmployeeList';\n+import AddEmployee from './components/employee/AddEmployee';\n \n const App = () => {\n   return (\n     <ChakraProvider>\n"
+                },
+                {
+                    "date": 1705666189226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import React from 'react';\n import { ChakraProvider } from '@chakra-ui/react';\n-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\n+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n import NavBar from './components/layout/NavBar';\n import Home from './components/pages/Home';\n import EmployeeList from './components/employee/EmployeeList';\n import AddEmployee from './components/employee/AddEmployee';\n@@ -10,14 +10,14 @@\n   return (\n     <ChakraProvider>\n       <Router>\n         <NavBar />\n-        <Switch>\n-          <Route exact path=\"/\" component={Home} />\n-          <Route path=\"/employees\" component={EmployeeList} />\n-          <Route path=\"/add-employee\" component={AddEmployee} />\n+        <Routes>\n+          <Route exact path=\"/\" element={<Home />} />\n+          <Route path=\"/employees\" element={<EmployeeList />} />\n+          <Route path=\"/add-employee\" element={<AddEmployee />} />\n           {/* Add more routes as needed */}\n-        </Switch>\n+        </Routes>\n       </Router>\n     </ChakraProvider>\n   );\n };\n"
+                }
+            ],
+            "date": 1705665244171,
+            "name": "Commit-0",
+            "content": "import React from 'react';\nimport { ChakraProvider } from '@chakra-ui/react';\nimport { BrowserRouter as Router, Route, Switch } from 'react-router-dom';\nimport NavBar from './components/layout/NavBar';\nimport Home from './pages/Home';\nimport EmployeeList from './pages/EmployeeList';\nimport AddEmployee from './pages/AddEmployee';\n\nconst App = () => {\n  return (\n    <ChakraProvider>\n      <Router>\n        <NavBar />\n        <Switch>\n          <Route exact path=\"/\" component={Home} />\n          <Route path=\"/employees\" component={EmployeeList} />\n          <Route path=\"/add-employee\" component={AddEmployee} />\n          {/* Add more routes as needed */}\n        </Switch>\n      </Router>\n    </ChakraProvider>\n  );\n};\n\nexport default App;\n"
+        }
+    ]
+}

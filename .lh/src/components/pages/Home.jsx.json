@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/pages/Home.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705667965305,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705667965305,
+            "name": "Commit-0",
+            "content": "import React from 'react';\nimport { Box, Text, Flex, Heading } from '@chakra-ui/react';\n\nconst Home = () => {\n    return (\n        <Flex direction=\"column\" minHeight=\"100vh\" justify=\"center\" align=\"center\">\n            <Box textAlign=\"center\" p={4} flexGrow={1}>\n                <Heading as=\"h1\" size=\"xl\" mb={6}>\n                    Welcome to brbhr-front-end\n                </Heading>\n                <Text fontSize=\"lg\">\n                    Your comprehensive HR Management Solution\n                </Text>\n                {/* Additional content and widgets can be added here */}\n            </Box>\n        </Flex>\n    );\n};\n\nexport default Home;\n"
+        }
+    ]
+}

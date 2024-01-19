@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/axiosInstance.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705664469092,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705664469092,
+            "name": "Commit-0",
+            "content": "import axios from 'axios';\n\nconst axiosInstance = axios.create({\n    baseURL: 'http://localhost:8080/api/', // Update with your actual API URL\n    // You can add more default settings here\n});\n\nexport default axiosInstance;\n"
+        }
+    ]
+}
