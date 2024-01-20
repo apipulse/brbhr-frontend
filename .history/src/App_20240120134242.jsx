@@ -38,7 +38,6 @@ const App = () => {
               <Route path="/job-application-list" element={<JobApplicationsList />} />
               <Route path="/all-application" element={<AllApplicationsList />} />
               <Route path="/job-posting-list" element={<JobPostingsList />} />
-              <Route path="/apply-job" element={<JobApplicationForm />} />
               {/* Add more routes as needed */}
             </Routes>
           </Flex>

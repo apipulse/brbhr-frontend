@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/components/candidates/JobApplicationsList.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1705736916969,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705736933555,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,22 +7,22 @@\n \n     useEffect(() => {\n         const fetchApplications = async () => {\n             try {\n-                const data = await getCandidateApplications(candidateId);\n+                const data = await getCandidateApplications(applicantEmail);\n                 setApplications(data);\n             } catch (error) {\n                 console.error('Error fetching applications:', error);\n             }\n         };\n \n         fetchApplications();\n-    }, [candidateId]);\n+    }, [applicantEmail]);\n \n     return (\n         <VStack spacing={4}>\n             {applications.map(application => (\n-                <Box key={application.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n+                <Box key={application.applicantEmail} p={4} shadow=\"md\" borderWidth=\"1px\">\n                     <Text>{`Position: ${application.position}`}</Text>\n                     {/* Display other application details */}\n                 </Box>\n             ))}\n"
+                }
+            ],
+            "date": 1705736916969,
+            "name": "Commit-0",
+            "content": "import React, { useState, useEffect } from 'react';\nimport { getCandidateApplications } from '../../services/CandidateService';\nimport { Box, VStack, Text } from '@chakra-ui/react';\n\nconst JobApplicationsList = ({ applicantEmail }) => {\n    const [applications, setApplications] = useState([]);\n\n    useEffect(() => {\n        const fetchApplications = async () => {\n            try {\n                const data = await getCandidateApplications(candidateId);\n                setApplications(data);\n            } catch (error) {\n                console.error('Error fetching applications:', error);\n            }\n        };\n\n        fetchApplications();\n    }, [candidateId]);\n\n    return (\n        <VStack spacing={4}>\n            {applications.map(application => (\n                <Box key={application.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n                    <Text>{`Position: ${application.position}`}</Text>\n                    {/* Display other application details */}\n                </Box>\n            ))}\n        </VStack>\n    );\n};\n\nexport default JobApplicationsList;\n"
+        }
+    ]
+}

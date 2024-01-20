@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 19,
             "patches": [
                 {
                     "date": 1705672439171,
@@ -52,6 +52,38 @@
                 {
                     "date": 1705685224634,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n         <Link as={RouterLink} to=\"/dashboard\">Dashboard</Link>\n \n         <SidebarLinkGroup title=\"Recruitment\">\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n-          <Link as={RouterLink} to=\"/job-posting-list\">Manage Offers</Link>/job-posting-list\n+          <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>/job-posting-list\n           <Link as={RouterLink} to=\"/job-application-list\">Job Applications</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n           <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>/\n           {/* Additional Recruitment-related links */}\n"
+                },
+                {
+                    "date": 1705737149694,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,10 +26,10 @@\n         <Link as={RouterLink} to=\"/dashboard\">Dashboard</Link>\n \n         <SidebarLinkGroup title=\"Recruitment\">\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n-          <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>/job-posting-list\n-          <Link as={RouterLink} to=\"/job-application-list\">Job Applications</Link>\n+          <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>\n+          <Link as={RouterLink} to=\"//all-application\">Job Applications</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n           <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>/\n           {/* Additional Recruitment-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705737158949,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n \n         <SidebarLinkGroup title=\"Recruitment\">\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n           <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>\n-          <Link as={RouterLink} to=\"//all-application\">Job Applications</Link>\n+          <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n           <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>/\n           {/* Additional Recruitment-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705737362085,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n           <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>\n           <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n-          <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>/\n+          <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>\n           {/* Additional Recruitment-related links */}\n         </SidebarLinkGroup>\n \n         {/* Employees */}\n"
+                },
+                {
+                    "date": 1705737375980,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,8 +28,9 @@\n         <SidebarLinkGroup title=\"Recruitment\">\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n           <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>\n           <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n+          <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n           <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>\n           {/* Additional Recruitment-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705737384137,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n         <SidebarLinkGroup title=\"Recruitment\">\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n           <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>\n           <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n-          <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n+          <Link as={RouterLink} to=\"/appl\">Job Applications</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n           <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>\n           {/* Additional Recruitment-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705737390644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n         <SidebarLinkGroup title=\"Recruitment\">\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n           <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>\n           <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n-          <Link as={RouterLink} to=\"/appl\">Job Applications</Link>\n+          <Link as={RouterLink} to=\"/apply-job\">Job Applications</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n           <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>\n           {/* Additional Recruitment-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705737399143,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n         <SidebarLinkGroup title=\"Recruitment\">\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n           <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>\n           <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n-          <Link as={RouterLink} to=\"/apply-job\">Job Applications</Link>\n+          <Link as={RouterLink} to=\"/apply-job\">Apply</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n           <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>\n           {/* Additional Recruitment-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705737406493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n         <SidebarLinkGroup title=\"Recruitment\">\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n           <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>\n           <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n-          <Link as={RouterLink} to=\"/apply-job\">Apply</Link>\n+          <Link as={RouterLink} to=\"/apply-job\">Apply Job</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n           <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>\n           {/* Additional Recruitment-related links */}\n         </SidebarLinkGroup>\n"
                 }
             ],
             "date": 1705672439171,

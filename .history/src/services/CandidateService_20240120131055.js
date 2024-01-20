@@ -30,9 +30,9 @@ export const applyForJob = async (application) => {
     }
 };
 
-export const getCandidateApplications = async (applicantEmail) => {
+export const getCandidateApplications = async (candidateId) => {
     try {
-        const response = await axios.get(`candidates/applications/${applicantEmail}`);
+        const response = await axios.get(`candidates/applications/${candidateId}`);
         return response.data;
     } catch (error) {
         console.log(error);

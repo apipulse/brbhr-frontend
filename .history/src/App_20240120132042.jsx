@@ -13,9 +13,6 @@ import OfferManagement from './components/candidates/OfferManagement';
 import JobPostingForm from './components/candidates/JobPostingForm';
 import JobApplicationsList from './components/candidates/JobApplicationsList';
 import JobPostingsList from './components/candidates/JobPostingsList';
-import AllApplicationsList from './components/candidates/AllApplicationsList';
-import JobApplicationForm from './components/candidates/JobApplicationForm';
-
 
 
 const App = () => {
@@ -36,9 +33,8 @@ const App = () => {
               <Route path="/manage-offers" element={<OfferManagement />} />
               <Route path="/job-posting" element={<JobPostingForm />} />
               <Route path="/job-application-list" element={<JobApplicationsList />} />
-              <Route path="/all-application" element={<AllApplicationsList />} />
+              <Route path="/job-application-list" element={<JobApplicationsList />} />
               <Route path="/job-posting-list" element={<JobPostingsList />} />
-              <Route path="/apply-job" element={<JobApplicationForm />} />
               {/* Add more routes as needed */}
             </Routes>
           </Flex>

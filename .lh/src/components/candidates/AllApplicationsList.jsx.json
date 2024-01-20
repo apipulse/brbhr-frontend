@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/candidates/AllApplicationsList.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705736738862,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705736738862,
+            "name": "Commit-0",
+            "content": "import React, { useState, useEffect } from 'react';\nimport { Box, VStack, Text, Divider } from '@chakra-ui/react';\nimport { getAllCandidateApplications } from '../../services/CandidateService';\n\nconst AllApplicationsList = () => {\n    const [applications, setApplications] = useState([]);\n\n    useEffect(() => {\n        const fetchApplications = async () => {\n            try {\n                const data = await getAllCandidateApplications();\n                setApplications(data);\n            } catch (error) {\n                console.error('Error fetching applications:', error);\n            }\n        };\n\n        fetchApplications();\n    }, []);\n\n    return (\n        <VStack spacing={4} p={4}>\n            {applications.map(application => (\n                <Box key={application.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n                    <Text fontWeight=\"bold\">{application.applicantName}</Text>\n                    <Text>Email: {application.applicantEmail}</Text>\n                    {/* Display other relevant application details */}\n                    <Divider my={2} />\n                    {/* You can add more details or action buttons */}\n                </Box>\n            ))}\n        </VStack>\n    );\n};\n\nexport default AllApplicationsList;\n"
+        }
+    ]
+}

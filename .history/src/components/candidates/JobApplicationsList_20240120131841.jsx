@@ -21,7 +21,7 @@ const JobApplicationsList = ({ applicantEmail }) => {
     return (
         <VStack spacing={4}>
             {applications.map(application => (
-                <Box key={application.applicantEmail} p={4} shadow="md" borderWidth="1px">
+                <Box key={application.id} p={4} shadow="md" borderWidth="1px">
                     <Text>{`Position: ${application.position}`}</Text>
                     {/* Display other application details */}
                 </Box>

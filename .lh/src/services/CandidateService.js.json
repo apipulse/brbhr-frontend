@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 13,
+            "activePatchIndex": 15,
             "patches": [
                 {
                     "date": 1705678614851,
@@ -60,6 +60,14 @@
                 {
                     "date": 1705729855815,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -69,5 +69,7 @@\n         throw error;\n     }\n };\n \n+\n+\n // Additional functions for updating/deleting job postings, interviews, offers, etc.\n"
+                },
+                {
+                    "date": 1705736455681,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,19 @@\n         console.log(error);\n         throw error;\n     }\n };\n+export const getAllCandidateApplications = async () => {\n+    try {\n+        const response = await axios.get('candidates/applications');\n+        return response.data;\n+    } catch (error) {\n+        console.error('Error fetching all candidate applications:', error);\n+        throw error;\n+    }\n+};\n \n+\n export const scheduleInterview = async (interview) => {\n     try {\n         const response = await axios.post('candidates/schedule-interview', interview);\n         return response.data;\n@@ -69,7 +79,54 @@\n         throw error;\n     }\n };\n \n+export const addStageToJobPosting = async (jobPostingId, stage) => {\n+    try {\n+        const response = await axios.post(`candidates/job-postings/${jobPostingId}/add-stage`, stage);\n+        return response.data;\n+    } catch (error) {\n+        console.error(error);\n+        throw error;\n+    }\n+};\n \n+export const getStagesForJobPosting = async (jobPostingId) => {\n+    try {\n+        const response = await axios.get(`candidates/job-postings/${jobPostingId}/stages`);\n+        return response.data;\n+    } catch (error) {\n+        console.error(error);\n+        throw error;\n+    }\n+};\n \n+export const deleteStageFromJobPosting = async (jobPostingId, stageId) => {\n+    try {\n+        await axios.delete(`candidates/job-postings/${jobPostingId}/stages/${stageId}`);\n+    } catch (error) {\n+        console.error(error);\n+        throw error;\n+    }\n+};\n+\n+export const getCurrentStageOfApplication = async (applicationId) => {\n+    try {\n+        const response = await axios.get(`candidates/applications/${applicationId}/current-stage`);\n+        return response.data;\n+    } catch (error) {\n+        console.error(error);\n+        throw error;\n+    }\n+};\n+\n+export const updateCandidateStage = async (applicationId, newStage) => {\n+    try {\n+        const response = await axios.put(`candidates/applications/${applicationId}/update-stage`, newStage);\n+        return response.data;\n+    } catch (error) {\n+        console.error(error);\n+        throw error;\n+    }\n+};\n+\n // Additional functions for updating/deleting job postings, interviews, offers, etc.\n"
+                },
+                {
+                    "date": 1705736470603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n         throw error;\n     }\n };\n \n-export const getCandidateApplications = async (candidateId) => {\n+export const getCandidateApplications = async (applicantEmail) => {\n     try {\n         const response = await axios.get(`candidates/applications/${candidateId}`);\n         return response.data;\n     } catch (error) {\n"
                 }
             ],
             "date": 1705678614851,

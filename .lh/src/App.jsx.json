@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 61,
+            "activePatchIndex": 78,
             "patches": [
                 {
                     "date": 1705665244171,
@@ -252,6 +252,74 @@
                 {
                     "date": 1705685150292,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n import InterviewScheduler from './components/candidates/InterviewScheduler';\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n-import JobApplicationsList from './components/candidates/Job';\n+import JobPostingsList from './components/candidates/JobPostingsList';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705737043000,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,10 @@\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n-              <Route path=\"/job-posting-list\" element={<JobApplicationsList />} />\n+              <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n+              <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705737048279,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n-              <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n+              <Route path=\"/job-application-list-a\" element={<JobApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n"
+                },
+                {
+                    "date": 1705737061816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,9 @@\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n import JobPostingsList from './components/candidates/JobPostingsList';\n+import JobPostingsList from './components/candidates/JobPostingsList';\n \n \n const App = () => {\n   return (\n@@ -32,9 +33,9 @@\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n-              <Route path=\"/job-application-list-a\" element={<JobApplicationsList />} />\n+              <Route path=\"/job-application-list-all\" element={<JobApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n"
+                },
+                {
+                    "date": 1705737074967,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n import JobPostingsList from './components/candidates/JobPostingsList';\n-import JobPostingsList from './components/candidates/JobPostingsList';\n+import All from './components/candidates/JobPostingsList';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705737081291,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n import JobPostingsList from './components/candidates/JobPostingsList';\n-import All from './components/candidates/JobPostingsList';\n+import AllApplications from './components/candidates/JobPostingsList';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705737089964,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n import JobPostingsList from './components/candidates/JobPostingsList';\n-import AllApplications from './components/candidates/JobPostingsList';\n+import AllApplicationsList from './components/candidates/AllApplicationsList';\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705737101399,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n-              <Route path=\"/job-application-list-all\" element={<JobApplicationsList />} />\n+              <Route path=\"/job-application-list-all\" element={<AllApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n"
+                },
+                {
+                    "date": 1705737116073,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n-              <Route path=\"/job-application-list-all\" element={<AllApplicationsList />} />\n+              <Route path=\"/a\" element={<AllApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n"
+                },
+                {
+                    "date": 1705737121330,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n               <Route path=\"/schedule-interview\" element={<InterviewScheduler />} />\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n-              <Route path=\"/a\" element={<AllApplicationsList />} />\n+              <Route path=\"/all-application\" element={<AllApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n"
+                },
+                {
+                    "date": 1705738331028,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n               <Route path=\"/all-application\" element={<AllApplicationsList />} />\n-              <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n+              <Route path=\"/job-posting-list\" element={<JobPostingsList />} />JobApplicationForm\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705738339201,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n import JobPostingsList from './components/candidates/JobPostingsList';\n-import AllApplicationsList from './components/candidates/AllApplicationsList';\n+import AllApplicationsList from './components/candidates/AllApplicationsList';JobApplicationForm\n \n \n const App = () => {\n   return (\n"
+                },
+                {
+                    "date": 1705738345892,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,12 @@\n import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n import JobPostingsList from './components/candidates/JobPostingsList';\n import AllApplicationsList from './components/candidates/AllApplicationsList';JobApplicationForm\n+import AllApplicationsList from './components/candidates/AllApplicationsList';\n \n \n+\n const App = () => {\n   return (\n     <ChakraProvider>\n       <Router>\n"
+                },
+                {
+                    "date": 1705738352174,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n import JobPostingsList from './components/candidates/JobPostingsList';\n import AllApplicationsList from './components/candidates/AllApplicationsList';JobApplicationForm\n-import AllApplicationsList from './components/candidates/AllApplicationsList';\n+import JobApplicationForm from './components/candidates/JobApplicationForm';\n \n \n \n const App = () => {\n"
+                },
+                {
+                    "date": 1705738362087,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n import OfferManagement from './components/candidates/OfferManagement';\n import JobPostingForm from './components/candidates/JobPostingForm';\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n import JobPostingsList from './components/candidates/JobPostingsList';\n-import AllApplicationsList from './components/candidates/AllApplicationsList';JobApplicationForm\n+import AllApplicationsList from './components/candidates/AllApplicationsList';\n import JobApplicationForm from './components/candidates/JobApplicationForm';\n \n \n \n@@ -36,9 +36,9 @@\n               <Route path=\"/manage-offers\" element={<OfferManagement />} />\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n               <Route path=\"/all-application\" element={<AllApplicationsList />} />\n-              <Route path=\"/job-posting-list\" element={<JobPostingsList />} />JobApplicationForm\n+              <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705738370062,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,8 +37,9 @@\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n               <Route path=\"/all-application\" element={<AllApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n+              <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705738377447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n               <Route path=\"/all-application\" element={<AllApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n-              <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n+              <Route path=\"/job-posting-list\" element={<JobApplicationForm />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705738391006,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n               <Route path=\"/all-application\" element={<AllApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n-              <Route path=\"/job-posting-list\" element={<JobApplicationForm />} />\n+              <Route path=\"/apply-job\" element={<JobApplicationForm />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
                 }
             ],
             "date": 1705665244171,

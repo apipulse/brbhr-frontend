@@ -8,7 +8,7 @@ const JobApplicationsList = ({ applicantEmail }) => {
     useEffect(() => {
         const fetchApplications = async () => {
             try {
-                const data = await getCandidateApplications(applicantEmail);
+                const data = await getCandidateApplications(candidateId);
                 setApplications(data);
             } catch (error) {
                 console.error('Error fetching applications:', error);
@@ -16,12 +16,12 @@ const JobApplicationsList = ({ applicantEmail }) => {
         };
 
         fetchApplications();
-    }, [applicantEmail]);
+    }, [candidateId]);
 
     return (
         <VStack spacing={4}>
             {applications.map(application => (
-                <Box key={application.applicantEmail} p={4} shadow="md" borderWidth="1px">
+                <Box key={application.id} p={4} shadow="md" borderWidth="1px">
                     <Text>{`Position: ${application.position}`}</Text>
                     {/* Display other application details */}
                 </Box>

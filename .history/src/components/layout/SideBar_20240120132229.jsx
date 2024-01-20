@@ -28,10 +28,9 @@ const Sidebar = () => {
         <SidebarLinkGroup title="Recruitment">
           <Link as={RouterLink} to="/job-posting">Post Job</Link>
           <Link as={RouterLink} to="/job-posting-list">job-posting-list</Link>
-          <Link as={RouterLink} to="/all-application">Job Applications</Link>
-          <Link as={RouterLink} to="/apply-job">Apply Job</Link>
+          <Link as={RouterLink} to="//all-application">Job Applications</Link>
           <Link as={RouterLink} to="/schedule-interview">Schedule Interview</Link>
-          <Link as={RouterLink} to="/manage-offers">Manage Offers</Link>
+          <Link as={RouterLink} to="/manage-offers">Manage Offers</Link>/
           {/* Additional Recruitment-related links */}
         </SidebarLinkGroup>
 
