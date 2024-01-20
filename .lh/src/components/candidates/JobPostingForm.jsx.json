@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 13,
             "patches": [
                 {
                     "date": 1705682810740,
@@ -56,6 +56,10 @@
                 {
                     "date": 1705684585725,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,10 +36,12 @@\n \n     return (\n         <Box p={4}>\n             <form onSubmit={handleSubmit}>\n-                {/* Existing form controls for title and description */}\n-                {/* Additional form controls for new fields */}\n+            <FormControl id=\"title\" isRequired mt={4}>\n+                    <FormLabel>title</FormLabel>\n+                    <Input name=\"title\" type=\"text\" onChange={handleChange} />\n+                </FormControl>\n                 <FormControl id=\"postingDate\" isRequired mt={4}>\n                     <FormLabel>Posting Date</FormLabel>\n                     <Input name=\"postingDate\" type=\"date\" onChange={handleChange} />\n                 </FormControl>\n"
+                },
+                {
+                    "date": 1705728052401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,10 @@\n         jobPosition: '',\n         recruitingManager: '',\n         vacancy: 1,\n         requiredSkills: '',\n-        experienceRequired: 1\n+        experienceRequired: 1,\n+        \n     });\n \n     const handleChange = (e) => {\n         if (e.target.name === 'requiredSkills') {\n"
                 }
             ],
             "date": 1705682810740,

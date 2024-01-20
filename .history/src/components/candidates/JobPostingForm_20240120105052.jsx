@@ -13,7 +13,7 @@ const JobPostingForm = () => {
         vacancy: 1,
         requiredSkills: '',
         experienceRequired: 1,
-        stages: []
+        
     });
 
     const handleChange = (e) => {

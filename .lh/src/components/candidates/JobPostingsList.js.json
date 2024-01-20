@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/candidates/JobPostingsList.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705685016452,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705685016452,
+            "name": "Commit-0",
+            "content": "import React, { useState, useEffect } from 'react';\nimport { Box, VStack, Text, Divider } from '@chakra-ui/react';\nimport { getAllJobPostings } from '../../services/CandidateService';\n\nconst JobPostingsList = () => {\n    const [jobPostings, setJobPostings] = useState([]);\n\n    useEffect(() => {\n        const fetchJobPostings = async () => {\n            try {\n                const postings = await getAllJobPostings();\n                setJobPostings(postings);\n            } catch (error) {\n                console.error('Error fetching job postings:', error);\n            }\n        };\n\n        fetchJobPostings();\n    }, []);\n\n    return (\n        <VStack spacing={4} p={4}>\n            {jobPostings.map(posting => (\n                <Box key={posting.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n                    <Text fontWeight=\"bold\">{posting.title}</Text>\n                    <Text mt={2}>{posting.description}</Text>\n                    {/* Display other job posting details */}\n                    <Divider my={2} />\n                    <Text>Position: {posting.jobPosition}</Text>\n                    <Text>Manager: {posting.recruitingManager}</Text>\n                    <Text>Vacancies: {posting.vacancy}</Text>\n                    {/* More details */}\n                </Box>\n            ))}\n        </VStack>\n    );\n};\n\nexport default JobPostingsList;\n"
+        }
+    ]
+}
