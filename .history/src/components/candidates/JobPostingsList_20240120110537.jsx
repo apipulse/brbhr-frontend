@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton ,ModalBody} from '@chakra-ui/react';
+import { Box, VStack, Text, Divider } from '@chakra-ui/react';
 import { getAllJobPostings } from '../../services/CandidateService';
-import StageForm from './StageForm'; // Ensure this import is correct
 
 const JobPostingsList = () => {
     const [jobPostings, setJobPostings] = useState([]);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
 
     useEffect(() => {
         const fetchJobPostings = async () => {
@@ -17,13 +14,13 @@ const JobPostingsList = () => {
                 console.error('Error fetching job postings:', error);
             }
         };
+
         fetchJobPostings();
     }, []);
 
     const handleAddStageClick = (jobPostingId) => {
-        console.log("Opening modal for job posting ID:", jobPostingId);
-        setSelectedJobPostingId(jobPostingId);
-        onOpen();
+        // Logic to handle stage addition
+        console.log("Add stage to Job Posting ID:", jobPostingId);
     };
 
     return (
@@ -31,23 +28,16 @@ const JobPostingsList = () => {
             {jobPostings.map(posting => (
                 <Box key={posting.id} p={4} shadow="md" borderWidth="1px">
                     <Text fontWeight="bold">{posting.title}</Text>
-                    {/* Other job posting details */}
+                    <Text mt={2}>{posting.description}</Text>
+                    {/* Display other job posting details */}
                     <Divider my={2} />
-                    {/* Displaying additional details */}
+                    <Text>Position: {posting.jobPosition}</Text>
+                    <Text>Manager: {posting.recruitingManager}</Text>
+                    <Text>Vacancies: {posting.vacancy}</Text>
                     <Button colorScheme="blue" onClick={() => handleAddStageClick(posting.id)}>+ Add Stage</Button>
+                    {/* More details */}
                 </Box>
             ))}
-            <Modal isOpen={isOpen} onClose={onClose}>
-    <ModalOverlay />
-    <ModalContent>
-        <ModalHeader>Add Stage</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-            <StageForm jobPostingId={selectedJobPostingId} onStageAdded={onClose} />
-        </ModalBody>
-    </ModalContent>
-</Modal>
-
         </VStack>
     );
 };

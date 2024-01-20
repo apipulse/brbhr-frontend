@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/components/candidates/StageForm.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1705728821830,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705729584395,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n import React, { useState } from 'react';\n import { Box, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';\n+import { addStageToJobPosting } from '../../services/CandidateService'; // Import the service function\n \n const StageForm = ({ jobPostingId, onStageAdded }) => {\n     const [stage, setStage] = useState({\n         name: '',\n@@ -13,16 +14,21 @@\n     };\n \n     const handleSubmit = async (e) => {\n         e.preventDefault();\n-        // Logic to submit stage to the backend\n-        console.log(\"Submitting Stage:\", stage);\n-        onStageAdded(); // Callback to refresh the job postings list or update UI\n+        try {\n+            await addStageToJobPosting(jobPostingId, stage);\n+            console.log(\"Stage added to job posting.\");\n+            onStageAdded(); // Callback to refresh the list or update UI\n+        } catch (error) {\n+            console.error('Error adding stage:', error);\n+        }\n     };\n \n     return (\n         <Box p={4}>\n             <form onSubmit={handleSubmit}>\n+                {/* Form fields for stage details */}\n                 <FormControl id=\"name\" isRequired>\n                     <FormLabel>Name</FormLabel>\n                     <Input name=\"name\" type=\"text\" onChange={handleChange} />\n                 </FormControl>\n@@ -31,9 +37,9 @@\n                     <Input name=\"description\" type=\"text\" onChange={handleChange} />\n                 </FormControl>\n                 <FormControl id=\"roundNumber\" mt={4}>\n                     <FormLabel>Round Number</FormLabel>\n-                    <Input name=\"roundNumber\" type=\"number\" onChange={handleChange} />\n+                    <Input name=\"roundNumber\" type=\"number\" min={1} onChange={handleChange} />\n                 </FormControl>\n                 <Button mt={4} colorScheme=\"blue\" type=\"submit\">Add Stage</Button>\n             </form>\n         </Box>\n"
+                }
+            ],
+            "date": 1705728821830,
+            "name": "Commit-0",
+            "content": "import React, { useState } from 'react';\nimport { Box, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';\n\nconst StageForm = ({ jobPostingId, onStageAdded }) => {\n    const [stage, setStage] = useState({\n        name: '',\n        description: '',\n        roundNumber: 1\n    });\n\n    const handleChange = (e) => {\n        setStage({ ...stage, [e.target.name]: e.target.value });\n    };\n\n    const handleSubmit = async (e) => {\n        e.preventDefault();\n        // Logic to submit stage to the backend\n        console.log(\"Submitting Stage:\", stage);\n        onStageAdded(); // Callback to refresh the job postings list or update UI\n    };\n\n    return (\n        <Box p={4}>\n            <form onSubmit={handleSubmit}>\n                <FormControl id=\"name\" isRequired>\n                    <FormLabel>Name</FormLabel>\n                    <Input name=\"name\" type=\"text\" onChange={handleChange} />\n                </FormControl>\n                <FormControl id=\"description\" mt={4}>\n                    <FormLabel>Description</FormLabel>\n                    <Input name=\"description\" type=\"text\" onChange={handleChange} />\n                </FormControl>\n                <FormControl id=\"roundNumber\" mt={4}>\n                    <FormLabel>Round Number</FormLabel>\n                    <Input name=\"roundNumber\" type=\"number\" onChange={handleChange} />\n                </FormControl>\n                <Button mt={4} colorScheme=\"blue\" type=\"submit\">Add Stage</Button>\n            </form>\n        </Box>\n    );\n};\n\nexport default StageForm;\n"
+        }
+    ]
+}

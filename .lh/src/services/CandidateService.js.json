@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 13,
             "patches": [
                 {
                     "date": 1705678614851,
@@ -56,6 +56,10 @@
                 {
                     "date": 1705683558906,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,8 +44,9 @@\n     try {\n         const response = await axios.post('candidates/schedule-interview', interview);\n         return response.data;\n     } catch (error) {\n+        console.log(error);\n         throw error;\n     }\n };\n \n@@ -53,8 +54,9 @@\n     try {\n         const response = await axios.post('candidates/extend-offer', offer);\n         return response.data;\n     } catch (error) {\n+        console.log(error);\n         throw error;\n     }\n };\n \n@@ -62,8 +64,9 @@\n     try {\n         const response = await axios.post(`candidates/accept-offer/${offerId}`);\n         return response.data;\n     } catch (error) {\n+        console.log(error);\n         throw error;\n     }\n };\n \n"
+                },
+                {
+                    "date": 1705729855815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -69,5 +69,7 @@\n         throw error;\n     }\n };\n \n+\n+\n // Additional functions for updating/deleting job postings, interviews, offers, etc.\n"
                 }
             ],
             "date": 1705678614851,

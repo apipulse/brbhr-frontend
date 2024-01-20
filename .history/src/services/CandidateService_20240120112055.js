@@ -70,53 +70,6 @@ export const acceptOffer = async (offerId) => {
     }
 };
 
-export const addStageToJobPosting = async (jobPostingId, stage) => {
-    try {
-        const response = await axios.post(`candidates/job-postings/${jobPostingId}/add-stage`, stage);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-};
 
-export const getStagesForJobPosting = async (jobPostingId) => {
-    try {
-        const response = await axios.get(`candidates/job-postings/${jobPostingId}/stages`);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-};
-
-export const deleteStageFromJobPosting = async (jobPostingId, stageId) => {
-    try {
-        await axios.delete(`candidates/job-postings/${jobPostingId}/stages/${stageId}`);
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-};
-
-export const getCurrentStageOfApplication = async (applicationId) => {
-    try {
-        const response = await axios.get(`candidates/applications/${applicationId}/current-stage`);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-};
-
-export const updateCandidateStage = async (applicationId, newStage) => {
-    try {
-        const response = await axios.put(`candidates/applications/${applicationId}/update-stage`, newStage);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-};
 
 // Additional functions for updating/deleting job postings, interviews, offers, etc.

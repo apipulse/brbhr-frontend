@@ -3,11 +3,75 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 16,
             "patches": [
                 {
                     "date": 1705685067446,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705728903238,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,8 +28,9 @@\n                     <Divider my={2} />\n                     <Text>Position: {posting.jobPosition}</Text>\n                     <Text>Manager: {posting.recruitingManager}</Text>\n                     <Text>Vacancies: {posting.vacancy}</Text>\n+                    \n                     {/* More details */}\n                 </Box>\n             ))}\n         </VStack>\n"
+                },
+                {
+                    "date": 1705728922616,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,10 @@\n \n const JobPostingsList = () => {\n     const [jobPostings, setJobPostings] = useState([]);\n \n+    \n+\n     useEffect(() => {\n         const fetchJobPostings = async () => {\n             try {\n                 const postings = await getAllJobPostings();\n@@ -28,9 +30,9 @@\n                     <Divider my={2} />\n                     <Text>Position: {posting.jobPosition}</Text>\n                     <Text>Manager: {posting.recruitingManager}</Text>\n                     <Text>Vacancies: {posting.vacancy}</Text>\n-                    \n+                    <Button colorScheme=\"blue\" onClick={() => handleAddStageClick(posting.id)}>+ Add Stage</Button>\n                     {/* More details */}\n                 </Box>\n             ))}\n         </VStack>\n"
+                },
+                {
+                    "date": 1705728934159,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,8 @@\n \n const JobPostingsList = () => {\n     const [jobPostings, setJobPostings] = useState([]);\n \n-    \n-\n     useEffect(() => {\n         const fetchJobPostings = async () => {\n             try {\n                 const postings = await getAllJobPostings();\n"
+                },
+                {
+                    "date": 1705729127658,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,12 @@\n import { getAllJobPostings } from '../../services/CandidateService';\n \n const JobPostingsList = () => {\n     const [jobPostings, setJobPostings] = useState([]);\n+    const { isOpen, onOpen, onClose } = useDisclosure();\n+    const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);\n \n+\n     useEffect(() => {\n         const fetchJobPostings = async () => {\n             try {\n                 const postings = await getAllJobPostings();\n@@ -17,8 +20,13 @@\n \n         fetchJobPostings();\n     }, []);\n \n+    const handleAddStageClick = (jobPostingId) => {\n+        // Logic to handle stage addition\n+        console.log(\"Add stage to Job Posting ID:\", jobPostingId);\n+    };\n+\n     return (\n         <VStack spacing={4} p={4}>\n             {jobPostings.map(posting => (\n                 <Box key={posting.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n"
+                },
+                {
+                    "date": 1705729162392,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,10 +21,10 @@\n         fetchJobPostings();\n     }, []);\n \n     const handleAddStageClick = (jobPostingId) => {\n-        // Logic to handle stage addition\n-        console.log(\"Add stage to Job Posting ID:\", jobPostingId);\n+        setSelectedJobPostingId(jobPostingId);\n+        onOpen();\n     };\n \n     return (\n         <VStack spacing={4} p={4}>\n"
+                },
+                {
+                    "date": 1705729266357,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,11 @@\n                     <Text>Position: {posting.jobPosition}</Text>\n                     <Text>Manager: {posting.recruitingManager}</Text>\n                     <Text>Vacancies: {posting.vacancy}</Text>\n                     <Button colorScheme=\"blue\" onClick={() => handleAddStageClick(posting.id)}>+ Add Stage</Button>\n-                    {/* More details */}\n+                    <Modal isOpen={isOpen} onClose={onClose}>\n+                <StageForm jobPostingId={selectedJobPostingId} onStageAdded={onClose} />\n+            </Modal>\n                 </Box>\n             ))}\n         </VStack>\n     );\n"
+                },
+                {
+                    "date": 1705729301282,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,9 @@\n     const handleAddStageClick = (jobPostingId) => {\n         setSelectedJobPostingId(jobPostingId);\n         onOpen();\n     };\n+    \n \n     return (\n         <VStack spacing={4} p={4}>\n             {jobPostings.map(posting => (\n"
+                },
+                {
+                    "date": 1705729321403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import React, { useState, useEffect } from 'react';\n import { Box, VStack, Text, Divider } from '@chakra-ui/react';\n-import { getAllJobPostings } from '../../services/CandidateService';\n+import { getAllJobPostings ,addStageToJobPosting} from '../../services/CandidateService';\n \n const JobPostingsList = () => {\n     const [jobPostings, setJobPostings] = useState([]);\n     const { isOpen, onOpen, onClose } = useDisclosure();\n@@ -24,8 +24,20 @@\n     const handleAddStageClick = (jobPostingId) => {\n         setSelectedJobPostingId(jobPostingId);\n         onOpen();\n     };\n+\n+    const handleSubmit = async (e) => {\n+        e.preventDefault();\n+        try {\n+            // Assuming you have a service function to add a stage\n+            await addStageToJobPosting(jobPostingId, stage);\n+            console.log(\"Stage added to job posting.\");\n+            onStageAdded(); // Refresh the list or update UI\n+        } catch (error) {\n+            console.error('Error adding stage:', error);\n+        }\n+    };\n     \n \n     return (\n         <VStack spacing={4} p={4}>\n"
+                },
+                {
+                    "date": 1705729509951,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,14 @@\n import React, { useState, useEffect } from 'react';\n-import { Box, VStack, Text, Divider } from '@chakra-ui/react';\n-import { getAllJobPostings ,addStageToJobPosting} from '../../services/CandidateService';\n+import { Box, VStack, Text, Divider, Button, Modal, useDisclosure } from '@chakra-ui/react';\n+import { getAllJobPostings } from '../../services/CandidateService';\n+import StageForm from './StageForm'; // Ensure this import is correct\n \n const JobPostingsList = () => {\n     const [jobPostings, setJobPostings] = useState([]);\n     const { isOpen, onOpen, onClose } = useDisclosure();\n     const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);\n \n-\n     useEffect(() => {\n         const fetchJobPostings = async () => {\n             try {\n                 const postings = await getAllJobPostings();\n@@ -16,47 +16,30 @@\n             } catch (error) {\n                 console.error('Error fetching job postings:', error);\n             }\n         };\n-\n         fetchJobPostings();\n     }, []);\n \n     const handleAddStageClick = (jobPostingId) => {\n         setSelectedJobPostingId(jobPostingId);\n         onOpen();\n     };\n \n-    const handleSubmit = async (e) => {\n-        e.preventDefault();\n-        try {\n-            // Assuming you have a service function to add a stage\n-            await addStageToJobPosting(jobPostingId, stage);\n-            console.log(\"Stage added to job posting.\");\n-            onStageAdded(); // Refresh the list or update UI\n-        } catch (error) {\n-            console.error('Error adding stage:', error);\n-        }\n-    };\n-    \n-\n     return (\n         <VStack spacing={4} p={4}>\n             {jobPostings.map(posting => (\n                 <Box key={posting.id} p={4} shadow=\"md\" borderWidth=\"1px\">\n                     <Text fontWeight=\"bold\">{posting.title}</Text>\n-                    <Text mt={2}>{posting.description}</Text>\n-                    {/* Display other job posting details */}\n+                    {/* Other job posting details */}\n                     <Divider my={2} />\n-                    <Text>Position: {posting.jobPosition}</Text>\n-                    <Text>Manager: {posting.recruitingManager}</Text>\n-                    <Text>Vacancies: {posting.vacancy}</Text>\n+                    {/* Displaying additional details */}\n                     <Button colorScheme=\"blue\" onClick={() => handleAddStageClick(posting.id)}>+ Add Stage</Button>\n-                    <Modal isOpen={isOpen} onClose={onClose}>\n+                </Box>\n+            ))}\n+            <Modal isOpen={isOpen} onClose={onClose}>\n                 <StageForm jobPostingId={selectedJobPostingId} onStageAdded={onClose} />\n             </Modal>\n-                </Box>\n-            ))}\n         </VStack>\n     );\n };\n \n"
+                },
+                {
+                    "date": 1705730045738,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,10 @@\n         fetchJobPostings();\n     }, []);\n \n     const handleAddStageClick = (jobPostingId) => {\n+        console.log(\"Opening modal for job posting ID:\", jobPostingId);\n+\n         setSelectedJobPostingId(jobPostingId);\n         onOpen();\n     };\n \n"
+                },
+                {
+                    "date": 1705730194361,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,8 @@\n     }, []);\n \n     const handleAddStageClick = (jobPostingId) => {\n         console.log(\"Opening modal for job posting ID:\", jobPostingId);\n-\n         setSelectedJobPostingId(jobPostingId);\n         onOpen();\n     };\n \n@@ -38,10 +37,18 @@\n                     <Button colorScheme=\"blue\" onClick={() => handleAddStageClick(posting.id)}>+ Add Stage</Button>\n                 </Box>\n             ))}\n             <Modal isOpen={isOpen} onClose={onClose}>\n-                <StageForm jobPostingId={selectedJobPostingId} onStageAdded={onClose} />\n-            </Modal>\n+    <ModalOverlay />\n+    <ModalContent>\n+        <ModalHeader>Add Stage</ModalHeader>\n+        <ModalCloseButton />\n+        <ModalBody>\n+            <StageForm jobPostingId={selectedJobPostingId} onStageAdded={onClose} />\n+        </ModalBody>\n+    </ModalContent>\n+</Modal>\n+\n         </VStack>\n     );\n };\n \n"
+                },
+                {
+                    "date": 1705730226627,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { Box, VStack, Text, Divider, Button, Modal, useDisclosure } from '@chakra-ui/react';\n+import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay } from '@chakra-ui/react';\n import { getAllJobPostings } from '../../services/CandidateService';\n import StageForm from './StageForm'; // Ensure this import is correct\n \n const JobPostingsList = () => {\n"
+                },
+                {
+                    "date": 1705730236927,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay } from '@chakra-ui/react';\n+import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay,ModalContent } from '@chakra-ui/react';\n import { getAllJobPostings } from '../../services/CandidateService';\n import StageForm from './StageForm'; // Ensure this import is correct\n \n const JobPostingsList = () => {\n"
+                },
+                {
+                    "date": 1705730246330,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay,ModalContent } from '@chakra-ui/react';\n+import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay,ModalContent,ModalHeader } from '@chakra-ui/react';\n import { getAllJobPostings } from '../../services/CandidateService';\n import StageForm from './StageForm'; // Ensure this import is correct\n \n const JobPostingsList = () => {\n"
+                },
+                {
+                    "date": 1705730259260,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay,ModalContent,ModalHeader } from '@chakra-ui/react';\n+import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton } from '@chakra-ui/react';\n import { getAllJobPostings } from '../../services/CandidateService';\n import StageForm from './StageForm'; // Ensure this import is correct\n \n const JobPostingsList = () => {\n"
+                },
+                {
+                    "date": 1705730281428,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useState, useEffect } from 'react';\n-import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton } from '@chakra-ui/react';\n+import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton ,ModalBody} from '@chakra-ui/react';\n import { getAllJobPostings } from '../../services/CandidateService';\n import StageForm from './StageForm'; // Ensure this import is correct\n \n const JobPostingsList = () => {\n"
                 }
             ],
             "date": 1705685067446,

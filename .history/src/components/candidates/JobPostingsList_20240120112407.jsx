@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, VStack, Text, Divider, Button, Modal, useDisclosure,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton ,ModalBody} from '@chakra-ui/react';
+import { Box, VStack, Text, Divider, Button, Modal, useDisclosure } from '@chakra-ui/react';
 import { getAllJobPostings } from '../../services/CandidateService';
 import StageForm from './StageForm'; // Ensure this import is correct
 
@@ -38,16 +38,8 @@ const JobPostingsList = () => {
                 </Box>
             ))}
             <Modal isOpen={isOpen} onClose={onClose}>
-    <ModalOverlay />
-    <ModalContent>
-        <ModalHeader>Add Stage</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-            <StageForm jobPostingId={selectedJobPostingId} onStageAdded={onClose} />
-        </ModalBody>
-    </ModalContent>
-</Modal>
-
+                <StageForm jobPostingId={selectedJobPostingId} onStageAdded={onClose} />
+            </Modal>
         </VStack>
     );
 };
