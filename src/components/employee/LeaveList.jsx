@@ -5,7 +5,7 @@ import { Box, VStack, Text } from '@chakra-ui/react';
 const LeaveList = ({ employeeId }) => {
     const [leaves, setLeaves] = useState([]);
 
-    useEffect(() => {
+    useEffect(() => { 
         const fetchLeaves = async () => {
             try {
                 const data = await getLeavesByEmployee(employeeId);

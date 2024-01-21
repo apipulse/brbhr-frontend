@@ -7,7 +7,7 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
         name: '',
         description: '',
         roundNumber: 1
-    });
+    })
 
     const handleChange = (e) => {
         setStage({ ...stage, [e.target.name]: e.target.value });
@@ -29,7 +29,7 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
             <form onSubmit={handleSubmit}>
                 {/* Form fields for stage details */}
                 <FormControl id="name" isRequired>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Stage</FormLabel>
                     <Input name="name" type="text" onChange={handleChange} />
                 </FormControl>
                 <FormControl id="description" mt={4}>

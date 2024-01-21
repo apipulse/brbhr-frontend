@@ -5,7 +5,7 @@ import { applyForLeave, updateLeave } from '../../services/LeaveService';
 const LeaveForm = ({ employeeId, leave, isEditing }) => {
     const [leaveData, setLeaveData] = useState({
         type: '',
-        startDate: '',
+        startDate: '', 
         endDate: '',
         reason: ''
         // ...other relevant fields
