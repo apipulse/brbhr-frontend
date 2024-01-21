@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 19,
+            "activePatchIndex": 22,
             "patches": [
                 {
                     "date": 1705672439171,
@@ -84,6 +84,18 @@
                 {
                     "date": 1705737406493,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n         <SidebarLinkGroup title=\"Recruitment\">\n           <Link as={RouterLink} to=\"/job-posting\">Post Job</Link>\n           <Link as={RouterLink} to=\"/job-posting-list\">job-posting-list</Link>\n           <Link as={RouterLink} to=\"/all-application\">Job Applications</Link>\n-          <Link as={RouterLink} to=\"/apply-job\">Apply</Link>\n+          <Link as={RouterLink} to=\"/apply-job\">Apply Job</Link>\n           <Link as={RouterLink} to=\"/schedule-interview\">Schedule Interview</Link>\n           <Link as={RouterLink} to=\"/manage-offers\">Manage Offers</Link>\n           {/* Additional Recruitment-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705819111195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,8 +45,9 @@\n         {/* Attendance */}\n         <SidebarLinkGroup title=\"Attendance\">\n           <Link as={RouterLink} to=\"/attendance/records\">Attendance Records</Link>\n           <Link as={RouterLink} to=\"/attendance/report\">Attendance Report</Link>\n+          <Link as={RouterLink} to=\"/attendance/clock\">Clock In/Out</Link>\n           {/* Additional Attendance-related links */}\n         </SidebarLinkGroup>\n \n         {/* Leaves */}\n"
+                },
+                {
+                    "date": 1705819121886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,9 @@\n         {/* Attendance */}\n         <SidebarLinkGroup title=\"Attendance\">\n           <Link as={RouterLink} to=\"/attendance/records\">Attendance Records</Link>\n           <Link as={RouterLink} to=\"/attendance/report\">Attendance Report</Link>\n-          <Link as={RouterLink} to=\"/attendance/clock\">Clock In/Out</Link>\n+          <Link as={RouterLink} to=\"/attendance/clock\">Check In/Out</Link>\n           {/* Additional Attendance-related links */}\n         </SidebarLinkGroup>\n \n         {/* Leaves */}\n"
+                },
+                {
+                    "date": 1705820494266,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,14 +41,14 @@\n           <Link as={RouterLink} to=\"/employees/add\">Add Employee</Link>\n           {/* Additional Employee-related links */}\n         </SidebarLinkGroup>\n \n-        {/* Attendance */}\n         <SidebarLinkGroup title=\"Attendance\">\n           <Link as={RouterLink} to=\"/attendance/records\">Attendance Records</Link>\n-          <Link as={RouterLink} to=\"/attendance/report\">Attendance Report</Link>\n+          <Link as={RouterLink} to=\"/attendance/validation\">Attendance Validation</Link>\n           <Link as={RouterLink} to=\"/attendance/clock\">Check In/Out</Link>\n-          {/* Additional Attendance-related links */}\n+          <Link as={RouterLink} to=\"/attendance/date-month\">Attendance By Date/Month</Link>\n+          <Link as={RouterLink} to=\"/attendance/add-update\">Add/Update Attendance</Link>\n         </SidebarLinkGroup>\n \n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n"
                 }
             ],
             "date": 1705672439171,

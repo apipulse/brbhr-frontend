@@ -15,6 +15,11 @@ import JobApplicationsList from './components/candidates/JobApplicationsList';
 import JobPostingsList from './components/candidates/JobPostingsList';
 import AllApplicationsList from './components/candidates/AllApplicationsList';
 import JobApplicationForm from './components/candidates/JobApplicationForm';
+import AttendanceRecords from './components/attendance/AttendanceRecords';
+import CheckInCheckOut from './components/attendance/CheckInCheckOut';
+import AttendanceValidation from './components/attendance/AttendanceValidation';
+import AttendanceByDateAndMonth from './components/attendance/AttendanceByDateAndMonth';
+import AddUpdateAttendance from './components/attendance/AddUpdateAttendance';
 
 
 
@@ -39,6 +44,11 @@ const App = () => {
               <Route path="/all-application" element={<AllApplicationsList />} />
               <Route path="/job-posting-list" element={<JobPostingsList />} />
               <Route path="/apply-job" element={<JobApplicationForm />} />
+              <Route path="/attendance/records" element={<AttendanceRecords />} />
+              <Route path="/attendance/validation" element={<AttendanceValidation />} />
+              <Route path="/attendance/clock" element={<CheckInCheckOut />} />
+              <Route path="/attendance/date-month" element={<AttendanceByDateAndMonth />} />
+              <Route path="/attendance/add-update" element={<AddUpdateAttendance />} />
               {/* Add more routes as needed */}
             </Routes>
           </Flex>

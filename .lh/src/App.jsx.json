@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 78,
+            "activePatchIndex": 83,
             "patches": [
                 {
                     "date": 1705665244171,
@@ -320,6 +320,26 @@
                 {
                     "date": 1705738391006,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n               <Route path=\"/job-posting\" element={<JobPostingForm />} />\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n               <Route path=\"/all-application\" element={<AllApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n-              <Route path=\"/job-posting-list\" element={<JobApplicationForm />} />\n+              <Route path=\"/apply-job\" element={<JobApplicationForm />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705819047250,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,8 +38,11 @@\n               <Route path=\"/job-application-list\" element={<JobApplicationsList />} />\n               <Route path=\"/all-application\" element={<AllApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               <Route path=\"/apply-job\" element={<JobApplicationForm />} />\n+              <Route path=\"/attendance/records\" element={<AttendanceRecords />} />\n+              <Route path=\"/attendance/report\" element={<AttendanceReport />} />\n+              <Route path=\"/attendance/clock\" element={<ClockInClockOut />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705819061908,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,11 @@\n import JobApplicationsList from './components/candidates/JobApplicationsList';\n import JobPostingsList from './components/candidates/JobPostingsList';\n import AllApplicationsList from './components/candidates/AllApplicationsList';\n import JobApplicationForm from './components/candidates/JobApplicationForm';\n+import AttendanceRecords from './components/attendance/AttendanceRecords';\n+import AttendanceReport from './components/attendance/AttendanceReport';\n+import ClockInClockOut from './components/attendance/ClockInClockOut';\n \n \n \n const App = () => {\n"
+                },
+                {
+                    "date": 1705820425678,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,10 +42,12 @@\n               <Route path=\"/all-application\" element={<AllApplicationsList />} />\n               <Route path=\"/job-posting-list\" element={<JobPostingsList />} />\n               <Route path=\"/apply-job\" element={<JobApplicationForm />} />\n               <Route path=\"/attendance/records\" element={<AttendanceRecords />} />\n-              <Route path=\"/attendance/report\" element={<AttendanceReport />} />\n-              <Route path=\"/attendance/clock\" element={<ClockInClockOut />} />\n+              <Route path=\"/attendance/validation\" element={<AttendanceValidation />} />\n+              <Route path=\"/attendance/clock\" element={<CheckInCheckOut />} />\n+              <Route path=\"/attendance/date-month\" element={<AttendanceByDateAndMonth />} />\n+              <Route path=\"/attendance/add-update\" element={<AddUpdateAttendance />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705820446580,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,13 @@\n import JobPostingsList from './components/candidates/JobPostingsList';\n import AllApplicationsList from './components/candidates/AllApplicationsList';\n import JobApplicationForm from './components/candidates/JobApplicationForm';\n import AttendanceRecords from './components/attendance/AttendanceRecords';\n-import AttendanceReport from './components/attendance/AttendanceReport';\n-import ClockInClockOut from './components/attendance/ClockInClockOut';\n+import CheckInCheckOut from './components/attendance/CheckInCheckOut';\n+import AttendanceValidation from './components/attendance/AttendanceValidation';\n+import AttendanceRecords from './components/attendance/AttendanceRecords';\n+import AttendanceByDateAndMonth from './components/attendance/AttendanceByDateAndMonth';\n+import AddUpdateAttendance from './components/attendance/AddUpdateAttendance';\n \n \n \n const App = () => {\n"
+                },
+                {
+                    "date": 1705820884800,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,8 @@\n import JobApplicationForm from './components/candidates/JobApplicationForm';\n import AttendanceRecords from './components/attendance/AttendanceRecords';\n import CheckInCheckOut from './components/attendance/CheckInCheckOut';\n import AttendanceValidation from './components/attendance/AttendanceValidation';\n-import AttendanceRecords from './components/attendance/AttendanceRecords';\n import AttendanceByDateAndMonth from './components/attendance/AttendanceByDateAndMonth';\n import AddUpdateAttendance from './components/attendance/AddUpdateAttendance';\n \n \n"
                 }
             ],
             "date": 1705665244171,

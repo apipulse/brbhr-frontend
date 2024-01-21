@@ -42,11 +42,12 @@ const Sidebar = () => {
           {/* Additional Employee-related links */}
         </SidebarLinkGroup>
 
-        {/* Attendance */}
         <SidebarLinkGroup title="Attendance">
           <Link as={RouterLink} to="/attendance/records">Attendance Records</Link>
-          <Link as={RouterLink} to="/attendance/report">Attendance Report</Link>
-          {/* Additional Attendance-related links */}
+          <Link as={RouterLink} to="/attendance/validation">Attendance Validation</Link>
+          <Link as={RouterLink} to="/attendance/clock">Check In/Out</Link>
+          <Link as={RouterLink} to="/attendance/date-month">Attendance By Date/Month</Link>
+          <Link as={RouterLink} to="/attendance/add-update">Add/Update Attendance</Link>
         </SidebarLinkGroup>
 
         {/* Leaves */}
