@@ -20,7 +20,13 @@ import CheckInCheckOut from './components/attendance/CheckInCheckOut';
 import AttendanceValidation from './components/attendance/AttendanceValidation';
 import AttendanceByDateAndMonth from './components/attendance/AttendanceByDateAndMonth';
 import AddUpdateAttendance from './components/attendance/AddUpdateAttendance';
-
+import MyLeaves from './components/leaves/MyLeaves';
+import MyLeaveRequests from './components/leaves/MyLeaveRequests';
+import LeaveTypes from './components/leaves/LeaveTypes';
+import AssignedLeaves from './components/leaves/AssignedLeaves';
+import LeaveRequests from './components/leaves/LeaveRequests';
+import Holidays from './components/leaves/Holidays';
+import CompanyLeaves from './components/leaves/CompanyLeaves';
 
 
 const App = () => {
@@ -49,6 +55,13 @@ const App = () => {
               <Route path="/attendance/clock" element={<CheckInCheckOut />} />
               <Route path="/attendance/date-month" element={<AttendanceByDateAndMonth />} />
               <Route path="/attendance/add-update" element={<AddUpdateAttendance />} />
+              <Route path="/leaves/myleaves" element={<MyLeaves />} />
+              <Route path="/leaves/myleaves-requests" element={<MyLeaveRequests />} />
+              <Route path="/leaves/leave-types" element={<LeaveTypes />} />
+              <Route path="/leaves/assigned-leaves" element={<AssignedLeaves />} />
+              <Route path="/leaves/leave-requests" element={<LeaveRequests />} />
+              <Route path="/leaves/holidays" element={<Holidays />} />
+              <Route path="/leaves/company-leaves" element={<CompanyLeaves />} />
               {/* Add more routes as needed */}
             </Routes>
           </Flex>

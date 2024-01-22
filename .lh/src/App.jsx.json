@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 83,
+            "activePatchIndex": 85,
             "patches": [
                 {
                     "date": 1705665244171,
@@ -340,6 +340,14 @@
                 {
                     "date": 1705820884800,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,8 @@\n import JobApplicationForm from './components/candidates/JobApplicationForm';\n import AttendanceRecords from './components/attendance/AttendanceRecords';\n import CheckInCheckOut from './components/attendance/CheckInCheckOut';\n import AttendanceValidation from './components/attendance/AttendanceValidation';\n-import AttendanceRecords from './components/attendance/AttendanceRecords';\n import AttendanceByDateAndMonth from './components/attendance/AttendanceByDateAndMonth';\n import AddUpdateAttendance from './components/attendance/AddUpdateAttendance';\n \n \n"
+                },
+                {
+                    "date": 1705839512052,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,8 +48,9 @@\n               <Route path=\"/attendance/validation\" element={<AttendanceValidation />} />\n               <Route path=\"/attendance/clock\" element={<CheckInCheckOut />} />\n               <Route path=\"/attendance/date-month\" element={<AttendanceByDateAndMonth />} />\n               <Route path=\"/attendance/add-update\" element={<AddUpdateAttendance />} />\n+              \n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
+                },
+                {
+                    "date": 1705839532541,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,11 +19,17 @@\n import CheckInCheckOut from './components/attendance/CheckInCheckOut';\n import AttendanceValidation from './components/attendance/AttendanceValidation';\n import AttendanceByDateAndMonth from './components/attendance/AttendanceByDateAndMonth';\n import AddUpdateAttendance from './components/attendance/AddUpdateAttendance';\n+import MyLeaves from './components/leaves/MyLeaves';\n+import MyLeaveRequests from './components/leaves/MyLeaveRequests';\n+import LeaveTypes from './components/leaves/LeaveTypes';\n+import AssignedLeaves from './components/leaves/AssignedLeaves';\n+import LeaveRequests from './components/leaves/LeaveRequests';\n+import Holidays from './components/leaves/Holidays';\n+import CompanyLeaves from './components/leaves/CompanyLeaves';\n \n \n-\n const App = () => {\n   return (\n     <ChakraProvider>\n       <Router>\n@@ -48,9 +54,15 @@\n               <Route path=\"/attendance/validation\" element={<AttendanceValidation />} />\n               <Route path=\"/attendance/clock\" element={<CheckInCheckOut />} />\n               <Route path=\"/attendance/date-month\" element={<AttendanceByDateAndMonth />} />\n               <Route path=\"/attendance/add-update\" element={<AddUpdateAttendance />} />\n-              \n+              <Route path=\"/leaves/myleaves\" element={<MyLeaves />} />\n+              <Route path=\"/leaves/myleaves-requests\" element={<MyLeaveRequests />} />\n+              <Route path=\"/leaves/leave-types\" element={<LeaveTypes />} />\n+              <Route path=\"/leaves/assigned-leaves\" element={<AssignedLeaves />} />\n+              <Route path=\"/leaves/leave-requests\" element={<LeaveRequests />} />\n+              <Route path=\"/leaves/holidays\" element={<Holidays />} />\n+              <Route path=\"/leaves/company-leaves\" element={<CompanyLeaves />} />\n               {/* Add more routes as needed */}\n             </Routes>\n           </Flex>\n         </Flex>\n"
                 }
             ],
             "date": 1705665244171,

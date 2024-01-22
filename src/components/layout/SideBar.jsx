@@ -52,8 +52,13 @@ const Sidebar = () => {
 
         {/* Leaves */}
         <SidebarLinkGroup title="Leaves">
-          <Link as={RouterLink} to="/leaves/apply">Apply for Leave</Link>
-          <Link as={RouterLink} to="/leaves/status">Leave Status</Link>
+          <Link as={RouterLink} to="/leaves/myleaves">My Leaves</Link>
+          <Link as={RouterLink} to="/leaves/myleaves-requests">My Leave Requests</Link>
+          <Link as={RouterLink} to="/leaves/leave-types">Leave Types</Link>
+          <Link as={RouterLink} to="/leaves/assigned-leaves">Assigned Leaves</Link>
+          <Link as={RouterLink} to="/leaves/leave-requests">Leave Requests</Link>
+          <Link as={RouterLink} to="/leaves/hoidays">Holidays</Link>
+          <Link as={RouterLink} to="/leaves/company-leaves">Company Leaves</Link>
           {/* Additional Leaves-related links */}
         </SidebarLinkGroup>
 

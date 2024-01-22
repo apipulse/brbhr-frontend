@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 45,
             "patches": [
                 {
                     "date": 1705672439171,
@@ -96,6 +96,98 @@
                 {
                     "date": 1705820494266,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,14 +41,14 @@\n           <Link as={RouterLink} to=\"/employees/add\">Add Employee</Link>\n           {/* Additional Employee-related links */}\n         </SidebarLinkGroup>\n \n-        {/* Attendance */}\n         <SidebarLinkGroup title=\"Attendance\">\n           <Link as={RouterLink} to=\"/attendance/records\">Attendance Records</Link>\n-          <Link as={RouterLink} to=\"/attendance/report\">Attendance Report</Link>\n+          <Link as={RouterLink} to=\"/attendance/validation\">Attendance Validation</Link>\n           <Link as={RouterLink} to=\"/attendance/clock\">Check In/Out</Link>\n-          {/* Additional Attendance-related links */}\n+          <Link as={RouterLink} to=\"/attendance/date-month\">Attendance By Date/Month</Link>\n+          <Link as={RouterLink} to=\"/attendance/add-update\">Add/Update Attendance</Link>\n         </SidebarLinkGroup>\n \n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n"
+                },
+                {
+                    "date": 1705838873526,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,8 +53,10 @@\n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n+          <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n \n         {/* Payroll */}\n"
+                },
+                {
+                    "date": 1705838887541,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,8 +51,10 @@\n         </SidebarLinkGroup>\n \n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n+          <Link as={RouterLink} to=\"/leaves/apply\">M</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n"
+                },
+                {
+                    "date": 1705838896806,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,9 +51,9 @@\n         </SidebarLinkGroup>\n \n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n-          <Link as={RouterLink} to=\"/leaves/apply\">M</Link>\n+          <Link as={RouterLink} to=\"/leaves/apply\">My leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n"
+                },
+                {
+                    "date": 1705838913217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,10 +51,10 @@\n         </SidebarLinkGroup>\n \n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n-          <Link as={RouterLink} to=\"/leaves/apply\">My leaves</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n+          <Link as={RouterLink} to=\"/leaves/apply\">My Leaves</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">My Leave Req</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n"
+                },
+                {
+                    "date": 1705838934142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,10 +52,10 @@\n \n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n           <Link as={RouterLink} to=\"/leaves/apply\">My Leaves</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">My Leave Req</Link>\n-          <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">My Leave Requests</Link>\n+          <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           {/* Additional Leaves-related links */}\n"
+                },
+                {
+                    "date": 1705838944973,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n         <SidebarLinkGroup title=\"Leaves\">\n           <Link as={RouterLink} to=\"/leaves/apply\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">Assgi</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705838950314,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n         <SidebarLinkGroup title=\"Leaves\">\n           <Link as={RouterLink} to=\"/leaves/apply\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">Assgi</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705838966828,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n           <Link as={RouterLink} to=\"/leaves/apply\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n-          <Link as={RouterLink} to=\"/leaves/apply\">Apply for Leave</Link>\n+          <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n \n"
+                },
+                {
+                    "date": 1705838982398,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,9 +56,9 @@\n           <Link as={RouterLink} to=\"/leaves/status\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">Leave Status</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n \n         {/* Payroll */}\n"
+                },
+                {
+                    "date": 1705838993432,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,8 +57,9 @@\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n \n         {/* Payroll */}\n"
+                },
+                {
+                    "date": 1705839010105,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,9 +57,9 @@\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n+          <Link as={RouterLink} to=\"/leaves/status\">Company Leaves</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n \n         {/* Payroll */}\n"
+                },
+                {
+                    "date": 1705839022829,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,9 +51,9 @@\n         </SidebarLinkGroup>\n \n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n-          <Link as={RouterLink} to=\"/leaves/apply\">My Leaves</Link>\n+          <Link as={RouterLink} to=\"/leaves/myleaves\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n"
+                },
+                {
+                    "date": 1705839033019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n \n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n           <Link as={RouterLink} to=\"/leaves/myleaves\">My Leaves</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">My Leave Requests</Link>\n+          <Link as={RouterLink} to=\"/leaves/myleaves\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n"
+                },
+                {
+                    "date": 1705839039004,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n \n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n           <Link as={RouterLink} to=\"/leaves/myleaves\">My Leaves</Link>\n-          <Link as={RouterLink} to=\"/leaves/myleaves\">My Leave Requests</Link>\n+          <Link as={RouterLink} to=\"/leaves/myleaves-requests\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n"
+                },
+                {
+                    "date": 1705839047575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,9 +53,9 @@\n         {/* Leaves */}\n         <SidebarLinkGroup title=\"Leaves\">\n           <Link as={RouterLink} to=\"/leaves/myleaves\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/myleaves-requests\">My Leave Requests</Link>\n-          <Link as={RouterLink} to=\"/leaves/apply\">Leave Types</Link>\n+          <Link as={RouterLink} to=\"/leaves/leave-types\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Company Leaves</Link>\n"
+                },
+                {
+                    "date": 1705839054170,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n         <SidebarLinkGroup title=\"Leaves\">\n           <Link as={RouterLink} to=\"/leaves/myleaves\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/myleaves-requests\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/leave-types\">Leave Types</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">Assigned Leaves</Link>\n+          <Link as={RouterLink} to=\"/leaves/assigned\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Company Leaves</Link>\n           {/* Additional Leaves-related links */}\n"
+                },
+                {
+                    "date": 1705839060979,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n         <SidebarLinkGroup title=\"Leaves\">\n           <Link as={RouterLink} to=\"/leaves/myleaves\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/myleaves-requests\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/leave-types\">Leave Types</Link>\n-          <Link as={RouterLink} to=\"/leaves/assigned\">Assigned Leaves</Link>\n+          <Link as={RouterLink} to=\"/leaves/assigned-leaves\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Company Leaves</Link>\n           {/* Additional Leaves-related links */}\n"
+                },
+                {
+                    "date": 1705839066655,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n           <Link as={RouterLink} to=\"/leaves/myleaves\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/myleaves-requests\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/leave-types\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/assigned-leaves\">Assigned Leaves</Link>\n-          <Link as={RouterLink} to=\"/leaves/apply\">Leave Requests</Link>\n+          <Link as={RouterLink} to=\"/leaves/ap\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Company Leaves</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705839072367,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n           <Link as={RouterLink} to=\"/leaves/myleaves\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/myleaves-requests\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/leave-types\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/assigned-leaves\">Assigned Leaves</Link>\n-          <Link as={RouterLink} to=\"/leaves/ap\">Leave Requests</Link>\n+          <Link as={RouterLink} to=\"/leaves/a\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Company Leaves</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705839081106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n           <Link as={RouterLink} to=\"/leaves/myleaves\">My Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/myleaves-requests\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/leave-types\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/assigned-leaves\">Assigned Leaves</Link>\n-          <Link as={RouterLink} to=\"/leaves/a\">Leave Requests</Link>\n+          <Link as={RouterLink} to=\"/leaves/leave-requests\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Company Leaves</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n"
+                },
+                {
+                    "date": 1705839087708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,9 +56,9 @@\n           <Link as={RouterLink} to=\"/leaves/myleaves-requests\">My Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/leave-types\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/assigned-leaves\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/leave-requests\">Leave Requests</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">Holidays</Link>\n+          <Link as={RouterLink} to=\"/leaves/hoidays\">Holidays</Link>\n           <Link as={RouterLink} to=\"/leaves/status\">Company Leaves</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n \n"
+                },
+                {
+                    "date": 1705839093488,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,9 +57,9 @@\n           <Link as={RouterLink} to=\"/leaves/leave-types\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/assigned-leaves\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/leave-requests\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/hoidays\">Holidays</Link>\n-          <Link as={RouterLink} to=\"/leaves/status\">Company Leaves</Link>\n+          <Link as={RouterLink} to=\"/leaves/company\">Company Leaves</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n \n         {/* Payroll */}\n"
+                },
+                {
+                    "date": 1705839100539,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,9 +57,9 @@\n           <Link as={RouterLink} to=\"/leaves/leave-types\">Leave Types</Link>\n           <Link as={RouterLink} to=\"/leaves/assigned-leaves\">Assigned Leaves</Link>\n           <Link as={RouterLink} to=\"/leaves/leave-requests\">Leave Requests</Link>\n           <Link as={RouterLink} to=\"/leaves/hoidays\">Holidays</Link>\n-          <Link as={RouterLink} to=\"/leaves/company\">Company Leaves</Link>\n+          <Link as={RouterLink} to=\"/leaves/company-leaves\">Company Leaves</Link>\n           {/* Additional Leaves-related links */}\n         </SidebarLinkGroup>\n \n         {/* Payroll */}\n"
                 }
             ],
             "date": 1705672439171,
