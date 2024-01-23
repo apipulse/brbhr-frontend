@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Box,
   VStack,
@@ -20,189 +20,106 @@ import {
   Tr,
   Th,
   Td,
+  Select,
+  Input,
 } from "@chakra-ui/react";
 import {
   getAllJobPostings,
   getAllCandidateApplications,
   getStagesForJobPosting,
+  getCurrentStageOfApplication,
+  updateCandidateStage,
 } from "../../services/CandidateService";
-import StageForm from "./StageForm"
+import NoteContext from "../../Context/NoteContext";
 
-// const JobPostingsList = () => {
-  // const [jobPostings, setJobPostings] = useState([]);
-  // const [allCandidates, setAllCandidates] = useState();
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
-  // const [stages, setStages] = useState();
-  // const [id, setId] = useState();
-  // console.log(allCandidates);
-  // useEffect(() => {
-  //   const fetchJobPostings = async () => {
-  //     try {
-  //       const postings = await getAllJobPostings();
-
-  //       setJobPostings(postings);
-  //     } catch (error) {
-  //       console.error("Error fetching job postings:", error);
-  //     }
-  //   };
-
-  //   const fetchCandidates = async () => {
-  //     try {
-  //       const Allcandidates = await getAllCandidateApplications();
-  //       setAllCandidates(Allcandidates);
-  //     } catch (error) {
-  //       console.error("Error fetching job postings:", error);
-  //     }
-  //   };
-  //   fetchJobPostings();
-  //   fetchCandidates();
-  // }, []);
-  // console.log(jobPostings);
-
-  // useEffect(() => {
-  //   const fetchStages = async () => {
-  //     try {
-  //       // Fetch stages for each job posting individually
-  //       const jobPostingsWithStages = await Promise.all(
-  //         jobPostings.map(async (posting) => {
-  //           const stages = await getStagesForJobPosting(posting.id);
-  //           return { ...posting, stages };
-  //         })
-  //       );
-  //       setStages(jobPostingsWithStages);
-  //     } catch (error) {
-  //       console.error("Error fetching stages:", error);
-  //     }
-  //   };
-  //   fetchStages();
-  // }, []);
-
-  // console.log(stages);
-
-  // const handleAddStageClick = (jobPostingId) => {
-  //   console.log("Opening modal for job posting ID:", jobPostingId);
-  //   setSelectedJobPostingId(jobPostingId);
-  //   onOpen();
-  // };
-
-//   return (
-//     <VStack spacing={4} p={4}>
-//       <Box width={"100%"} gap={"10px"}>
-        // <Text
-        //   fontSize={"2rem"}
-        //   pb={".5rem"}
-        //   mb={"1rem"}
-        //   borderBottom={"1px solid gray"}
-        // >
-        //   Job-Posting List
-        // </Text>
-//         {jobPostings.map((posting) => (
-//           <Box key={posting.id} p={4} border={"md"} borderWidth="1px">
-            // <Box display={"flex"} gap={"10px"}>
-            //   <Text fontWeight="bold">{posting.title}</Text>
-            //   <Text fontWeight="">
-            //     {new Date(posting?.postingDate).toLocaleDateString()}
-            //   </Text>
-            // </Box>
-            // {/* Other job posting details */}
-            // <Divider my={2} />
-            // {/* Displaying additional details */}
-            // <Button
-            //   marginBottom={"1rem"}
-            //   colorScheme="blue"
-            //   onClick={() => handleAddStageClick(posting.id)}
-            // >
-            //   + Add Stage
-            // </Button>
-
-//             {posting.stages && (
-//               <Box>
-//                 <Text fontSize={"1.3rem"}>Stages:</Text>
-//                 <Box>
-//                   {posting.stages.map((stage) => (
-//                     <Box key={Math.random()} border={"1px solid gray"}>
-//                       <Text>{stage.name}</Text>
-//                       {allCandidates?.map((candidate) =>
-//                         candidate.currentStage == stage ? (
-//                           <Box>
-//                             <Text>Candidates who have applied to this job</Text>
-
-//                             <Box width={"100%"} display={"flex"}>
-//                               <Table variant="striped" colorScheme="teal">
-//                                 <Thead>
-//                                   <Tr>
-//                                     <Th>candidate</Th>
-//                                     <Th>Email</Th>
-//                                     <Th>Contact</Th>
-//                                   </Tr>
-//                                 </Thead>
-//                                 <Tbody>
-//                                   {allCandidates.map((candidate) =>
-//                                     candidate.country == posting.title ? (
-//                                       <Tr key={candidate.id}>
-//                                         <Td>{candidate.applicantName}</Td>
-//                                         <Td>{candidate.applicantEmail}</Td>
-//                                         <Td>{candidate.mobileNumber}</Td>
-//                                       </Tr>
-//                                     ) : (
-//                                       ""
-//                                     )
-//                                   )}
-//                                 </Tbody>
-//                               </Table>
-//                             </Box>
-//                           </Box>
-//                         ) : (
-//                           ""
-//                         )
-//                       )}
-//                     </Box>
-//                   ))}
-//                 </Box>
-//               </Box>
-//             )}
-//           </Box>
-//         ))}
-//       </Box>
-//       <Modal isOpen={isOpen} onClose={onClose}>
-//         <ModalOverlay />
-//         <ModalContent>
-//           <ModalHeader>Add Stage</ModalHeader>
-//           <ModalCloseButton />
-//           <ModalBody>
-//             <StageForm
-//               jobPostingId={selectedJobPostingId}
-//               onStageAdded={onClose}
-//             />
-//           </ModalBody>
-//         </ModalContent>
-//       </Modal>
-//     </VStack>
-//   );
-// };
-// export default JobPostingsList;
-
-
-
-
-
-
-// ... (other imports and code)
-
+import { MdOutlineMailOutline } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import StageForm from "./StageForm";
+import SendEmail from "./SendEmail";
+import ApplicationForm from "./JobPostingForm";
 const JobPostingsList = () => {
-  const [stages, setStages] = useState(["Initial", "Interview", "Hired"]);
+  const [stages, setStages] = useState();
   const [jobPostings, setJobPostings] = useState([]);
   const [allCandidates, setAllCandidates] = useState();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
-  const [id, setId] = useState();
+  const [selectedEMail, setSelectedEMail] = useState(null);
+  const [jobid, setJobId] = useState();
+  const [jobName, setjobName] = useState();
+  const [active, setActive] = useState();
+  const [stg, setstg] = useState();
+  const [candidateId, setcandidateId] = useState();
+
+  const [currentStage, setCurrentStage] = useState();
+  const abc = useContext(NoteContext);
+  console.log(stages);
+
+  const {
+    isOpen: isOpen1,
+    onOpen: onOpen1,
+    onClose: onClose1,
+  } = useDisclosure();
+  const {
+    isOpen: isOpen2,
+    onOpen: onOpen2,
+    onClose: onClose2,
+  } = useDisclosure();
+  const {
+    isOpen: isOpen3,
+    onOpen: onOpen3,
+    onClose: onClose3,
+  } = useDisclosure();
+  const handleAddStageClick = (jobPostingId) => {
+    console.log("Opening modal for job posting ID:", jobPostingId);
+    setSelectedJobPostingId(jobPostingId);
+    onOpen1();
+  };
+  const handleSendMailClick = (email) => {
+    console.log("Opening modal for Sending Email");
+    setSelectedEMail(email);
+    onOpen2();
+  };
+  const handleNewApplicationClick = () => {
+    console.log("Opening modal for New job posting");
+    onOpen3();
+  };
+
+  const fetchJonpostingStages = async (id) => {
+    const res = await getStagesForJobPosting(id);
+    setStages(res);
+  };
+
+  const fetchCurrentStage = async (id) => {
+    try {
+      const res = await getCurrentStageOfApplication(id);
+      setCurrentStage(res);
+      console.log(id);
+      console.log(res);
+    } catch (error) {
+      console.log("failed to fetch current stage of", id, "due to", error);
+    }
+  };
+
+  const updateApplicationStage = (id, stage) => {
+    try {
+      const res = updateCandidateStage(id, stage);
+      console.log("ApplicationStage has been updated", res);
+    } catch (error) {
+      "Failed to update stage of application", error;
+    }
+  };
+
   console.log(allCandidates);
+
   useEffect(() => {
+    abc.setName("RECRUITMENT");
+
+    // setJobId(job.id);
+    // setjobName(job?.title);
+    fetchCurrentStage(jobid);
+
     const fetchJobPostings = async () => {
       try {
         const postings = await getAllJobPostings();
-
         setJobPostings(postings);
       } catch (error) {
         console.error("Error fetching job postings:", error);
@@ -216,199 +133,327 @@ const JobPostingsList = () => {
       } catch (error) {
         console.error("Error fetching job postings:", error);
       }
+      ``;
     };
+    // console.log(allCandidates)
+
+    fetchJonpostingStages(jobid);
     fetchJobPostings();
     fetchCandidates();
   }, []);
   console.log(jobPostings);
 
-  useEffect(() => {
-    const fetchStages = async () => {
-      try {
-        // Fetch stages for each job posting individually
-        const jobPostingsWithStages = await Promise.all(
-          jobPostings.map(async (posting) => {
-            const stages = await getStagesForJobPosting(posting.id);
-            return { ...posting, stages };
-          })
-        );
-        setStages(jobPostingsWithStages);
-      } catch (error) {
-        console.error("Error fetching stages:", error);
-      }
-    };
-    fetchStages();
-  }, []);
-
   console.log(stages);
 
-  const handleAddStageClick = (jobPostingId) => {
-    console.log("Opening modal for job posting ID:", jobPostingId);
-    setSelectedJobPostingId(jobPostingId);
-    onOpen();
-  };
-  
-  
-  
-  
-
-  // ... (useEffect and other code)
-
-  const handleMoveToNextStage = (applicationId, currentStage) => {
-    const currentStageIndex = stages.indexOf(currentStage);
-    if (currentStageIndex < stages.length - 1) {
-      const nextStage = stages[currentStageIndex + 1];
-      // Update the stage of the application in the database or application state
-      // For example, call a function to update the stage for the application
-      // updateApplicationStage(applicationId, nextStage);
-    }
-  };
-
   return (
-    <VStack spacing={4} p={4}>
+    <VStack textAlign={"left"} spacing={4} py={4} className="setPX" px={6}>
       {/* BOX */}
-      <Text
-          fontSize={"2rem"}
-          pb={".5rem"}
-          mb={"1rem"}
-          borderBottom={"1px solid gray"}
-        >
-          Job-Posting List
+      <Box
+        className="changeDir gap "
+        mb={"1rem"}
+        display={"flex"}
+        w={"100%"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        <Text fontWeight={"bold"} fontSize={"1.2rem"}>
+          Recruitment
         </Text>
+
+        <Box display={"flex"} gap={"2"} alignItems={"center"}>
+          <Input type="text" placeholder="search" borderRadius={"0"} />
+
+          <Button
+            // width={'100%'}
+            className="btn"
+            borderRadius={0}
+            fontSize={"14px"}
+            border={"none"}
+            outline={"none"}
+            colorScheme="red"
+            minWidth={"max-content"}
+            onClick={() => handleNewApplicationClick()}
+          >
+            + Recriutment
+          </Button>
+        </Box>
+      </Box>
       {/* ... (other JSX code) */}
-      {jobPostings?.map((posting) => (
-        <Box key={posting.id} p={4} border={"md"} borderWidth="1px">
-          {/* ... (other job posting details) */}
-
-
-          <Box display={"flex"} gap={"10px"}>
-              <Text fontWeight="bold">{posting.title}</Text>
-              <Text fontWeight="">
-                {new Date(posting?.postingDate).toLocaleDateString()}
-              </Text>
-            </Box>
-            {/* Other job posting details */}
-            <Divider my={2} />
-            {/* Displaying additional details */}
+      <Box
+        className="overflow w-100vw"
+        w={"100%"}
+        maxWidth={"100%"}
+        border={".2px solid lightgray"}
+      >
+        <Box className="w-50" spacing={4}>
+          <Box display={"flex"} shadow={"sm"} minWidth={"100%"} mb={3}>
+            {/* ********************************************************************* */}
+            {/* ********************************************************************* */}
+            {/* ********************************************************************* */}
+            {jobPostings?.map((job) => {
+              return (
+                <Box key={job.id} width={"100%"}>
+                  <Box
+                    onClick={() => {
+                      setJobId(job.id);
+                      setjobName(job?.title);
+                      fetchJonpostingStages(job.id);
+                    }}
+                    cursor={"pointer"}
+                    display={"flex"}
+                    width={"100%"}
+                    flex={1}
+                    px={"5%"}
+                    boxShadow={"sm"}
+                    py={1}
+                    _hover={{ bg: "rgb(250, 247, 247)" }}
+                    bg={"white"}
+                    borderRight={"1px solid lightgray"}
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                  >
+                    <Text fontWeight={"600"}>{job?.title}</Text>
+                    {new Date(job?.postingDate).toLocaleDateString()}
+                    <Text
+                      fontSize={"10px"}
+                      borderRadius={"100px"}
+                      width={"17px"}
+                      height={"17px"}
+                      display={"flex"}
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      textAlign="center"
+                      color={"white"}
+                      bg={"red"}
+                    >
+                      {
+                        allCandidates?.filter(
+                          (candidate) => candidate.country === job.title
+                        ).length
+                      }
+                    </Text>
+                  </Box>
+                </Box>
+              );
+            })}
+          </Box>
+          <Box width={"100%"} px={4}>
             <Button
               marginBottom={"1rem"}
-              colorScheme="blue"
-              onClick={() => handleAddStageClick(posting.id)}
+              colorScheme="red"
+              borderRadius={"0"}
+              onClick={() => handleAddStageClick(jobid)}
             >
               + Add Stage
             </Button>
+            {/* STAGE //****************************************/}
 
-          
-          {allCandidates?.map((candidate) =>
-            candidate.jobPostingId === posting.id ? (
-              <Box key={candidate.id}>
-                <Text>Candidates who have applied to this job</Text>
+            {stages ? (
+              stages?.map((stage) => {
+                return (
+                  <Box
+                    key={Math.random()}
+                    width={"100%"}
+                    mb={3}
+                    border={"1px solid lightgray"}
+                    justifyContent={"space-between"}
+                  >
+                    {/* ****    STAGE HEADING    */}
+                    <Box
+                      display={"flex"}
+                      borderBottom={"1px solid lightgray"}
+                      py={1}
+                      justifyContent={"space-between"}
+                      px={4}
+                      w={"100%"}
+                    >
+                      <Box display={"flex"} alignItems={"center"} gap={2}>
+                        <Text
+                          fontSize={"10px"}
+                          borderRadius={"100px"}
+                          width={"17px"}
+                          height={"17px"}
+                          display={"flex"}
+                          justifyContent={"center"}
+                          alignItems={"center"}
+                          textAlign="center"
+                          color={"white"}
+                          bg={"red"}
+                        >
+                          3
+                        </Text>{" "}
+                        <Text fontSize={"1rem"} fontWeight={"bold"}>
+                          {stage.name}
+                        </Text>
+                      </Box>
+                      <Box display={"flex"} gap={2} alignItems={"center"}>
+                        <Button
+                          bg={"transparent"}
+                          color={"red"}
+                          fontSize={"22px"}
+                          outline={"none"}
+                          border={"1px solid red"}
+                        >
+                          +
+                        </Button>
+                        <BsThreeDotsVertical
+                          cursor={"pointer"}
+                          bg="blue"
+                          width={"10px"}
+                          height={"10px"}
+                        />
+                      </Box>
+                    </Box>
+                    {/* ****    STAGE BODY    */}
+                    <Box>
+                      <Table variant="striped" colorScheme="teal">
+                        <Thead>
+                          <Tr>
+                            <Th>candidate</Th>
+                            <Th>Email</Th>
+                            <Th>Job position</Th>
+                            <Th>Contact</Th>
+                            <Th>stage</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          {allCandidates?.map((candidate) =>
+                            candidate.country === jobName ? (
+                              <Tr key={candidate.id}>
+                                <Td>{candidate.applicantName}</Td>
+                                <Td>{candidate.applicantEmail}</Td>
+                                <Td>{candidate.country}</Td>
+                                <Td>{candidate.mobileNumber}</Td>
+                                <Td>
+                                  <Select
+                                    onChange={(e) => { updateApplicationStage(candidate.id,e.target.value)
+                                      console.log(e.target.value)}}
+                                  >
+                                    {stages?.map((stage) => {
+                                      return (
+                                        <option
+                                          key={Math.random()}
+                                          value={stage.name}
+                                        >
+                                          {stage.name}
+                                        </option>
+                                      );
+                                    })}
+                                  </Select>
+                                </Td>
+                                <Td>
+                                  <MdOutlineMailOutline
+                                    onClick={() =>
+                                      handleSendMailClick(
+                                        candidate.applicantEmail
+                                      )
+                                    }
+                                    cursor={"pointer"}
+                                  />
+                                </Td>
+                              </Tr>
+                            ) : (
+                              ""
+                            )
+                          )}
+                        </Tbody>
+                      </Table>
+                    </Box>
+                  </Box>
+                );
+              })
+            ) : (
+              <Box>
                 <Table variant="striped" colorScheme="teal">
-                  {/* ... (Table headers) */}
-                  <Tbody>
-                    <Tr key={candidate.id}>
-                      <Td>{candidate.applicantName}</Td>
-                      <Td>{candidate.applicantEmail}</Td>
-                      <Td>{candidate.mobileNumber}</Td>
-                      <Td>
-                        {stages?.map((stage) => (
-                          <Button
-                            key={stage}
-                            onClick={() =>
-                              handleMoveToNextStage(candidate.id, stage)
-                            }
-                          >
-                            {stage}
-                          </Button>
-                        ))}
-                      </Td>
+                  <Thead>
+                    <Tr>
+                      <Th>candidate</Th>
+                      <Th>Email</Th>
+                      <Th>Job position</Th>
+                      <Th>Contact</Th>
+                      <Th>stage</Th>
                     </Tr>
+                  </Thead>
+                  <Tbody>
+                    {allCandidates?.map((candidate) =>
+                      candidate.country === jobName ? (
+                        <Tr key={Math.random()}>
+                          <Td>{candidate.applicantName} </Td>
+                          <Td>{candidate.applicantEmail}</Td>
+                          <Td>{candidate.country}</Td>
+                          <Td>{candidate.mobileNumber}</Td>
+                          <Td>
+                            <Select
+                            // onChange={ChangeStage()}
+                            >
+                              {stages &&
+                                stages?.map((stage) => {
+                                  return (
+                                    <option
+                                      key={Math.random()}
+                                      value={stage.name}
+                                    >
+                                      {stage.name}
+                                    </option>
+                                  );
+                                })}
+                            </Select>
+                          </Td>
+                          <Td>
+                            <MdOutlineMailOutline
+                              onClick={() =>
+                                handleSendMailClick(candidate.applicantEmail)
+                              }
+                              cursor={"pointer"}
+                            />
+                          </Td>
+                        </Tr>
+                      ) : (
+                        ""
+                      )
+                    )}
                   </Tbody>
                 </Table>
               </Box>
-            ) : null
-          )}
+            )}
+          </Box>
         </Box>
-      ))}
-      <Modal isOpen={isOpen} onClose={onClose}>
-       <ModalOverlay />
-       <ModalContent>
-         <ModalHeader>Add Stage</ModalHeader>
-         <ModalCloseButton />
-         <ModalBody>
-           <StageForm
-             jobPostingId={selectedJobPostingId}
-             onStageAdded={onClose}
-           />
-         </ModalBody>
-       </ModalContent>
-     </Modal>
+      </Box>
+      <Modal isOpen={isOpen1} onClose={onClose1}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Add Stage</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <StageForm
+              jobPostingId={selectedJobPostingId}
+              onStageAdded={onClose1}
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
+      <Modal isOpen={isOpen2} onClose={onClose2}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Send Message</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <SendEmail EMailId={selectedEMail} onStageAdded={onClose2} />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      <Modal isOpen={isOpen3} onClose={onClose3}>
+        <ModalOverlay />
+        <ModalContent>
+          {/* <ModalHeader>New-Job Post</ModalHeader> */}
+          <ModalCloseButton />
+          <ModalBody>
+            <ApplicationForm onStageAdded={onClose3} />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </VStack>
   );
 };
 export default JobPostingsList;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState, useEffect } from "react";
-// // ... other imports
-
-// const JobPostingsList = () => {
-//   // ... other state variables
-//   const [stages, setStages] = useState({}); // Store stages for each posting
-
-//   useEffect(() => {
-//     // ... other fetch calls
-
-//     const fetchStagesForAllPostings = async () => {
-//       try {
-//         const allPostings = await getAllJobPostings();
-//         const allStages = await Promise.all(
-//           allPostings.map((posting) => getStagesForJobPosting(posting.id))
-//         );
-//         setStages(allStages.reduce((acc, stages, index) => {
-//           acc[allPostings[index].id] = stages;
-//           return acc;
-//         }, {}));
-//       } catch (error) {
-//         console.error("Error fetching stages:", error);
-//       }
-//     };
-//     fetchStagesForAllPostings();
-//   }, []);
-
-//   // ... other functions
-
-//   return (
-//     // ... other JSX
-
-//     {jobPostings.map((posting) => (
-//       // ... other JSX
-
-//       {stages[posting.id] && (
-//         <Box>
-//           {stages[posting.id].map((stage) => (
-//             // ... JSX to render each stage
-//             <Text/>
-//             ))}
-//             </Box>
-//       )}
-
-//       // ... other JSX
-//     ))}
-
-//   );
-// };
-
-// export default JobPostingsList;

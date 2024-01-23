@@ -29,9 +29,9 @@ const App = () => {
   return (
     <ChakraProvider>
       <Router>
-        <Flex>
+        <Flex width={'100%'} overflow={'hidden'}>
           <SideBar />
-          <Flex flexDirection="column" width="calc(100vw - 250px)"> {/* Adjust the width */}
+          <Flex className='setWidth' flexDirection="column" width="calc(100vw - 217px)"> {/* Adjust the width */}
             <NavBar />
             <Routes>
               <Route exact path="/" element={<Home />} />

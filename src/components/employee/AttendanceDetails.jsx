@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import {
   Box,
   VStack,
@@ -20,14 +20,19 @@ import {
   Input,
   Select,
 } from '@chakra-ui/react';
+import NoteContext from "../../Context/NoteContext";
+
 // Import necessary services for fetching and updating attendance data
 
 const AttendanceDetails = () => {
   const [attendanceData, setAttendanceData] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [editEmployeeId, setEditEmployeeId] = useState(null);
+  const abc = useContext(NoteContext);
 
   useEffect(() => {
+    abc.setName('ATTENDANCE')
+
     const fetchAttendance = async () => {
       try {
         const data = await fetchAttendanceData(); // Call your data fetching service
@@ -58,7 +63,7 @@ const AttendanceDetails = () => {
   return (
     <Box>
         <Flex w={'100%'} justifyContent={'space-between'}  mb={'1rem'} p={2} borderBottom={'1px solid gray'} alignItems={'center'}>
-      <Text fontSize="2rem" fontWeight="bold">Attendance List</Text>
+      <Text fontSize="2rem">Attendance List</Text>
       <Button
               marginBottom={"1rem"}
               colorScheme="blue"

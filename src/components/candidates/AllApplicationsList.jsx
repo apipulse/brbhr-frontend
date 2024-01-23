@@ -1,41 +1,4 @@
-// import React, { useState, useEffect } from 'react';
-// import { Box, VStack, Text, Divider } from '@chakra-ui/react';
-// import { getAllCandidateApplications } from '../../services/CandidateService';
-
-// const AllApplicationsList = () => {
-//     const [applications, setApplications] = useState([]);
-
-// useEffect(() => {
-//     const fetchApplications = async () => {
-//         try {
-//             const data = await getAllCandidateApplications();
-//             setApplications(data);
-//         } catch (error) {
-//             console.error('Error fetching applications:', error);
-//         }
-//     };
-
-//     fetchApplications();
-// }, []);
-
-//     return (
-//         <VStack spacing={4} p={4}>
-//             {applications.map(application => (
-//                 <Box key={application.id} p={4} shadow="md" borderWidth="1px">
-//                     <Text fontWeight="bold">{application.applicantName}</Text>
-//                     <Text>Email: {application.applicantEmail}</Text>
-//                     {/* Display other relevant application details */}
-//                     <Divider my={2} />
-//                     {/* You can add more details or action buttons */}
-//                 </Box>
-//             ))}
-//         </VStack>
-//     );
-// };
-
-// export default AllApplicationsList;
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { getAllCandidateApplications } from "../../services/CandidateService";
 import {
   Box,
@@ -48,11 +11,16 @@ import {
   VStack,
   Text,
 } from "@chakra-ui/react";
+import NoteContext from "../../Context/NoteContext";
 
+import { MdOutlineMailOutline } from "react-icons/md";
 const AllApplicationsList = () => {
   const [allCandidates, setAllCandidates] = useState([]);
+  const abc = useContext(NoteContext);
 
   useEffect(() => {
+    abc.setName('RECRUITMENT')
+
     const fetchApplications = async () => {
       try {
         const data = await getAllCandidateApplications();
@@ -66,10 +34,13 @@ const AllApplicationsList = () => {
   }, []);
 
   return (
-    <VStack spacing={4}>
-      <Text fontSize={"2rem"} textAlign={"left"}>
+    <VStack spacing={4} >
+      <Text fontSize={"2rem"} w={'100%'} mx={'10px'} textAlign='center' borderBottom={'1px solid gray'}>
         All Applications
       </Text>
+      <Box width={'100%'} overflowX={'scroll'}>
+
+     
       <Table variant="striped" colorScheme="teal">
         <Thead>
           <Tr>
@@ -94,10 +65,14 @@ const AllApplicationsList = () => {
                   : "Not Entered"}
               </Td>
               <Td>{candidate.country}</Td>
+              <Td>
+              <MdOutlineMailOutline />
+              </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
+      </Box>
     </VStack>
   );
 };

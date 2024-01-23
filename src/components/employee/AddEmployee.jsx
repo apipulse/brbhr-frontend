@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Box,
   FormControl,
@@ -9,9 +9,14 @@ import {
   Flex,
   useMediaQuery,
 } from "@chakra-ui/react";
+import NoteContext from "../../Context/NoteContext";
+
 import { createEmployee } from "../../services/EmployeeService";
 
 const AddEmployee = () => {
+  const abc = useContext(NoteContext);
+  abc.setName("EMPLOYEE");
+
   const [employee, setEmployee] = useState({
     name: "",
     emailId: "",
@@ -43,13 +48,7 @@ const AddEmployee = () => {
       justify="center"
       minHeight={isLargerThan768 ? "100vh" : "auto"}
     >
-      <Text
-        fontSize="2rem"
-        mx={"1rem"}
-        mb={"1rem"}
-        borderBottom={"1px solid gray"}
-        fontWeight="bold"
-      >
+      <Text fontSize="2rem" mx={"1rem"} mb={"1rem"}>
         Add Employee
       </Text>
       <Box p={4} width={isLargerThan768 ? "50%" : "90%"}>

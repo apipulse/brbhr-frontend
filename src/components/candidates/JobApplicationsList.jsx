@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { getCandidateApplications } from "../../services/CandidateService";
 import { Box, VStack, Text } from "@chakra-ui/react";
+import NoteContext from "../../Context/NoteContext";
 
 const JobApplicationsList = ({ applicantEmail }) => {
   const [applications, setApplications] = useState([]);
+  const abc = useContext(NoteContext);
 
   useEffect(() => {
+    abc.setName('RECRUITMENT')
+
     const fetchApplications = async () => {
       try {
         const data = await getCandidateApplications(applicantEmail);

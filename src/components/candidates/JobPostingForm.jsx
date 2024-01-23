@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Box,
   FormControl,
@@ -7,11 +7,16 @@ import {
   Button,
   Textarea,
   NumberInput,
+  Text,
   NumberInputField,
 } from "@chakra-ui/react";
 import { postJob } from "../../services/CandidateService";
+import NoteContext from "../../Context/NoteContext";
 
 const JobPostingForm = () => {
+  const abc = useContext(NoteContext);
+  abc.setName("RECRUITMENT");
+
   const [jobPosting, setJobPosting] = useState({
     title: "",
     description: "",
@@ -22,7 +27,7 @@ const JobPostingForm = () => {
     vacancy: 1,
     requiredSkills: "",
     experienceRequired: 1,
-    stages: ["initial"],
+    stages: [],
   });
 
   const handleChange = (e) => {
@@ -39,7 +44,7 @@ const JobPostingForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        console.log("Job Posting Data:", jobPosting);
+      console.log("Job Posting Data:", jobPosting);
       const response = await postJob(jobPosting);
       console.log("Job Posted:", response);
       setJobPosting({
@@ -62,9 +67,12 @@ const JobPostingForm = () => {
 
   return (
     <Box p={4}>
+      <Text fontSize={"1.7rem"} textAlign={"left"} fontWeight={"bold"} mb={2}>
+        Post A New Job
+      </Text>
       <form onSubmit={handleSubmit}>
         <FormControl id="title" isRequired mt={4}>
-          <FormLabel>title</FormLabel>
+          <FormLabel>Title</FormLabel>
           <Input name="title" type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="postingDate" isRequired mt={4}>
@@ -76,7 +84,7 @@ const JobPostingForm = () => {
           <Input name="closingDate" type="date" onChange={handleChange} />
         </FormControl>
         <FormControl id="description" isRequired mt={4}>
-          <FormLabel>description</FormLabel>
+          <FormLabel>Description</FormLabel>
           <Input name="description" type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="jobPosition" isRequired mt={4}>
@@ -104,7 +112,7 @@ const JobPostingForm = () => {
               name="experienceRequired"
               onChange={handleChange}
             />
-          </NumberInput> 
+          </NumberInput>
         </FormControl>
         <Button mt={4} colorScheme="blue" type="submit">
           Post Job

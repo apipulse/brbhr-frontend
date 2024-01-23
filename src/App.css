@@ -1,8 +1,14 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -39,4 +45,82 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.grid {
+  display: grid;
+  /* border: 2px solid blue; */
+  grid-template-columns: 15rem 15rem 15rem 1fr;
+  grid-template-rows: 10rem 10rem 10rem 10rem 10rem;
+}
+
+.box5 {
+  grid-column: 1/2;
+  grid-row: 2/4;
+  /* border: 2px solid black; */
+  background: white;
+}
+
+.box6 {
+  grid-column: 2/4;
+  grid-row: 2/4;
+  /* border: 2px solid black; */
+}
+.box7 {
+  grid-column: 1/3;
+  grid-row: 4/6;
+  /* border: 2px solid black; */
+}
+.box8 {
+  grid-column: 3/4;
+  grid-row: 4/6;
+  /* border: 2px solid black; */
+}
+
+@media screen and (max-width: 900px) {
+  .None {
+    display: none;
+  }
+
+  .setWidth {
+    min-width: 98.166vw !important;
+  }
+  .w-100vw {
+    width: 100%;
+  }
+
+  .w-50 {
+    width: 60rem;
+  }
+
+  .setPX {
+    padding-left: 10px !important;
+    padding-right: 1px !important;
+  }
+  .overflow {
+    overflow-x: scroll;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .bigTxt {
+    font-size: 1.5rem !important;
+  }
+
+  .btn {
+    padding: 0 5px !important;
+    font-size: 13px !important;
+  }
+
+  .changeDir {
+    flex-direction: column !important;
+  }
+
+  .gap {
+    gap: 1rem !important;
+  }
+
+  /* .overflow{
+    overflow-x: scroll !important;
+  } */
 }

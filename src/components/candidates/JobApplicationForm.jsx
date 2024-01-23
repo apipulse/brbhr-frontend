@@ -5,7 +5,7 @@ import {
   FormLabel,
   Input,
   Button,
-  Select,
+  Select,Text,
   Textarea,
   IconButton,
 } from "@chakra-ui/react";
@@ -28,7 +28,6 @@ const JobApplicationForm = () => {
     countryCode: "",
     visaStatu: "",
     country: "",
-    applicantName: "",
     // Add other fields as necessary
   });
   console.log(application);
@@ -59,7 +58,7 @@ const JobApplicationForm = () => {
       setApplication({
         applicantName: "",
         applicantEmail: "",
-        resume: "", 
+        resume: "",
         coverLetter: "",
         address: "",
         pincode: "",
@@ -83,65 +82,48 @@ const JobApplicationForm = () => {
       <form onSubmit={handleSubmit}>
         {/* Existing Form Fields */}
         {/* New Fields: */}
-        <FormControl
+        {/* <Box display={'flex'} alignItems={'center'} justifyContent={'center'} className="changeDir" gap={3}> */}
+
+        {/* <FormControl 
           borderRadius={"1000px"}
           display={"flex"}
           alignItems={"center"}
-          border={"1px"}
-          width={"10rem"}
-          height={"10rem"}
+          border={"1px solid gray"}
+          minWidth={"8rem"}
+          maxWidth={'8rem'}
+          height={"8rem"}
         >
-            <FormLabel>
-            <IconButton
-              as="label"
-              htmlFor="fileInput"
-              aria-label="Upload file"
-              icon={<FiUpload />}
-            />
+            <FormLabel overflow={'hidden'} width={'100%'} m={0} height={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}  > 
+            <FiUpload fontSize={'3rem'} /> <Text fontSize='13px'>Applicant Photo</Text>
           </FormLabel>
           <Input
             borderRadius={"100px"}
             border={"none"}
             display={"none"}
-            width={"100%"}
-            height={"100%"}
             name="applicantPicture"
             type="file"
             onChange={handleChange}
             />
-        </FormControl>
+        </FormControl> */}
         <FormControl id="applicantName" isRequired mt={4}>
           <FormLabel>Applicant Name</FormLabel>
           <Input name="applicantName" type="text" onChange={handleChange} />
         </FormControl>
+        {/* </Box> */}
         <FormControl id="applicantEmail" isRequired mt={4}>
           <FormLabel>Applicant Email</FormLabel>
           <Input name="applicantEmail" type="email" onChange={handleChange} />
         </FormControl>
         <FormControl isRequired id="resume" mt={4}>
           <FormLabel>Resume</FormLabel>
-          <Input name="resume" type="text" onChange={handleChange} />
+          <Textarea name="resume" type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="coverLetter" mt={4}>
           <FormLabel>Cover Letter</FormLabel>
           <Textarea name="coverLetter" onChange={handleChange} />
         </FormControl>
-        <FormControl id="address" mt={4}>
-          <FormLabel>Address</FormLabel>
-          <Input name="address" type="text" onChange={handleChange} />
-        </FormControl>
-        {/* Continue adding FormControl components for each field */}
-        <FormControl id="pincode" mt={4}>
-          <FormLabel>Pincode</FormLabel>
-          <Input name="pincode" type="text" onChange={handleChange} />
-        </FormControl>
-        <FormControl id="nationality" mt={4}>
-          <FormLabel>nationality</FormLabel>
-          <Input name="nationality" type="text" onChange={handleChange} />
-        </FormControl>
-
         <FormControl isRequired id="jobName" mt={4}>
-          <FormLabel>Category</FormLabel>
+          <FormLabel>Applying for</FormLabel>
           <Select name="country" onChange={handleChange} value={application.country}>
             {jobPostings.map((job) => {
               return (
@@ -152,8 +134,23 @@ const JobApplicationForm = () => {
             })}
           </Select>
         </FormControl>
+        <FormControl id="address" mt={4}>
+          <FormLabel>Address</FormLabel>
+          <Textarea name="address" type="text" onChange={handleChange} />
+        </FormControl>
+        {/* Continue adding FormControl components for each field */}
+        <FormControl id="pincode" mt={4}>
+          <FormLabel>Zip Code</FormLabel>
+          <Input name="pincode" type="text" onChange={handleChange} />
+        </FormControl>
+        <FormControl id="nationality" mt={4}>
+          <FormLabel>Nationality</FormLabel>
+          <Input name="nationality" type="text" onChange={handleChange} />
+        </FormControl>
+
+        
         <FormControl id="mobileNumber" mt={4}>
-          <FormLabel>mobileNumber</FormLabel>
+          <FormLabel>Phone Number</FormLabel>
           <Input name="mobileNumber" type="number" onChange={handleChange} />
         </FormControl>
         {/* <FormControl id="countryCode" mt={4}>
