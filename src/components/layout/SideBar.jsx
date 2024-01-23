@@ -107,7 +107,6 @@ const Sidebar = () => {
           {/* Additional Employee-related links */}
         </SidebarLinkGroup>
 
-        {/* Attendance */}
         <SidebarLinkGroup title="Attendance">
           <Link
             as={RouterLink}
