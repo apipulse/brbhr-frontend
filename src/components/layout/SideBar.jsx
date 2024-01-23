@@ -83,11 +83,11 @@ const Sidebar = () => {
         color={"white"}
         fontSize={"2rem"}
         textAlign={"center"}
-        w={'100%'}
+        w={"100%"}
         pb={".5rem"}
       >
-        <Link to='/'  _hover={{ color: "lightgray" }}>
-        HRMS
+        <Link to="/" _hover={{ color: "lightgray" }}>
+          HRMS
         </Link>
       </Box>
       <VStack spacing={4} p={"1rem"} align="stretch">
@@ -98,7 +98,7 @@ const Sidebar = () => {
           gap={"2px"}
           pl={"15px"}
           as={RouterLink}
-          to="/" 
+          to="/"
           onClick={() => abc.setName("DASHBOARD")}
           _hover={{ color: "lightgray" }}
         >
@@ -166,7 +166,7 @@ const Sidebar = () => {
           <Link
             as={RouterLink}
             _hover={{ color: "lightgray" }}
-            to="/AttendanceDetails"
+            to="/attendance/records"
           >
             Attendance Records
           </Link>
@@ -176,6 +176,18 @@ const Sidebar = () => {
             to="/AttendanceDetails"
           >
             Attendance Report
+          </Link>
+          <Link as={RouterLink} to="/attendance/validation">
+            Attendance Validation
+          </Link>
+          <Link as={RouterLink} to="/attendance/clock">
+            Check In/Out
+          </Link>
+          <Link as={RouterLink} to="/attendance/date-month">
+            Attendance By Date/Month
+          </Link>
+          <Link as={RouterLink} to="/attendance/add-update">
+            Add/Update Attendance
           </Link>
           {/* Additional Attendance-related links */}
         </SidebarLinkGroup>
