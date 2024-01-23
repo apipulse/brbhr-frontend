@@ -8,6 +8,8 @@ import EmployeeList from './components/employee/EmployeeList';
 import AddEmployee from './components/employee/AddEmployee';
 import LeaveList from './components/employee/LeaveList';
 import LeaveForm from './components/employee/LeaveForm';
+import AttendanceDetails from './components/employee/AttendanceDetails';
+import AddAttendance from './components/employee/AddAttendance';
 import InterviewScheduler from './components/candidates/InterviewScheduler';
 import OfferManagement from './components/candidates/OfferManagement';
 import JobPostingForm from './components/candidates/JobPostingForm';
@@ -27,9 +29,9 @@ const App = () => {
   return (
     <ChakraProvider>
       <Router>
-        <Flex>
+        <Flex width={'100%'} overflow={'hidden'}>
           <SideBar />
-          <Flex flexDirection="column" width="calc(100vw - 250px)"> {/* Adjust the width */}
+          <Flex className='setWidth' flexDirection="column" width="calc(100vw - 217px)"> {/* Adjust the width */}
             <NavBar />
             <Routes>
               <Route exact path="/" element={<Home />} />
@@ -49,6 +51,8 @@ const App = () => {
               <Route path="/attendance/clock" element={<CheckInCheckOut />} />
               <Route path="/attendance/date-month" element={<AttendanceByDateAndMonth />} />
               <Route path="/attendance/add-update" element={<AddUpdateAttendance />} />
+              <Route path="/AttendanceDetails" element={<AttendanceDetails />} />
+              <Route path="/AddAttendance" element={<AddAttendance />} />
               {/* Add more routes as needed */}
             </Routes>
           </Flex>

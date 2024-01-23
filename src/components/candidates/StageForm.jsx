@@ -7,8 +7,8 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
         name: '',
         description: '',
         roundNumber: 1
-    });
-
+    })
+console.log(jobPostingId)
     const handleChange = (e) => {
         setStage({ ...stage, [e.target.name]: e.target.value });
     };
@@ -17,7 +17,7 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
         e.preventDefault();
         try {
             await addStageToJobPosting(jobPostingId, stage);
-            console.log("Stage added to job posting.");
+            console.log("Stage added to job posting.", jobPostingId,stage);
             onStageAdded(); // Callback to refresh the list or update UI
         } catch (error) {
             console.error('Error adding stage:', error);
@@ -29,7 +29,7 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
             <form onSubmit={handleSubmit}>
                 {/* Form fields for stage details */}
                 <FormControl id="name" isRequired>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Stage</FormLabel>
                     <Input name="name" type="text" onChange={handleChange} />
                 </FormControl>
                 <FormControl id="description" mt={4}>

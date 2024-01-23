@@ -8,7 +8,7 @@ export const getLeavesByEmployee = async (employeeId) => {
         throw error;
     }
 };
-
+ 
 export const applyForLeave = async (leaveData) => {
     try {
         const response = await axios.post('/leave', leaveData);

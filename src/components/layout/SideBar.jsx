@@ -1,16 +1,63 @@
-import React, { useState } from 'react';
-import { Box, Link, VStack, Collapse, Button, useDisclosure } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
-
+import React, { useState, useContext } from "react";
+import {
+  Box,
+  Link,
+  VStack,
+  Collapse,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
+import NoteContext from "../../Context/NoteContext";
+import { Link as RouterLink } from "react-router-dom";
+import { BsGridFill } from "react-icons/bs";
+import { MdOutlinePeopleAlt } from "react-icons/md";
+import { BsReceiptCutoff } from "react-icons/bs";
+import { ImCross } from "react-icons/im";
+import { color } from "framer-motion";
 const SidebarLinkGroup = ({ title, children }) => {
+  const abc = useContext(NoteContext);
+
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Box>
-      <Button variant="ghost" onClick={onToggle} width="100%" justifyContent="flex-start">
-        {title}
+      <Button
+        variant="ghost"
+        display={"flex"}
+        gap={2}
+        onClick={onToggle}
+        width="100%"
+        color={"white"}
+        _active={{ bg: "rgb(36, 35, 35)" }}
+        justifyContent="start"
+        _hover={{ bg: "rgb(36, 35, 35)" }}
+        border={"none"}
+        outline={"none"}
+        mb={2}
+      >
+        {title === "Recruitment" && (
+          <>
+            {" "}
+            <BsReceiptCutoff /> {title}
+          </>
+        )}
+        {title === "Employees" && (
+          <>
+            {" "}
+            <MdOutlinePeopleAlt /> {title}
+          </>
+        )}
+        {title === "Leaves" && (
+          <>
+            <ImCross /> {title}
+          </>
+        )}
+
+        {title !== "Leaves" &&
+          title !== "Employees" &&
+          title !== "Recruitment" && <>{title}</>}
       </Button>
       <Collapse in={isOpen} animateOpacity>
-        <VStack spacing={2} align="stretch" pl={4}>
+        <VStack spacing={2} align="stretch" color={"lightgray"} pl={4}>
           {children}
         </VStack>
       </Collapse>
@@ -19,62 +66,197 @@ const SidebarLinkGroup = ({ title, children }) => {
 };
 
 const Sidebar = () => {
+  const abc = useContext(NoteContext);
   return (
-    <Box bg="blue.500" h="100vh" w="250px" color="white" p="4">
-      <VStack spacing={4} align="stretch">
+    <Box
+      className="None"
+      bg="rgb(48, 47, 50)"
+      // position={'fixed'} top={0} left={0}
+      h="100%"
+      minHeight={"100vh"}
+      w="200px"
+      color="white"
+    >
+      <Box
+        // to="/"
+        borderBottom={"1px solid gray"}
+        color={"white"}
+        fontSize={"2rem"}
+        textAlign={"center"}
+        w={"100%"}
+        pb={".5rem"}
+      >
+        <Link to="/" _hover={{ color: "lightgray" }}>
+          HRMS
+        </Link>
+      </Box>
+      <VStack spacing={4} p={"1rem"} align="stretch">
         {/* Dashboard */}
-        <Link as={RouterLink} to="/dashboard">Dashboard</Link>
+        <Link
+          display={"flex"}
+          alignItems={"center"}
+          gap={"2px"}
+          pl={"15px"}
+          as={RouterLink}
+          to="/"
+          onClick={() => abc.setName("DASHBOARD")}
+          _hover={{ color: "lightgray" }}
+        >
+          <BsGridFill /> Dashboard
+        </Link>
 
-        <SidebarLinkGroup title="Recruitment">
-          <Link as={RouterLink} to="/job-posting">Post Job</Link>
-          <Link as={RouterLink} to="/job-posting-list">job-posting-list</Link>
-          <Link as={RouterLink} to="/all-application">Job Applications</Link>
-          <Link as={RouterLink} to="/apply-job">Apply Job</Link>
-          <Link as={RouterLink} to="/schedule-interview">Schedule Interview</Link>
-          <Link as={RouterLink} to="/manage-offers">Manage Offers</Link>
+        <SidebarLinkGroup color="white" title={"Recruitment"} padding="0">
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/job-posting"
+          >
+            Post Job
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/job-posting-list"
+          >
+            job-posting-list
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/all-application"
+          >
+            Job Applications
+          </Link>
+          <Link as={RouterLink} _hover={{ color: "lightgray" }} to="/apply-job">
+            Apply Job
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/schedule-interview"
+          >
+            Schedule Interview
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/manage-offers"
+          >
+            Manage Offers
+          </Link>
           {/* Additional Recruitment-related links */}
         </SidebarLinkGroup>
 
         {/* Employees */}
         <SidebarLinkGroup title="Employees">
-          <Link as={RouterLink} to="/employees/list">Employee List</Link>
-          <Link as={RouterLink} to="/employees/add">Add Employee</Link>
+          <Link as={RouterLink} _hover={{ color: "lightgray" }} to="/employees">
+            Employee List
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/add-employee"
+          >
+            Add Employee
+          </Link>
           {/* Additional Employee-related links */}
         </SidebarLinkGroup>
 
         <SidebarLinkGroup title="Attendance">
-          <Link as={RouterLink} to="/attendance/records">Attendance Records</Link>
-          <Link as={RouterLink} to="/attendance/validation">Attendance Validation</Link>
-          <Link as={RouterLink} to="/attendance/clock">Check In/Out</Link>
-          <Link as={RouterLink} to="/attendance/date-month">Attendance By Date/Month</Link>
-          <Link as={RouterLink} to="/attendance/add-update">Add/Update Attendance</Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/attendance/records"
+          >
+            Attendance Records
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/AttendanceDetails"
+          >
+            Attendance Report
+          </Link>
+          <Link as={RouterLink} to="/attendance/validation">
+            Attendance Validation
+          </Link>
+          <Link as={RouterLink} to="/attendance/clock">
+            Check In/Out
+          </Link>
+          <Link as={RouterLink} to="/attendance/date-month">
+            Attendance By Date/Month
+          </Link>
+          <Link as={RouterLink} to="/attendance/add-update">
+            Add/Update Attendance
+          </Link>
+          {/* Additional Attendance-related links */}
         </SidebarLinkGroup>
 
         {/* Leaves */}
         <SidebarLinkGroup title="Leaves">
-          <Link as={RouterLink} to="/leaves/apply">Apply for Leave</Link>
-          <Link as={RouterLink} to="/leaves/status">Leave Status</Link>
+          <Link as={RouterLink} _hover={{ color: "lightgray" }} to="/leaves">
+            Leave List
+          </Link>
+          <Link as={RouterLink} _hover={{ color: "lightgray" }} to="/add-leave">
+            Apply for Leave
+          </Link>
           {/* Additional Leaves-related links */}
         </SidebarLinkGroup>
 
         {/* Payroll */}
         <SidebarLinkGroup title="Payroll">
-          <Link as={RouterLink} to="/payroll/salary">Salary Details</Link>
-          <Link as={RouterLink} to="/payroll/statements">Payroll Statements</Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/payroll/salary"
+          >
+            Salary Details
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/payroll/statements"
+          >
+            Payroll Statements
+          </Link>
           {/* Additional Payroll-related links */}
         </SidebarLinkGroup>
 
         {/* Assets */}
         <SidebarLinkGroup title="Assets">
-          <Link as={RouterLink} to="/assets/manage">Manage Assets</Link>
-          <Link as={RouterLink} to="/assets/assign">Assign Assets</Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/assets/manage"
+          >
+            Manage Assets
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/assets/assign"
+          >
+            Assign Assets
+          </Link>
           {/* Additional Asset-related links */}
         </SidebarLinkGroup>
 
         {/* Performance (PMS) */}
         <SidebarLinkGroup title="Performance">
-          <Link as={RouterLink} to="/performance/reviews">Performance Reviews</Link>
-          <Link as={RouterLink} to="/performance/goals">Set Goals</Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/performance/reviews"
+          >
+            Performance Reviews
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/performance/goals"
+          >
+            Set Goals
+          </Link>
           {/* Additional Performance-related links */}
         </SidebarLinkGroup>
 
