@@ -21,13 +21,14 @@ const JobApplicationForm = () => {
     resume: "", // Assuming a URL or base64 string
     coverLetter: "",
     address: "",
-    pincode: "",
+    pinCode: "",
     nationality: "",
     category: "",
     mobileNumber: "",
     countryCode: "",
-    visaStatu: "",
+    visaStatus: "",
     country: "",
+    appliedToJobId:""
     // Add other fields as necessary
   });
   console.log(application);
