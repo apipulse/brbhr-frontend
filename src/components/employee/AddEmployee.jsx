@@ -46,30 +46,35 @@ const AddEmployee = () => {
     <Box
       align="center"
       justify="center"
-      minHeight={isLargerThan768 ? "100vh" : "auto"}
+      minHeight={"100vh"}
+      display={"flex"}
+      alignItems={"center"}
+      justifyContent={"center"}
     >
-      <Text fontSize="2rem" mx={"1rem"} mb={"1rem"}>
-        Add Employee
-      </Text>
-      <Box p={4} width={isLargerThan768 ? "50%" : "90%"}>
-        <form onSubmit={handleSubmit} style={{ maxWidth: "1000px" }}>
-          <FormControl id="name" isRequired>
-            <FormLabel>Name</FormLabel>
-            <Input name="name" type="text" onChange={handleChange} />
-          </FormControl>
-          <FormControl id="email" isRequired mt={4}>
-            <FormLabel>Email</FormLabel>
-            <Input name="emailId" type="email" onChange={handleChange} />
-          </FormControl>
-          <FormControl id="position" mt={4}>
-            <FormLabel>Position</FormLabel>
-            <Input name="position" type="text" onChange={handleChange} />
-          </FormControl>
-          {/* Add other form controls as needed */}
-          <Button mt={4} colorScheme="blue" type="submit">
-            Add Employee
-          </Button>
-        </form>
+      <Box w={"100%"}>
+        <Text fontSize="2rem" mx={"1rem"} mb={"1rem"}>
+          Add Employee
+        </Text>
+        <Box p={4} width={isLargerThan768 ? "50%" : "90%"}>
+          <form onSubmit={handleSubmit} style={{ maxWidth: "1000px" }}>
+            <FormControl id="name" isRequired>
+              <FormLabel>Name</FormLabel>
+              <Input name="name" type="text" onChange={handleChange} />
+            </FormControl>
+            <FormControl id="email" isRequired mt={4}>
+              <FormLabel>Email</FormLabel>
+              <Input name="emailId" type="email" onChange={handleChange} />
+            </FormControl>
+            <FormControl id="position" mt={4}>
+              <FormLabel>Position</FormLabel>
+              <Input name="position" type="text" onChange={handleChange} />
+            </FormControl>
+            {/* Add other form controls as needed */}
+            <Button mt={4} borderRadius={0} colorScheme="red" type="submit">
+              Add Employee
+            </Button>
+          </form>
+        </Box>
       </Box>
     </Box>
   );

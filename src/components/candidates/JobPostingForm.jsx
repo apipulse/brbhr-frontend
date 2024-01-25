@@ -114,7 +114,7 @@ const JobPostingForm = () => {
             />
           </NumberInput>
         </FormControl>
-        <Button mt={4} colorScheme="blue" type="submit">
+        <Button mt={4} borderRadius={0} colorScheme="red" type="submit">
           Post Job
         </Button>
       </form>

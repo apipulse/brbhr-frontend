@@ -40,7 +40,7 @@ console.log(jobPostingId)
                     <FormLabel>Round Number</FormLabel>
                     <Input name="roundNumber" type="number" min={1} onChange={handleChange} />
                 </FormControl>
-                <Button mt={4} colorScheme="blue" type="submit">Add Stage</Button>
+                <Button mt={4} colorScheme="red" borderRadius={0} type="submit">Add Stage</Button>
             </form>
         </Box>
     );

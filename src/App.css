@@ -11,6 +11,7 @@
   box-sizing: border-box;
 }
 
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -22,6 +23,10 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.ml {
+  margin-left: 200px;
 }
 
 @keyframes logo-spin {
@@ -50,8 +55,8 @@
 .grid {
   display: grid;
   /* border: 2px solid blue; */
-  grid-template-columns: 15rem 15rem 15rem 1fr;
-  grid-template-rows: 10rem 10rem 10rem 10rem 10rem;
+  grid-template-columns: 17rem 17rem 17rem 1fr;
+  grid-template-rows: 10rem 13rem 10rem 10rem 10rem;
 }
 
 .box5 {
@@ -77,9 +82,32 @@
   /* border: 2px solid black; */
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+.w-50 {
+  min-width: 100%;
+  width: 65rem;
+}
+
+.btnDisable {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 @media screen and (max-width: 900px) {
+  .bgcr {
+    background: transparent !important;
+  }
+
   .None {
     display: none;
+  }
+
+  .ml {
+    margin-left: 0;
   }
 
   .setWidth {
@@ -90,7 +118,7 @@
   }
 
   .w-50 {
-    width: 60rem;
+    width: 65rem;
   }
 
   .setPX {
@@ -99,6 +127,12 @@
   }
   .overflow {
     overflow-x: scroll;
+  }
+
+  .btnDisable {
+    opacity: 1;
+    cursor: pointer;
+    pointer-events: all;
   }
 }
 
@@ -119,6 +153,24 @@
   .gap {
     gap: 1rem !important;
   }
+
+  
+.grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+} 
+
+.changeHeight{
+  padding-bottom: 1rem;
+  height: 14rem !important;
+  /* max-height: 13rem; */
+}
+
+.changeFontSize{
+  font-size: 10px !important;
+}
 
   /* .overflow{
     overflow-x: scroll !important;

@@ -75,11 +75,11 @@ const LeaveForm = () => {
   return (
     <Box p={4}>
       <Text
-        borderBottom={"1px solid gray"}
         mb={"10px"}
-        textAlign={"center"}
+        textAlign={"left"}
         pb={"10px"}
         fontSize={"1.5rem"}
+        fontWeight={600}
       >
         Apply for leave
       </Text>
@@ -139,7 +139,7 @@ const LeaveForm = () => {
           />
         </FormControl>
         {/* Add other form controls as needed */}
-        <Button mt={4} colorScheme="blue" type="submit">
+        <Button mt={4} borderRadius={0} colorScheme="red" type="submit">
           Apply for Leave
         </Button>
       </form>
