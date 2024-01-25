@@ -51,7 +51,7 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [employeeid, setEmployeeId] = useState(null);
   const [listview, setListView] = useState(true);
-  const [search, SetSearch] = useState();
+  const [searchQuery, SetSearchQuery] = useState();
   //   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
   useEffect(() => {
@@ -67,6 +67,11 @@ const EmployeeList = () => {
     };
     fetchEmployees();
   }, []);
+
+  const filteredEmployees = employees?.filter((employee) => {
+    return employee?.name?.toLowerCase()?.includes(searchQuery?.toLowerCase());
+  });
+
   console.log(employeeid);
   const seeEmployee = (id) => {
     try {
@@ -78,7 +83,7 @@ const EmployeeList = () => {
     }
   };
 
-  console.log(search);
+  console.log(searchQuery);
   const deleteAnEmployee = async (id) => {
     console.log(id);
     try {
@@ -100,7 +105,7 @@ const EmployeeList = () => {
 
     onOpen2();
   };
-
+console.log(filteredEmployees)
   console.log(employees);
   return (
     <VStack spacing={4}>
@@ -125,8 +130,8 @@ const EmployeeList = () => {
           alignItems={"center"}
         >
           <Input
-            value={search}
-            onChange={(e) => SetSearch(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => SetSearchQuery(e.target.value)}
             type="text"
             borderRadius="0"
             placeholder="Search"
@@ -169,76 +174,152 @@ const EmployeeList = () => {
         gap={"1rem"}
       >
         {listview ? (
-          employees.map((employee) => (
-            <Box
-              key={employee.emailId}
-              w={"17rem"}
-              display={"flex"}
-              p={2}
-              gap={2}
-              border={"1px solid lightgray"}
-              cursor={"pointer"}
-              onClick={() => {
-                seeEmployeeInfo(employee.id);
-                seeEmployee(employee.id);
-              }}
-            >
-              <Box w={"100%"} display={"flex"} justifyContent={"space-between"}>
-                <Box gap={2} display={"flex"} alignItems={"center"}>
+          searchQuery ? (
+            filteredEmployees?.map((employee) => {
+              return (
+                <Box
+                  key={employee.emailId}
+                  w={"17rem"}
+                  display={"flex"}
+                  p={2}
+                  gap={2}
+                  border={"1px solid lightgray"}
+                  cursor={"pointer"}
+                  onClick={() => {
+                    seeEmployeeInfo(employee.id);
+                    seeEmployee(employee.id);
+                  }}
+                >
                   <Box
-                    bg={"burlywood"}
-                    borderRadius={"100px"}
-                    w={"4rem"}
-                    h={"4rem"}
+                    w={"100%"}
                     display={"flex"}
-                    alignItems={"center"}
+                    justifyContent={"space-between"}
                   >
-                    <Text
-                      w={"100%"}
-                      color={"white"}
-                      fontSize={"2rem"}
-                      textAlign={"center"}
-                    >
-                      {employee.name.slice(0, 2)}
-                    </Text>
+                    <Box gap={2} display={"flex"} alignItems={"center"}>
+                      <Box
+                        bg={"burlywood"}
+                        borderRadius={"100px"}
+                        w={"4rem"}
+                        h={"4rem"}
+                        display={"flex"}
+                        alignItems={"center"}
+                      >
+                        <Text
+                          w={"100%"}
+                          color={"white"}
+                          fontSize={"2rem"}
+                          textAlign={"center"}
+                        >
+                          {employee.name.slice(0, 2)}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Text fontWeight={"bold"}>
+                          {employee.name ? employee.name : "Not Entered"}
+                        </Text>
+                        <Text>{employee.emailId}</Text>
+                        <Text>{employee.position}</Text>
+                      </Box>
+                    </Box>
                   </Box>
-                  <Box>
-                    <Text fontWeight={"bold"}>
-                      {employee.name ? employee.name : "Not Entered"}
-                    </Text>
-                    <Text>{employee.emailId}</Text>
-                    <Text>{employee.position}</Text>
+                  <BsThreeDotsVertical />
+                </Box>
+              );
+            })
+          ) : (
+            employees.map((employee) => (
+              <Box
+                key={employee.emailId}
+                w={"17rem"}
+                display={"flex"}
+                p={2}
+                gap={2}
+                border={"1px solid lightgray"}
+                cursor={"pointer"}
+                onClick={() => {
+                  seeEmployeeInfo(employee.id);
+                  seeEmployee(employee.id);
+                }}
+              >
+                <Box
+                  w={"100%"}
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                >
+                  <Box gap={2} display={"flex"} alignItems={"center"}>
+                    <Box
+                      bg={"burlywood"}
+                      borderRadius={"100px"}
+                      w={"4rem"}
+                      h={"4rem"}
+                      display={"flex"}
+                      alignItems={"center"}
+                    >
+                      <Text
+                        w={"100%"}
+                        color={"white"}
+                        fontSize={"2rem"}
+                        textAlign={"center"}
+                      >
+                        {employee.name.slice(0, 2)}
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Text fontWeight={"bold"}>
+                        {employee.name ? employee.name : "Not Entered"}
+                      </Text>
+                      <Text>{employee.emailId}</Text>
+                      <Text>{employee.position}</Text>
+                    </Box>
                   </Box>
                 </Box>
+                <BsThreeDotsVertical />
               </Box>
-              <BsThreeDotsVertical />
-            </Box>
-          ))
+            ))
+          )
         ) : (
-          <Table variant="striped" colorScheme="teal">
+          <Table variant="simple" colorScheme="red">
             <Thead>
               <Tr>
                 <Th>Employe Name</Th>
                 <Th>Email</Th>
                 <Th>Postion</Th>
+                <Th>ACtions</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {employees.map((employee) => (
-                <Tr key={employee.id}>
-                  <Td>{employee.name ? employee.name : "Not Entered"}</Td>
-                  <Td>{employee.emailId}</Td>
-                  <Td>{employee.position}</Td>
-                  <Td display={"flex"} minHeight={"100%"} gap={"10px"}>
-                    <MdDelete
-                      onClick={() => deleteAnEmployee(employee.id)}
-                      cursor={"pointer"}
-                      fontSize={"1.4rem"}
-                    />
-                    <FaEdit cursor={"pointer"} fontSize={"1.3rem"} />{" "}
-                  </Td>
-                </Tr>
-              ))}
+              {!searchQuery
+                ? employees.map((employee) => (
+                    <Tr key={employee.id}>
+                      <Td>{employee.name ? employee.name : "Not Entered"}</Td>
+                      <Td>{employee.emailId}</Td>
+                      <Td>{employee.position}</Td>
+                      <Td display={"flex"} minHeight={"100%"} gap={"10px"}>
+                        <MdDelete
+                          onClick={() => deleteAnEmployee(employee.id)}
+                          cursor={"pointer"}
+                          fontSize={"1.4rem"}
+                        />
+                        <FaEdit cursor={"pointer"} fontSize={"1.3rem"} />{" "}
+                      </Td>
+                    </Tr>
+                  ))
+                  
+                : filteredEmployees?.map((employee) => {
+                   return <Tr key={employee.id}>
+                      <Td>{employee.name ? employee.name : "Not Entered"}</Td>
+                      <Td>{employee.emailId}</Td>
+                      <Td>{employee.position}</Td>
+                      <Td display={"flex"} minHeight={"100%"} gap={"10px"}>
+                        <MdDelete
+                          onClick={() => deleteAnEmployee(employee.id)}
+                          cursor={"pointer"}
+                          fontSize={"1.4rem"}
+                        />
+                        <FaEdit cursor={"pointer"} fontSize={"1.3rem"} />{" "}
+                      </Td>
+                    </Tr>;
+                  })}
             </Tbody>
           </Table>
         )}

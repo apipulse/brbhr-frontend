@@ -3,7 +3,7 @@ import {
   Box,
   FormControl,
   FormLabel,
-  Input,
+  Input,useToast,
   Button,
   Select,Text,
   Textarea,
@@ -12,9 +12,11 @@ import {
 import { FiUpload } from "react-icons/fi";
 import { applyForJob } from "../../services/CandidateService";
 import { getAllJobPostings } from "../../services/CandidateService";
-
-const JobApplicationForm = () => {
+const JobApplicationForm = (jobid) => {
+  const toast = useToast()
+  console.log(jobid.jobid)
   // Category == country
+  const [id, setId] = useState(jobid);
   const [application, setApplication] = useState({
     applicantName: "",
     applicantEmail: "",
@@ -28,13 +30,16 @@ const JobApplicationForm = () => {
     countryCode: "",
     visaStatus: "",
     country: "",
-    appliedToJobId:""
+    appliedToJobId:jobid?jobid.jobid:''
     // Add other fields as necessary
   });
   console.log(application);
   const [selectedValue, setSelectedValue] = useState(application.country);
-  console.log(selectedValue)
   const [jobPostings, setJobPostings] = useState([]);
+ 
+  const jobPostingWithId = jobPostings.find(posting => posting.name === application.country)?.id;
+  console.log(jobPostings)
+  console.log(jobPostingWithId)
   useEffect(() => {
     const fetchJobPostings = async () => {
       try {
@@ -56,6 +61,7 @@ const JobApplicationForm = () => {
     try {
       const response = await applyForJob(application);
       console.log("Application Submitted:", response);
+      toast({ title: "Email has been sent successfully!", status: "success" });
       setApplication({
         applicantName: "",
         applicantEmail: "",
@@ -78,34 +84,11 @@ const JobApplicationForm = () => {
     }
   };
 
+// COUNTRY ========================================= CATEGORY
+
   return (
     <Box p={4}>
       <form onSubmit={handleSubmit}>
-        {/* Existing Form Fields */}
-        {/* New Fields: */}
-        {/* <Box display={'flex'} alignItems={'center'} justifyContent={'center'} className="changeDir" gap={3}> */}
-
-        {/* <FormControl 
-          borderRadius={"1000px"}
-          display={"flex"}
-          alignItems={"center"}
-          border={"1px solid gray"}
-          minWidth={"8rem"}
-          maxWidth={'8rem'}
-          height={"8rem"}
-        >
-            <FormLabel overflow={'hidden'} width={'100%'} m={0} height={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}  > 
-            <FiUpload fontSize={'3rem'} /> <Text fontSize='13px'>Applicant Photo</Text>
-          </FormLabel>
-          <Input
-            borderRadius={"100px"}
-            border={"none"}
-            display={"none"}
-            name="applicantPicture"
-            type="file"
-            onChange={handleChange}
-            />
-        </FormControl> */}
         <FormControl id="applicantName" isRequired mt={4}>
           <FormLabel>Applicant Name</FormLabel>
           <Input name="applicantName" type="text" onChange={handleChange} />
@@ -154,20 +137,7 @@ const JobApplicationForm = () => {
           <FormLabel>Phone Number</FormLabel>
           <Input name="mobileNumber" type="number" onChange={handleChange} />
         </FormControl>
-        {/* <FormControl id="countryCode" mt={4}>
-          <FormLabel>countryCode</FormLabel>
-          <Input name="countryCode" type="text" onChange={handleChange} />
-        </FormControl>
-        <FormControl id="visaStatus" mt={4}>
-          <FormLabel>visaStatus</FormLabel>
-          <Input name="visaStatus" type="text" onChange={handleChange} />
-        </FormControl> */}
-        {/* <FormControl id="country" mt={4}>
-          <FormLabel>country</FormLabel>
-          <Input name="country" type="text" onChange={handleChange} />
-        </FormControl> */}
-
-        <Button mt={4} colorScheme="blue" type="submit">
+        <Button mt={4} borderRadius={0} colorScheme="red" type="submit">
           Submit Application
         </Button>
       </form>

@@ -5,7 +5,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Textarea,
+  Textarea,useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import emailjs from "emailjs-com";
@@ -23,14 +23,15 @@ const ContactForm = ({ EMailId }) => {
       message: "",
     },
   });
-
+  const toast = useToast();
   console.log(EMailId);
   const [data, setData] = useState({
     Name: "",
-    Email: "alihusnain9@yahoo.com",
+    Email: EMailId,
     Message: "",
     Subject: "",
   });
+
   const [isLoading, setIsLoading] = useState(false);
   const [Email, setEmail] = useState("alihusnain9@yahoo.com");
   const [successMessage, setSuccessMessage] = useState("");
@@ -40,33 +41,9 @@ const ContactForm = ({ EMailId }) => {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  //   // const { email, firstName, lastName } = candidate;
-  //   const templateId = "template_t9mj75j";
-  //   const serviceId = "service_efkueod";
-
-  //   // const message = `Dear ${firstName} ${lastName},
-
-  //   // ... Add your personalized email content ...
-
-  //   // Best regards,
-
-  //   // The [Your Company Name] Team`;
-
-  //   try {
-  //     await emailjs.sendForm(serviceId, templateId, {
-  //       to_name: "Ali",
-  //       to_email: data.Email,
-  //       from_name: data.Name,
-  //       message: data.Message,
-  //     });
-  //     console.log("Email sent successfully to", data.Email);
-  //   } catch (error) {
-  //     console.error("Error sending email:", error);
-  //   }
-  // };
-
-  const templateId = "template_55z17rj";
-  const serviceId = "service_efkueod";
+  // WRITE YOUR COMPANY SERVICE ID AND TEMPLATE ID TO SEND EMAILS TO CANDIDATES
+  const templateId = "";
+  const serviceId = "";
   const form = useRef();
   const sendEmail = (e) => {
     e.preventDefault();
@@ -76,9 +53,11 @@ const ContactForm = ({ EMailId }) => {
         (result) => {
           console.log(result.text);
           setData({ Name: "", Email: "", Subject: "", Message: "" });
-          alert("Email has been sent successfully!");
+          // alert("Email has been sent successfully!");
+          toast({ title: "Email has been sent successfully!", status: "success" });
         },
         (error) => {
+          toast({ title: "Error Sending Email", description: error.message, status: "error" });
           console.log(error.text, "There is an error in the program ");
         }
       );
@@ -101,8 +80,8 @@ const ContactForm = ({ EMailId }) => {
           <Input
             type="email"
             id="email"
-            placeholder={Email}
-            value={data.Email}
+            placeholder={EMailId}
+            value={EMailId}
             onChange={(e) => setData(e.target.value)}
             name="Email"
           />
@@ -128,7 +107,8 @@ const ContactForm = ({ EMailId }) => {
         </FormControl>
         <Button
           isLoading={isLoading}
-          colorScheme="blue"
+          borderRadius={0}
+          colorScheme="red"
           type="submit"
           disabled={isLoading}
         >

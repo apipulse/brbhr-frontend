@@ -12,18 +12,19 @@ import { Link as RouterLink } from "react-router-dom";
 import { BsGridFill } from "react-icons/bs";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { BsReceiptCutoff } from "react-icons/bs";
-import { ImCross } from "react-icons/im";
-import { color } from "framer-motion";
+import { MdOutlinePayment } from "react-icons/md";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { IoMdCloseCircleOutline as ImCross } from "react-icons/io";
 const SidebarLinkGroup = ({ title, children }) => {
   const abc = useContext(NoteContext);
 
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Box>
-      <Button
+      {/* <Button 
         variant="ghost"
         display={"flex"}
-        gap={2}
+        gap={2} 
         onClick={onToggle}
         width="100%"
         color={"white"}
@@ -55,7 +56,58 @@ const SidebarLinkGroup = ({ title, children }) => {
         {title !== "Leaves" &&
           title !== "Employees" &&
           title !== "Recruitment" && <>{title}</>}
+      </Button> */}
+
+      <Button
+        variant="ghost"
+        display={"flex"}
+        gap={3}
+        onClick={onToggle}
+        width="100%"
+        color={"white"}
+        _active={{ bg: "rgb(36, 35, 35)", border: "none", outline: "none" }}
+        justifyContent="start"
+        _hover={{ bg: "#363633" }}
+        className="bgcr"
+        border={"none"}
+        outline={"none"}
+        mb={2}
+      >
+        {title === "Recruitment" && (
+          <>
+            {" "}
+            <BsReceiptCutoff fontSize={"1.3rem"} /> {title}
+          </>
+        )}
+        {title === "Employees" && (
+          <>
+            {" "}
+            <MdOutlinePeopleAlt fontSize={"1.3rem"} /> {title}
+          </>
+        )}
+        {title === "Leaves" && (
+          <>
+            <ImCross fontSize={"1.3rem"} /> {title}
+          </>
+        )}
+        {title === "Payroll" && (
+          <>
+            <MdOutlinePayment fontSize={"1.3rem"} /> {title}
+          </>
+        )}
+        {title === "Attendance" && (
+          <>
+            <FaRegCircleCheck fontSize={"1.3rem"} /> {title}
+          </>
+        )}
+
+        {title !== "Leaves" &&
+          title !== "Employees" &&
+          title !== "Payroll" &&
+          title !== "Attendance" &&
+          title !== "Recruitment" && <>{title}</>}
       </Button>
+
       <Collapse in={isOpen} animateOpacity>
         <VStack spacing={2} align="stretch" color={"lightgray"} pl={4}>
           {children}
@@ -69,13 +121,17 @@ const Sidebar = () => {
   const abc = useContext(NoteContext);
   return (
     <Box
-      className="None"
-      bg="rgb(48, 47, 50)"
-      // position={'fixed'} top={0} left={0}
+      bg="#1c1c1b" 
+      className="bgcr"
+      position={"fixed"}
+      top={0}
+      left={0}
       h="100%"
+      overflowY={"scroll"}
       minHeight={"100vh"}
       w="200px"
       color="white"
+      pb={4}
     >
       <Box
         // to="/"
@@ -85,6 +141,7 @@ const Sidebar = () => {
         textAlign={"center"}
         w={"100%"}
         pb={".5rem"}
+        py={2}
       >
         <Link to="/" _hover={{ color: "lightgray" }}>
           HRMS
@@ -95,14 +152,18 @@ const Sidebar = () => {
         <Link
           display={"flex"}
           alignItems={"center"}
-          gap={"2px"}
+          gap={3}
           pl={"15px"}
           as={RouterLink}
           to="/"
+          borderRadius={"md"}
+          py={2}
+          color={"white"}
           onClick={() => abc.setName("DASHBOARD")}
-          _hover={{ color: "lightgray" }}
+          _hover={{ bg: "#363633", color: "white" }} className="bgcr"
+          
         >
-          <BsGridFill /> Dashboard
+          <BsGridFill fontSize={"1.3rem"} /> Dashboard
         </Link>
 
         <SidebarLinkGroup color="white" title={"Recruitment"} padding="0">
@@ -194,13 +255,27 @@ const Sidebar = () => {
 
         {/* Leaves */}
         <SidebarLinkGroup title="Leaves">
-          <Link as={RouterLink} to="/leaves/myleaves">My Leaves</Link>
-          <Link as={RouterLink} to="/leaves/myleaves-requests">My Leave Requests</Link>
-          <Link as={RouterLink} to="/leaves/leave-types">Leave Types</Link>
-          <Link as={RouterLink} to="/leaves/assigned-leaves">Assigned Leaves</Link>
-          <Link as={RouterLink} to="/leaves/leave-requests">Leave Requests</Link>
-          <Link as={RouterLink} to="/leaves/hoidays">Holidays</Link>
-          <Link as={RouterLink} to="/leaves/company-leaves">Company Leaves</Link>
+          <Link as={RouterLink} to="/leaves/myleaves">
+            My Leaves
+          </Link>
+          <Link as={RouterLink} to="/leaves/myleaves-requests">
+            My Leave Requests
+          </Link>
+          <Link as={RouterLink} to="/leaves/leave-types">
+            Leave Types
+          </Link>
+          <Link as={RouterLink} to="/leaves/assigned-leaves">
+            Assigned Leaves
+          </Link>
+          <Link as={RouterLink} to="/leaves/leave-requests">
+            Leave Requests
+          </Link>
+          <Link as={RouterLink} to="/leaves/hoidays">
+            Holidays
+          </Link>
+          <Link as={RouterLink} to="/leaves/company-leaves">
+            Company Leaves
+          </Link>
           <Link as={RouterLink} _hover={{ color: "lightgray" }} to="/leaves">
             Leave List
           </Link>

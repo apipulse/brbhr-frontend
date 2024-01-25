@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChakraProvider, Flex } from '@chakra-ui/react';
+import { ChakraProvider, Flex,Box } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './components/layout/NavBar';
 import SideBar from './components/layout/SideBar';
@@ -29,15 +29,18 @@ import AssignedLeaves from './components/leaves/AssignedLeaves';
 import LeaveRequests from './components/leaves/LeaveRequests';
 import Holidays from './components/leaves/Holidays';
 import CompanyLeaves from './components/leaves/CompanyLeaves';
-
+import './App.css'
 
 const App = () => {
   return (
-    <ChakraProvider>
-      <Router>
-        <Flex width={'100%'} overflow={'hidden'}>
-          <SideBar />
-          <Flex className='setWidth' flexDirection="column" width="calc(100vw - 217px)"> {/* Adjust the width */}
+    <ChakraProvider >
+      <Router >
+        <Flex position={'relative'} minWidth={'100vw'} overflow={'hidden'}>
+          <Box className='None'>
+          <SideBar/>
+
+          </Box>
+          <Flex className='setWidth ml'  flexDirection="column" width="100%" > {/* Adjust the width */}
             <NavBar />
             <Routes>
               <Route exact path="/" element={<Home />} />
