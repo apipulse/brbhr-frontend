@@ -86,16 +86,22 @@
   display: none;
 }
 
-.w-50 {
-  min-width: 100%;
-  width: 65rem;
-}
+
 
 .btnDisable {
   opacity: 0.6;
   cursor: not-allowed;
   pointer-events: none;
 }
+
+.w-100vw{
+  width: calc(100vw - 200px);
+}
+
+
+/* .w-50 {
+  width: 65rem;
+} */
 
 @media screen and (max-width: 900px) {
   .bgcr {
@@ -114,7 +120,7 @@
     min-width: 98.166vw !important;
   }
   .w-100vw {
-    width: 100%;
+    width: 100vw;
   }
 
   .w-50 {
@@ -123,7 +129,7 @@
 
   .setPX {
     padding-left: 10px !important;
-    padding-right: 1px !important;
+    padding-right: 10px !important;
   }
   .overflow {
     overflow-x: scroll;

@@ -66,7 +66,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Flex
+    <Flex className="w-100vw"
       direction="column"
       bgColor={"rgb(250, 247, 247)"}
       minHeight="100vh"

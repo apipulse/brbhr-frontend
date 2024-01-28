@@ -2,7 +2,7 @@ import axios from './axiosInstance'; // Assuming axiosInstance is correctly set 
 
 export const triggerOnboarding = async (jobApplications, jobId) => {
     try {
-        const response = await axios.post(`/api/onboarding/triggerOnboarding/${jobId}`, jobApplications);
+        const response = await axios.post(`/onboarding/triggerOnboarding/${jobId}`, jobApplications);
         return response.data;
     } catch (error) {
         console.error('Error triggering onboarding:', error);
@@ -12,7 +12,7 @@ export const triggerOnboarding = async (jobApplications, jobId) => {
 
 export const getAllHiredCandidates = async () => {
     try {
-        const response = await axios.get('/api/onboarding/candidates');
+        const response = await axios.get('onboarding/candidates');
         return response.data;
     } catch (error) {
         console.error('Error fetching all hired candidates:', error);
@@ -22,7 +22,7 @@ export const getAllHiredCandidates = async () => {
 
 export const getAllOnboardingStages = async (jobId) => {
     try {
-        const response = await axios.get(`/api/onboarding/stages/${jobId}`);
+        const response = await axios.get(`onboarding/stages/${jobId}`);
         return response.data;
     } catch (error) {
         console.error('Error fetching onboarding stages:', error);
@@ -32,17 +32,21 @@ export const getAllOnboardingStages = async (jobId) => {
 
 export const createOnboardingStage = async (stage, jobId, index) => {
     try {
-        const response = await axios.post(`/api/onboarding/stage/${jobId}`, stage, { params: { index } });
-        return response.data;
+      const response = await axios.post(`/onboarding/stage/${jobId}`, stage, {
+        params: { index },
+        headers: { 'Content-Type': 'application/json' }, // <-- Add content type header
+      });
+      return response.data;
     } catch (error) {
-        console.error('Error creating onboarding stage:', error);
-        throw error;
+      console.error('Error creating onboarding stage:', error);
+      throw error;
     }
-};
+  };
+  
 
 export const updateCandidateStage = async (candidateId, fromStageIndex, toStageIndex, jobId, managerId) => {
     try {
-        const response = await axios.put(`/api/onboarding/candidate/${candidateId}/stage`, null, { params: { fromStageIndex, toStageIndex, jobId, managerId } });
+        const response = await axios.put(`/onboarding/candidate/${candidateId}/stage`, null, { params: { fromStageIndex, toStageIndex, jobId, managerId } });
         return response.data;
     } catch (error) {
         console.error('Error updating candidate stage:', error);

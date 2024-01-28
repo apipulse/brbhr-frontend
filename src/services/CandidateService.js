@@ -1,7 +1,7 @@
 import axios from "./axiosInstance"; // Assuming axiosInstance is set up for making API calls
 
 export const postJob = async (jobPosting) => {
-  try {
+  try { 
     const response = await axios.post("candidates/post-job", jobPosting);
     return response.data;
   } catch (error) {

@@ -44,23 +44,29 @@ export const getAttendanceByEmployeeId = async (employeeId) => {
 
 export const validateAttendance = async (attendanceId, validatorId) => {
     try {
-        const response = await axios.put(`${baseUrl}/validate/${attendanceId}`, { validatorId });
-        return response.data;
+    // Append the validatorId as a query parameter
+    const url = `${baseUrl}/validate/${attendanceId}?validatorId=${validatorId}`;
+    const response = await axios.put(url);
+    return response.data;
     } catch (error) {
-        console.error('Error validating attendance:', error);
-        throw error;
+    console.error('Error validating attendance:', error);
+    throw error;
     }
-};
-
+    };
+    
 export const invalidateAttendance = async (attendanceId, invalidatorId) => {
     try {
-        const response = await axios.put(`${baseUrl}/invalidate/${attendanceId}`, { invalidatorId });
-        return response.data;
+    // Append the validatorId as a query parameter
+    const url = `${baseUrl}/invalidate/${attendanceId}?invalidatorId=${invalidatorId}`;
+    const response = await axios.put(url);
+    return response.data;
     } catch (error) {
-        console.error('Error invalidating attendance:', error);
-        throw error;
+    console.error('Error validating attendance:', error);
+    throw error;
     }
-};
+    };
+
+
 
 export const getAttendanceByDate = async (specificDate) => {
     try {
