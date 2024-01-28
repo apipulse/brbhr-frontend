@@ -15,48 +15,14 @@ import { BsReceiptCutoff } from "react-icons/bs";
 import { MdOutlinePayment } from "react-icons/md";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { IoMdCloseCircleOutline as ImCross } from "react-icons/io";
+import { GiJetPack } from "react-icons/gi";
 const SidebarLinkGroup = ({ title, children }) => {
   const abc = useContext(NoteContext);
 
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Box>
-      {/* <Button 
-        variant="ghost"
-        display={"flex"}
-        gap={2} 
-        onClick={onToggle}
-        width="100%"
-        color={"white"}
-        _active={{ bg: "rgb(36, 35, 35)" }}
-        justifyContent="start"
-        _hover={{ bg: "rgb(36, 35, 35)" }}
-        border={"none"}
-        outline={"none"}
-        mb={2}
-      >
-        {title === "Recruitment" && (
-          <>
-            {" "}
-            <BsReceiptCutoff /> {title}
-          </>
-        )}
-        {title === "Employees" && (
-          <>
-            {" "}
-            <MdOutlinePeopleAlt /> {title}
-          </>
-        )}
-        {title === "Leaves" && (
-          <>
-            <ImCross /> {title}
-          </>
-        )}
-
-        {title !== "Leaves" &&
-          title !== "Employees" &&
-          title !== "Recruitment" && <>{title}</>}
-      </Button> */}
+     
 
       <Button
         variant="ghost"
@@ -101,11 +67,18 @@ const SidebarLinkGroup = ({ title, children }) => {
           </>
         )}
 
+        {title === "OnBoarding" && (
+          <>
+            <GiJetPack fontSize={"1.3rem"} /> {title}
+          </>
+        )}
+
         {title !== "Leaves" &&
           title !== "Employees" &&
           title !== "Payroll" &&
           title !== "Attendance" &&
-          title !== "Recruitment" && <>{title}</>}
+          title !== "Recruitment" && 
+          title !== "OnBoarding" && <>{title}</>}
       </Button>
 
       <Collapse in={isOpen} animateOpacity>
@@ -209,6 +182,19 @@ const Sidebar = () => {
         </SidebarLinkGroup>
 
         {/* Employees */}
+        <SidebarLinkGroup title="OnBoarding">
+          <Link as={RouterLink} _hover={{ color: "lightgray" }} to="/onboarding">
+            Onborading View
+          </Link>
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
+            to="/candidate-view"
+          >
+           Candidate view
+          </Link>
+          {/* Additional Employee-related links */}
+        </SidebarLinkGroup>
         <SidebarLinkGroup title="Employees">
           <Link as={RouterLink} _hover={{ color: "lightgray" }} to="/employees">
             Employee List
@@ -227,61 +213,67 @@ const Sidebar = () => {
           <Link
             as={RouterLink}
             _hover={{ color: "lightgray" }}
+            to="/AttendanceDetails"
+          >
+            Attendance
+          </Link>
+
+          <Link
+            as={RouterLink}
+            _hover={{ color: "lightgray" }}
             to="/attendance/records"
           >
             Attendance Records
           </Link>
-          <Link
-            as={RouterLink}
-            _hover={{ color: "lightgray" }}
-            to="/AttendanceDetails"
-          >
-            Attendance Report
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/attendance/add-update">
+            Add Attendance
           </Link>
-          <Link as={RouterLink} to="/attendance/validation">
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/attendance/validation">
             Attendance Validation
           </Link>
-          <Link as={RouterLink} to="/attendance/clock">
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/attendance/clock">
             Check In/Out
           </Link>
-          <Link as={RouterLink} to="/attendance/date-month">
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/attendance/date-month">
             Attendance By Date/Month
           </Link>
-          <Link as={RouterLink} to="/attendance/add-update">
-            Add/Update Attendance
+
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/LateComeAndEarlyOut">
+          Late Come & Early Out
           </Link>
           {/* Additional Attendance-related links */}
         </SidebarLinkGroup>
 
         {/* Leaves */}
         <SidebarLinkGroup title="Leaves">
-          <Link as={RouterLink} to="/leaves/myleaves">
-            My Leaves
-          </Link>
-          <Link as={RouterLink} to="/leaves/myleaves-requests">
-            My Leave Requests
-          </Link>
-          <Link as={RouterLink} to="/leaves/leave-types">
-            Leave Types
-          </Link>
-          <Link as={RouterLink} to="/leaves/assigned-leaves">
-            Assigned Leaves
-          </Link>
-          <Link as={RouterLink} to="/leaves/leave-requests">
-            Leave Requests
-          </Link>
-          <Link as={RouterLink} to="/leaves/hoidays">
-            Holidays
-          </Link>
-          <Link as={RouterLink} to="/leaves/company-leaves">
-            Company Leaves
-          </Link>
-          <Link as={RouterLink} _hover={{ color: "lightgray" }} to="/leaves">
+        <Link as={RouterLink}   _hover={{ color: "lightgray" }} to="/leaves">
             Leave List
           </Link>
-          <Link as={RouterLink} _hover={{ color: "lightgray" }} to="/add-leave">
+          <Link as={RouterLink}   _hover={{ color: "lightgray" }} to="/add-leave">
             Apply for Leave
           </Link>
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/leave-types">
+            Leave Types
+          </Link>
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/myleaves">
+            My Leaves
+          </Link>
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/myleaves-requests">
+            My Leave Requests
+          </Link>
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/assigned-leaves">
+            Assigned Leaves
+          </Link>
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/leave-requests">
+            Leave Requests
+          </Link>
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/holidays">
+            Holidays
+          </Link>
+          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/company-leaves">
+            Company Leaves
+          </Link>
+          
           {/* Additional Leaves-related links */}
         </SidebarLinkGroup>
 

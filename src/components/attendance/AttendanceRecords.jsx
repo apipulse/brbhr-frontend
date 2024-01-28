@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, List, ListItem } from '@chakra-ui/react';
 import { getAttendanceByEmployeeId } from '../../services/AttendanceService';
-
+ 
 const AttendanceRecords = ({ employeeId }) => {
   const [records, setRecords] = useState([]);
 
@@ -14,7 +14,8 @@ const AttendanceRecords = ({ employeeId }) => {
   }, [employeeId]);
 
   return (
-    <Box>
+    <Box minH={'100vh'}>
+      
       <List>
         {records.map(record => (
           <ListItem key={record.id}>

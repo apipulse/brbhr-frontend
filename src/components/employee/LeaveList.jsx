@@ -67,7 +67,7 @@ const LeaveList = ({ employeeId }) => {
   };
   console.log(leaves);
   return (
-    <VStack spacing={4} bg={"rgb(250, 247, 247)"} p={"1rem"}>
+    <VStack minH={'100vh'} className="w-100vw" spacing={4} bg={"rgb(250, 247, 247)"} p={"1rem"}>
       <Box className="changeDir" pt={"2rem"} w={"100%"} display={"flex"} gap={4}>
         <Box bg={"white"} borderTop={"3px solid green"} p={"1rem"} flex={1}>
           <Text fontWeight={"500"}>New Requests</Text>
@@ -119,7 +119,7 @@ const LeaveList = ({ employeeId }) => {
         <Table variant="striped" colorScheme="teal">
           <Thead>
             <Tr>
-              <Th>Employee</Th>
+              <Th>Employee</Th> 
               <Th>Leave Type</Th>
               <Th>From</Th>
               <Th>To</Th>

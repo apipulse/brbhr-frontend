@@ -56,7 +56,7 @@ const AllApplicationsList = () => {
   }, []);
 
   return (
-    <VStack spacing={4}>
+    <VStack spacing={4} p={4} minH={'100vh'} className="w-100vw">
       <Text
         fontSize={"2rem"}
         w={"100%"}
@@ -65,8 +65,8 @@ const AllApplicationsList = () => {
       >
         All Applications
       </Text>
-      <Box width={"100%"} overflowX={"scroll"}>
-        <Table variant="simple" colorScheme="red">
+      <Box shadow={'md'}  border={'1px solid lightgray'} width={"100%"} overflowX={"scroll"}>
+        <Table minW={'max-content'} variant="simple" colorScheme="red">
           <Thead>
             <Tr>
               <Th>candidate</Th>

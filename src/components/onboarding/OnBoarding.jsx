@@ -27,24 +27,25 @@ import {
 } from "@chakra-ui/react";
 import {
   getAllJobPostings,
-  getAllCandidateApplications,
-  getStagesForJobPosting,
   getCurrentStageOfApplication,
   updateCandidateStage,
-  deleteStageFromJobPosting,
 } from "../../services/CandidateService";
+import {
+  getAllOnboardingStages,
+  getAllHiredCandidates,
+} from "../../services/onboardingService";
 import NoteContext from "../../Context/NoteContext";
 
 import { MdOutlineMailOutline } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import StageForm from "./StageForm";
-import SendEmail from "./SendEmail";
-import JobPostingForm from "./JobPostingForm";
-import JobAplicationForm from "./JobApplicationForm";
-const JobPostingsList = () => {
+import SendEmail from "../candidates/SendEmail";
+import JobPostingForm from "../candidates/JobPostingForm";
+import JobAplicationForm from "../candidates/JobApplicationForm";
+const onBoarding = () => {
   const [stages, setStages] = useState();
   const [jobPostings, setJobPostings] = useState([]);
-  const [allCandidates, setAllCandidates] = useState();
+  const [hiredCandidates, setHiredCandidates] = useState();
   const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
   const [selectedEMail, setSelectedEMail] = useState(null);
   const [jobid, setJobId] = useState();
@@ -70,11 +71,6 @@ const JobPostingsList = () => {
     onClose: onClose2,
   } = useDisclosure();
   const {
-    isOpen: isOpen3,
-    onOpen: onOpen3,
-    onClose: onClose3,
-  } = useDisclosure();
-  const {
     isOpen: isOpen4,
     onOpen: onOpen4,
     onClose: onClose4,
@@ -95,50 +91,30 @@ const JobPostingsList = () => {
     setSelectedEMail(email);
     onOpen2();
   };
-  const handleNewApplicationClick = () => {
-    console.log("Opening modal for New job posting");
-    onOpen3();
-  };
   const handleNewJobApplicationClick = () => {
     console.log("Opening modal for New Job Application");
     onOpen5();
   };
-
-  const filteredApplications = allCandidates?.filter((candidate) => {
+  
+  const filteredApplications = hiredCandidates?.filter((candidate) => {
     return candidate?.applicantName
       ?.toLowerCase()
       ?.includes(searchQuery?.toLowerCase());
   });
-  console.log(filteredApplications);
 
-  const updateApplicationStage = (id, stage) => {
-    console.log("Opening modal for changing stage of application");
-    setCurrentValue(stage);
-    // onOpen4();
-    // if(manager){
-    fetchJonpostingStages(jobid);
+  const fetchOnboardingStages = async (jobid) => {
     try {
-      const res = updateCandidateStage(id, {
-        name: stage,
-        description: "Empty",
-        roundNumber: 2,
-        manager: "",
-      });
-
-      console.log("ApplicationStage has been updated", res);
-      console.log(id);
-      console.log(stage);
-      setstg(!stg);
+      const res = await getAllOnboardingStages(jobid);
+      setStages(res);
+      console.log("ONBOARDING STAGES ARE:", res);
     } catch (error) {
-      "Failed to update stage of application", error;
+      console.error("Error fetching job posting stages for", jobid, error);
     }
-    // }
   };
+  console.log(stages);
 
   useEffect(() => {
-    abc.setName("RECRUITMENT");
-
-    candidatesWithStages();
+    abc.setName("ONBOARDING");
     const fetchJobPostings = async () => {
       try {
         const postings = await getAllJobPostings();
@@ -148,63 +124,19 @@ const JobPostingsList = () => {
       }
     };
 
-    const fetchCandidates = async () => {
+    const fetchHiredCandidates = async () => {
       try {
-        const Allcandidates = await getAllCandidateApplications();
-        setAllCandidates(Allcandidates);
+        const hiredCandidates = await getAllHiredCandidates();
+        setHiredCandidates(hiredCandidates);
+        console.log("HIRED CANDIDATES ARE:", hiredCandidates);
       } catch (error) {
-        console.error("Error fetching job postings:", error);
+        console.error("Error fetching Hired Candidates:", error);
       }
     };
-    fetchJonpostingStages(jobid);
+    fetchOnboardingStages(jobid);
     fetchJobPostings();
-    fetchCandidates();
+    fetchHiredCandidates();
   }, [stg]);
-
-  const fetchJonpostingStages = async (id) => {
-    const res = await getStagesForJobPosting(id);
-    setStages(res);
-  };
-
-  const candidatesWithStages = async () => {
-    try {
-      const updatedCandidates =
-        allCandidates &&
-        (await Promise.all(
-          allCandidates?.map(async (candidate) => {
-            const stage = await getCurrentStageOfApplication(candidate.id);
-            setCandidateStage({
-              ...candidateStage,
-              [candidate.id]: stage.currentRecruitmentStage,
-            });
-            candidate.currentStage = stage;
-            return candidate;
-            // console.log(object)
-          })
-        ));
-      setUpdateCandidate(updatedCandidates);
-      console.log(updatedCandidates);
-      return updatedCandidates;
-    } catch (error) {
-      // Handle errors gracefully, e.g., display user-friendly error messages
-      console.error("Error fetching stages:", error);
-      return []; // Return an empty array or handle the error differently
-    }
-  };
-  console.log(searchQuery);
-  // console.log(allCandidates);
-  console.log(candidateStage);
-  console.log(manager);
-  console.log(updateCandidate);
-
-  const handleDeleteStage = (stage) => {
-    try {
-      const res = deleteStageFromJobPosting(jobid, stage);
-      console.log(object);
-    } catch (err) {
-      console.log("Could not delete the stage from job posting", err);
-    }
-  };
 
   return (
     <VStack
@@ -223,8 +155,8 @@ const JobPostingsList = () => {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Text fontWeight={"bold"} fontSize={"1.2rem"}>
-          Recruitment
+        <Text fontWeight={"600"} fontSize={"1.5rem"}>
+          OnBoarding
         </Text>
 
         <Box display={"flex"} gap={"2"} alignItems={"center"}>
@@ -284,14 +216,13 @@ const JobPostingsList = () => {
                             setjobName(job?.title);
                             setactive(job.title);
                             // setstg(!stg)
-                            fetchJonpostingStages(job.id);
                           }}
                           cursor={"pointer"}
                           display={"flex"}
                           width={"100%"}
                           minWidth={"max-content"}
                           flex={1}
-                          px={"5%"}
+                          // px={"5%"}
                           py={1}
                           _hover={{ bg: "white" }}
                           bg={
@@ -316,7 +247,7 @@ const JobPostingsList = () => {
                             bg={"red"}
                           >
                             {
-                              allCandidates?.filter(
+                              hiredCandidates?.filter(
                                 (candidate) => candidate.country === job.title
                               ).length
                             }
@@ -336,7 +267,7 @@ const JobPostingsList = () => {
                   + Add Stage
                 </Button>
 
-                {allCandidates?.some(
+                {hiredCandidates?.some(
                   (candidate) =>
                     !candidate.currentRecruitmentStage?.name &&
                     candidate.country === jobName
@@ -622,16 +553,6 @@ const JobPostingsList = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-      <Modal isOpen={isOpen3} onClose={onClose3}>
-        <ModalOverlay />
-        <ModalContent>
-          {/* <ModalHeader>New-Job Post</ModalHeader> */}
-          <ModalCloseButton />
-          <ModalBody>
-            <JobPostingForm onStageAdded={onClose3} />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
       <Modal isOpen={isOpen4} onClose={onClose4}>
         <ModalOverlay />
         <ModalContent>
@@ -643,7 +564,7 @@ const JobPostingsList = () => {
               <Input
                 type="text"
                 onChange={(e) => setmanager(e.target.value)}
-                onStageAdded={onClose3}
+                onStageAdded={onClose4}
               />
             </FormControl>
             <Button
@@ -672,4 +593,4 @@ const JobPostingsList = () => {
     </VStack>
   );
 };
-export default JobPostingsList;
+export default onBoarding;

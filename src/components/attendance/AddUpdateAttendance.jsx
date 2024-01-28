@@ -68,16 +68,6 @@
 
 // export default AddUpdateAttendance;
 
-
-
-
-
-
-
-
-
-
-
 import React, { useState } from "react";
 import {
   Button,
@@ -147,7 +137,7 @@ const AddUpdateAttendance = () => {
         Add Attendance
       </Text>
       <Box>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Employee Id</FormLabel>
 
           <Input
@@ -157,7 +147,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Check-In Time</FormLabel>
           <Input
             type="time"
@@ -167,7 +157,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Check-In Date</FormLabel>
 
           <Input
@@ -178,7 +168,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Check-Out Time</FormLabel>
 
           <Input
@@ -189,7 +179,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Check-Out Date</FormLabel>
           <Input
             type="date"
@@ -199,7 +189,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Date</FormLabel>
           <Input
             type="date"
@@ -209,7 +199,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Shift</FormLabel>
           <Input
             placeholder="Shift"
@@ -218,7 +208,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Work Type</FormLabel>
 
           <Input
@@ -228,7 +218,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Over Time</FormLabel>
           <Input
             placeholder="Over Time"
@@ -237,7 +227,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Minimum Hour</FormLabel>
           <Input
             placeholder="Minimum Hour"
@@ -256,7 +246,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl> */}
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Validated By</FormLabel>
           <Input
             placeholder="Validated By"
@@ -265,7 +255,7 @@ const AddUpdateAttendance = () => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl mt={4}>
+        <FormControl mt={4} isRequired>
           <FormLabel>Validator Id</FormLabel>
           <Input
             placeholder="Validator ID"

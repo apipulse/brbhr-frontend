@@ -108,7 +108,7 @@ const EmployeeList = () => {
 console.log(filteredEmployees)
   console.log(employees);
   return (
-    <VStack spacing={4}>
+    <VStack spacing={4} minH={'100vh'}>
       <Box
         className="changeDir gap"
         p={2}
@@ -120,7 +120,7 @@ console.log(filteredEmployees)
         alignItems={"center"}
         py={"1rem"}
       >
-        <Text fontSize={"1.5rem"} fontWeight={"bold"} textAlign={"left"}>
+        <Text fontSize={"1.5rem"} fontWeight={"600"} textAlign={"left"}>
           People
         </Text>
         <Box

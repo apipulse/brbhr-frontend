@@ -1,7 +1,7 @@
 import axios from './axiosInstance';
 
 export const getEmployees = async () => {
-    try {
+    try { 
         const response = await axios.get('employees');
         return response.data;
     } catch (error) {

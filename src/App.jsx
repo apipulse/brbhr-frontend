@@ -8,7 +8,7 @@ import EmployeeList from './components/employee/EmployeeList';
 import AddEmployee from './components/employee/AddEmployee';
 import LeaveList from './components/employee/LeaveList';
 import LeaveForm from './components/employee/LeaveForm';
-import AttendanceDetails from './components/employee/AttendanceDetails';
+import AttendanceDetails from './components/attendance/AttendanceDetails';
 import AddAttendance from './components/employee/AddAttendance';
 import InterviewScheduler from './components/candidates/InterviewScheduler';
 import OfferManagement from './components/candidates/OfferManagement';
@@ -19,6 +19,7 @@ import AllApplicationsList from './components/candidates/AllApplicationsList';
 import JobApplicationForm from './components/candidates/JobApplicationForm';
 import AttendanceRecords from './components/attendance/AttendanceRecords';
 import CheckInCheckOut from './components/attendance/CheckInCheckOut';
+import LateComeAndEarlyOut from './components/attendance/LateComeAndEarlyOut';
 import AttendanceValidation from './components/attendance/AttendanceValidation';
 import AttendanceByDateAndMonth from './components/attendance/AttendanceByDateAndMonth';
 import AddUpdateAttendance from './components/attendance/AddUpdateAttendance';
@@ -29,6 +30,8 @@ import AssignedLeaves from './components/leaves/AssignedLeaves';
 import LeaveRequests from './components/leaves/LeaveRequests';
 import Holidays from './components/leaves/Holidays';
 import CompanyLeaves from './components/leaves/CompanyLeaves';
+import OnBoarding from './components/onboarding/OnBoarding';
+import CandidateView from './components/onboarding/candidateView';
 import './App.css'
 
 const App = () => {
@@ -47,7 +50,7 @@ const App = () => {
               <Route path="/employees" element={<EmployeeList />} />
               <Route path="/add-employee" element={<AddEmployee />} />
               <Route path="/leaves" element={<LeaveList />} />
-              <Route path="/add-leave" element={<LeaveForm />} />
+              <Route path="/add-leave" element={<LeaveForm />} /> 
               <Route path="/schedule-interview" element={<InterviewScheduler />} />
               <Route path="/manage-offers" element={<OfferManagement />} />
               <Route path="/job-posting" element={<JobPostingForm />} />
@@ -69,6 +72,9 @@ const App = () => {
               <Route path="/leaves/leave-requests" element={<LeaveRequests />} />
               <Route path="/leaves/holidays" element={<Holidays />} />
               <Route path="/leaves/company-leaves" element={<CompanyLeaves />} />
+              <Route path="/onboarding" element={<OnBoarding />} />
+              <Route path="/LateComeAndEarlyOut" element={<LateComeAndEarlyOut />} />
+              <Route path="/candidate-view" element={<CandidateView />} />
               {/* Add more routes as needed */}
             </Routes>
           </Flex>

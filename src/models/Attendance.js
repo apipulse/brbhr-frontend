@@ -1,5 +1,5 @@
 class Attendance {
-    /**
+    /** 
      * @param {string} id - Unique identifier for the attendance record
      * @param {string} employeeId - Employee ID associated with the attendance
      * @param {string} checkInTime - Time of check-in (expected format: HH:mm:ss)

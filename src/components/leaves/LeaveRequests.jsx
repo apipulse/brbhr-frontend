@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LeaveRequests() {
+function LeaveRequests() { 
     return (
         <div>
             <h1>Leave Requests</h1>
