@@ -6,7 +6,7 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
     name: "",
     description: "",
     defaultManager: "",
-    candidateIdVsManager: []
+    candidateIdVsManager: {}
   });
   console.log(jobPostingId);
 

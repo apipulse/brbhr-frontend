@@ -197,10 +197,12 @@ const JobPostingsList = () => {
   console.log(manager);
   console.log(updateCandidate);
 
-  const handleDeleteStage = (stage) => {
+  const handleDeleteStage = (stageId) => {
+    console.log(stageId)
+    console.log(jobid)
     try {
-      const res = deleteStageFromJobPosting(jobid, stage);
-      console.log(object);
+      const res = deleteStageFromJobPosting(jobid, stageId);
+      console.log('Stage has beeen deleted',res);
     } catch (err) {
       console.log("Could not delete the stage from job posting", err);
     }
@@ -295,7 +297,7 @@ const JobPostingsList = () => {
                           py={1}
                           _hover={{ bg: "white" }}
                           bg={
-                            active == job.title ? "white" : "rgb(250, 247, 247)"
+                            active == job.title ? "white" : "rgb(239, 239, 239)"
                           }
                           borderRight={"1px solid lightgray"}
                           justifyContent={"space-between"}
@@ -341,8 +343,8 @@ const JobPostingsList = () => {
                     !candidate.currentRecruitmentStage?.name &&
                     candidate.country === jobName
                 ) && (
-                  <Box shadow={"sm"}>
-                    <Table variant="simple" colorScheme="teal">
+                  <Box shadow={"sm"} mb={4} border={'1px solid lightgray'}>
+                    <Table variant="simple">
                       <Thead>
                         <Tr>
                           <Th>Candidate</Th>
@@ -365,8 +367,8 @@ const JobPostingsList = () => {
                               <Td>{candidate.country}</Td>
                               <Td>{candidate.mobileNumber}</Td>
                               <Td>
-                                <Select
-                                  onChange={(e) => {
+                                <Select placeholder="Select"
+                                  onChange={(e) => { 
                                     updateApplicationStage(
                                       candidate.id,
                                       e.target.value
@@ -465,7 +467,7 @@ const JobPostingsList = () => {
                               +
                             </Button>
                             <BsThreeDotsVertical
-                              onClick={() => handleDeleteStage(stage.name)}
+                              onClick={() => {handleDeleteStage(stage.id)}}
                               cursor={"pointer"}
                               bg="blue"
                               width={"10px"}
@@ -505,11 +507,11 @@ const JobPostingsList = () => {
                                           );
                                           console.log(e.target.value);
                                         }}
-                                        // value={currentValue}
                                         value={
                                           candidate.currentRecruitmentStage
                                             ?.name
                                         }
+                                        // value={' h'}
                                       >
                                         {stages?.map((stage) => {
                                           return (

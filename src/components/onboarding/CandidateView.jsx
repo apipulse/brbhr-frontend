@@ -17,10 +17,9 @@ import React, { useState, useEffect } from "react";
 import { getAllHiredCandidates } from "../../services/onboardingService";
 const candidateView = () => {
   const [hiredCandidates, setHiredCandidates] = useState([]);
-
   useEffect(() => {
     const fetchHiredCandidates = async () => {
-      try {
+      try { 
         const hiredCandidates = await getAllHiredCandidates();
         setHiredCandidates(hiredCandidates);
         console.log(hiredCandidates);
