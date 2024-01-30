@@ -1,6 +1,36 @@
-OPEN SOURCE PROJECT THAT PAYS ROYALTIES TO IT'S CONTRIBUTERS
 
+# OPEN SOURCE PROJECT THAT PAYS ROYALTIES TO ITS CONTRIBUTORS
 
+## Royalty Pool & Contributor Compensation
+
+### About the Royalty Pool
+Our project has established a Royalty Pool, a dedicated fund to financially compensate contributors. This pool is sustained through various sources:
+
+- **Donations**: Received from individuals or organizations.
+- **Grants**: Acquired from entities supporting open-source initiatives.
+- **Revenue**: Generated from services related to our project.
+- **Sponsorships**: Obtained from companies or individuals benefiting from our project.
+
+### Distribution Model
+Compensation is based on a fair and transparent Royalty Points System:
+
+- **Contribution Evaluation**: Contributions (coding, documentation, etc.) are assigned points based on their impact and complexity.
+- **Monetary Value**: Points have a set monetary value, periodically adjusted to reflect the pool's status.
+
+### Payment Schedule
+Payments are distributed following a regular schedule:
+
+- **Frequency**: Payments are made annually.
+- **Methods**: We offer various payment methods, including bank transfer, PayPal, and cryptocurrencies.
+
+### Transparency and Reporting
+We are committed to transparency:
+
+- **Reporting**: Regular reports detail fund inflows, outflows, and distribution.
+- **Public Records**: A ledger records points earned by each contributor.
+- **Feedback**: Contributors can provide feedback or raise concerns regarding the distribution process.
+
+## Contributing Guidelines
 
 Contributing to the original repository after you've made changes in your fork involves a few steps. Here's a detailed guide to help you through the process:
 
@@ -9,31 +39,22 @@ Contributing to the original repository after you've made changes in your fork i
 Before contributing, make sure your fork is up-to-date with the original repository to avoid merge conflicts.
 
 1. **Add the original repository as a remote** (if not already done). This remote is typically named `upstream`:
-
     ```bash
     git remote add upstream https://github.com/apipulse/brbhr-frontend
     ```
-
 2. **Fetch the latest changes from the original repository**:
-
     ```bash
     git fetch upstream
     ```
-
 3. **Switch to your main branch** (assuming it's named `main` or `master`):
-
     ```bash
     git checkout main
     ```
-
 4. **Merge the changes from the original repository's main branch into your fork**:
-
     ```bash
     git merge upstream/main
     ```
-
 5. **Push the updates to your fork**:
-
     ```bash
     git push origin main
     ```
@@ -43,7 +64,6 @@ Before contributing, make sure your fork is up-to-date with the original reposit
 It's a good practice to create a new branch for each set of changes you plan to contribute.
 
 1. **Create and switch to a new branch** (name it according to the feature or fix you're working on):
-
     ```bash
     git checkout -b feature-branch-name
     ```
@@ -52,14 +72,11 @@ It's a good practice to create a new branch for each set of changes you plan to 
 
 1. Implement your changes, enhancements, or fixes in this branch.
 2. Add and commit your changes:
-
     ```bash
     git add .
     git commit -m "Detailed commit message"
     ```
-
 3. **Push the feature branch to your fork**:
-
     ```bash
     git push origin feature-branch-name
     ```
@@ -85,21 +102,16 @@ After submitting the pull request, the repository maintainers will review your c
 After your pull request is merged, you can delete your feature branch:
 
 1. **Switch to your main branch**:
-
     ```bash
     git checkout main
     ```
-
 2. **Delete the feature branch locally**:
-
     ```bash
     git branch -d feature-branch-name
     ```
-
 3. **Delete the feature branch from your fork**:
-
     ```bash
     git push origin --delete feature-branch-name
     ```
 
-Remember, these steps are a general guideline. Some projects may have specific contributing guidelines, so always check the project's `README` or `CONTRIBUTING` files for any project-specific steps or requirements.
+> **Note**: These steps are a general guideline. Some projects may have specific contributing guidelines, so always check the project's `README` or `CONTRIBUTING` files for any project-specific steps or requirements.
