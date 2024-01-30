@@ -95,7 +95,7 @@ const onBoarding = () => {
     console.log("Opening modal for New Job Application");
     onOpen5();
   };
-  
+
   const filteredApplications = hiredCandidates?.filter((candidate) => {
     return candidate?.applicantName
       ?.toLowerCase()
@@ -226,7 +226,7 @@ const onBoarding = () => {
                           py={1}
                           _hover={{ bg: "white" }}
                           bg={
-                            active == job.title ? "white" : "rgb(250, 247, 247)"
+                            active == job.title ? "white" : "rgb(239, 239, 239)"
                           }
                           borderRight={"1px solid lightgray"}
                           justifyContent={"space-between"}
