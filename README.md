@@ -1,5 +1,7 @@
 OPEN SOURCE PROJECT THAT PAYS ROYALTIES TO IT'S CONTRIBUTERS
 
+
+
 Contributing to the original repository after you've made changes in your fork involves a few steps. Here's a detailed guide to help you through the process:
 
 ### 1. Sync Your Fork with the Original Repository
