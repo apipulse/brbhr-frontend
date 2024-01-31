@@ -39,15 +39,15 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
         {/* Form fields for stage details */}
         <FormControl id="name" isRequired>
           <FormLabel>Stage</FormLabel>
-          <Input name="name" type="text" onChange={handleChange} />
+          <Input borderRadius={0} name="name" type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="description" mt={4}>
           <FormLabel>Description</FormLabel>
-          <Input name="description" type="text" onChange={handleChange} />
+          <Input borderRadius={0} name="description" type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="description" mt={4}>
           <FormLabel>Manager</FormLabel>
-          <Input name="defaultManager" type="text" onChange={handleChange} />
+          <Input borderRadius={0} name="defaultManager" type="text" onChange={handleChange} />
         </FormControl>
         {/* <FormControl id="roundNumber" mt={4}>
           <FormLabel>Round Number</FormLabel>

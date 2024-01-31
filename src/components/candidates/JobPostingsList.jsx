@@ -38,6 +38,7 @@ import NoteContext from "../../Context/NoteContext";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import StageForm from "./StageForm";
+import UpdateStageForm from "./UpdateStageForm";
 import SendEmail from "./SendEmail";
 import JobPostingForm from "./JobPostingForm";
 import JobAplicationForm from "./JobApplicationForm";
@@ -45,17 +46,22 @@ const JobPostingsList = () => {
   const [stages, setStages] = useState();
   const [jobPostings, setJobPostings] = useState([]);
   const [allCandidates, setAllCandidates] = useState();
-  const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState();
   const [selectedEMail, setSelectedEMail] = useState(null);
   const [jobid, setJobId] = useState();
   const [active, setactive] = useState();
   const [jobName, setjobName] = useState();
+  const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
   const [manager, setmanager] = useState();
+
   const [stg, setstg] = useState(true);
   const [updateCandidate, setUpdateCandidate] = useState(true);
   const [candidateStage, setCandidateStage] = useState();
   const [currentValue, setCurrentValue] = useState();
-  const [searchQuery, setSearchQuery] = useState();
+  const [stageInfo, setStageInfo] = useState({
+    id: "",
+    name: "",
+  });
   const abc = useContext(NoteContext);
   console.log(stages);
 
@@ -110,34 +116,35 @@ const JobPostingsList = () => {
       ?.includes(searchQuery?.toLowerCase());
   });
   console.log(filteredApplications);
-
+  console.log(stageInfo);
   const updateApplicationStage = (id, stage) => {
     console.log("Opening modal for changing stage of application");
+    setStageInfo({ id: id, name: stage });
+    onOpen4();
     setCurrentValue(stage);
-    // onOpen4();
-    // if(manager){
     fetchJonpostingStages(jobid);
-    try {
-      const res = updateCandidateStage(id, {
-        name: stage,
-        description: "Empty",
-        roundNumber: 2,
-        manager: "",
-      });
+    // try {
+    //   const res = updateCandidateStage(id, {
+    //     id: "",
+    //     name: stage,
+    //     description: "Empty",
+    //     roundNumber: 2,
+    //     manager: "",
+    //     recruitmentStageType: "",
 
-      console.log("ApplicationStage has been updated", res);
-      console.log(id);
-      console.log(stage);
-      setstg(!stg);
-    } catch (error) {
-      "Failed to update stage of application", error;
-    }
+    //   });
+
+    //   console.log("ApplicationStage has been updated", res);
+    //   console.log(id);
+    //   console.log(stage);
+    //   setstg(!stg);
+    // } catch (error) {
+    //   "Failed to update stage of application", error;
     // }
   };
 
   useEffect(() => {
     abc.setName("RECRUITMENT");
-
     candidatesWithStages();
     const fetchJobPostings = async () => {
       try {
@@ -192,17 +199,18 @@ const JobPostingsList = () => {
     }
   };
   console.log(searchQuery);
-  // console.log(allCandidates);
+  console.log(allCandidates);
   console.log(candidateStage);
   console.log(manager);
   console.log(updateCandidate);
+  console.log(jobPostings);
 
   const handleDeleteStage = (stageId) => {
-    console.log(stageId)
-    console.log(jobid)
+    console.log(stageId);
+    console.log(jobid);
     try {
       const res = deleteStageFromJobPosting(jobid, stageId);
-      console.log('Stage has beeen deleted',res);
+      console.log("Stage has beeen deleted", res);
     } catch (err) {
       console.log("Could not delete the stage from job posting", err);
     }
@@ -304,7 +312,9 @@ const JobPostingsList = () => {
                           alignItems={"center"}
                         >
                           <Text fontWeight={"600"}>{job?.title}</Text>
+                          <Text fontSize={'12px'}>
                           {new Date(job?.postingDate).toLocaleDateString()}
+                          </Text>
                           <Text
                             fontSize={"10px"}
                             borderRadius={"100px"}
@@ -319,7 +329,8 @@ const JobPostingsList = () => {
                           >
                             {
                               allCandidates?.filter(
-                                (candidate) => candidate.country === job.title
+                                (candidate) =>
+                                  candidate.appliedToJobId === job.id
                               ).length
                             }
                           </Text>
@@ -340,10 +351,9 @@ const JobPostingsList = () => {
 
                 {allCandidates?.some(
                   (candidate) =>
-                    !candidate.currentRecruitmentStage?.name &&
-                    candidate.country === jobName
+                    !candidate.currentRecruitmentStage?.name && candidate.appliedToJobId === jobid
                 ) && (
-                  <Box shadow={"sm"} mb={4} border={'1px solid lightgray'}>
+                  <Box shadow={"sm"} mb={4} border={"1px solid lightgray"}>
                     <Table variant="simple">
                       <Thead>
                         <Tr>
@@ -357,18 +367,17 @@ const JobPostingsList = () => {
                       </Thead>
                       <Tbody>
                         {allCandidates?.map((candidate) =>
-                          (candidate.country === jobName &&
-                            // candidate.appliedToJobId === jobid
-                            candidate.currentRecruitmentStage == null) ||
-                          candidate.currentRecruitmentStage == "" ? (
+                          candidate.appliedToJobId === jobid &&
+                            candidate.currentRecruitmentStage == null? (
                             <Tr key={Math.random()}>
                               <Td>{candidate.applicantName} </Td>
                               <Td>{candidate.applicantEmail}</Td>
-                              <Td>{candidate.country}</Td>
+                              <Td>{jobName}</Td>
                               <Td>{candidate.mobileNumber}</Td>
                               <Td>
-                                <Select placeholder="Select"
-                                  onChange={(e) => { 
+                                <Select
+                                  placeholder="Select"
+                                  onChange={(e) => {
                                     updateApplicationStage(
                                       candidate.id,
                                       e.target.value
@@ -443,9 +452,9 @@ const JobPostingsList = () => {
                               {
                                 allCandidates?.filter(
                                   (candidate) =>
-                                    candidate.country === jobName &&
-                                    candidate.currentRecruitmentStage?.name ==
-                                      stage.name
+                                    (candidate.appliedToJobId === jobid &&
+                                      candidate.currentRecruitmentStage?.name ==
+                                        stage.name)
                                 ).length
                               }
                             </Text>{" "}
@@ -467,7 +476,9 @@ const JobPostingsList = () => {
                               +
                             </Button>
                             <BsThreeDotsVertical
-                              onClick={() => {handleDeleteStage(stage.id)}}
+                              onClick={() => {
+                                handleDeleteStage(stage.id);
+                              }}
                               cursor={"pointer"}
                               bg="blue"
                               width={"10px"}
@@ -476,7 +487,7 @@ const JobPostingsList = () => {
                           </Box>
                         </Box>
                         <Box>
-                          <Table variant="simple" colorScheme="red">
+                          <Table variant="simple">
                             <Thead>
                               <Tr>
                                 <Th>candidate</Th>
@@ -489,14 +500,13 @@ const JobPostingsList = () => {
                             </Thead>
                             <Tbody>
                               {allCandidates?.map((candidate) =>
-                                candidate.country === jobName &&
-                                // candidate.appliedToJobId === jobid
-                                candidate.currentRecruitmentStage?.name ==
-                                  stage.name ? (
+                                (candidate.appliedToJobId === jobid &&
+                                  candidate.currentRecruitmentStage?.name ==
+                                    stage.name) ? (
                                   <Tr key={candidate.id}>
                                     <Td>{candidate.applicantName}</Td>
                                     <Td>{candidate.applicantEmail}</Td>
-                                    <Td>{candidate.country}</Td>
+                                    <Td>{jobName}</Td>
                                     <Td>{candidate.mobileNumber}</Td>
                                     <Td>
                                       <Select
@@ -640,22 +650,11 @@ const JobPostingsList = () => {
           <ModalHeader>Manager Name</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormControl>
-              <FormLabel>Manager Name</FormLabel>
-              <Input
-                type="text"
-                onChange={(e) => setmanager(e.target.value)}
-                onStageAdded={onClose3}
-              />
-            </FormControl>
-            <Button
-              onClick={() => onClose4()}
-              my={4}
-              borderRadius={0}
-              colorScheme="red"
-            >
-              Submit
-            </Button>
+            <UpdateStageForm
+              id={stageInfo.id}
+              onStageAdded={onClose4}
+              stageName={stageInfo.name}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>

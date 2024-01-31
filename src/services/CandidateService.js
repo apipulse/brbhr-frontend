@@ -41,6 +41,7 @@ export const getCandidateApplications = async (applicantEmail) => {
     throw error;
   }
 };
+
 export const getAllCandidateApplications = async () => {
   try {
     const response = await axios.get("candidates/applications");

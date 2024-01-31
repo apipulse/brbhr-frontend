@@ -3,9 +3,11 @@ import {
   Box,
   FormControl,
   FormLabel,
-  Input,useToast,
+  Input,
+  useToast,
   Button,
-  Select,Text,
+  Select,
+  Text,
   Textarea,
   IconButton,
 } from "@chakra-ui/react";
@@ -13,9 +15,7 @@ import { FiUpload } from "react-icons/fi";
 import { applyForJob } from "../../services/CandidateService";
 import { getAllJobPostings } from "../../services/CandidateService";
 const JobApplicationForm = (jobid) => {
-  const toast = useToast()
-  console.log(jobid.jobid)
-  // Category == country
+  const toast = useToast();
   const [id, setId] = useState(jobid);
   const [application, setApplication] = useState({
     applicantName: "",
@@ -30,16 +30,19 @@ const JobApplicationForm = (jobid) => {
     countryCode: "",
     visaStatus: "",
     country: "",
-    appliedToJobId:jobid?jobid.jobid:''
+    appliedToJobId: jobid ? jobid.jobid : "",
     // Add other fields as necessary
   });
+
   console.log(application);
   const [selectedValue, setSelectedValue] = useState(application.country);
   const [jobPostings, setJobPostings] = useState([]);
- 
-  const jobPostingWithId = jobPostings.find(posting => posting.name === application.country)?.id;
-  console.log(jobPostings)
-  console.log(jobPostingWithId)
+
+  const jobPostingWithId = jobPostings.find(
+    (posting) => posting.name == application.country
+  )?.id;
+  console.log(jobPostings);
+  console.log(jobPostingWithId);
   useEffect(() => {
     const fetchJobPostings = async () => {
       try {
@@ -84,7 +87,7 @@ const JobApplicationForm = (jobid) => {
     }
   };
 
-// COUNTRY ========================================= CATEGORY
+
 
   return (
     <Box p={4}>
@@ -108,10 +111,15 @@ const JobApplicationForm = (jobid) => {
         </FormControl>
         <FormControl isRequired id="jobName" mt={4}>
           <FormLabel>Applying for</FormLabel>
-          <Select name="country" onChange={handleChange} value={application.country}>
+          <Select
+            name="appliedToJobId"
+            onChange={handleChange}
+            placeholder="Select Job"
+            value={application.appliedToJobId}
+          >
             {jobPostings.map((job) => {
               return (
-                <option key={job.id} value={job?.title}>
+                <option key={job.id} value={job?.id}>
                   {job.title}
                 </option>
               );
@@ -132,7 +140,6 @@ const JobApplicationForm = (jobid) => {
           <Input name="nationality" type="text" onChange={handleChange} />
         </FormControl>
 
-        
         <FormControl id="mobileNumber" mt={4}>
           <FormLabel>Phone Number</FormLabel>
           <Input name="mobileNumber" type="number" onChange={handleChange} />
