@@ -2,7 +2,7 @@ import axios from './axiosInstance'; // Assuming axiosInstance is correctly set 
 
 export const triggerOnboarding = async (jobApplications, jobId) => {
     try {
-        const response = await axios.post(`/onboarding/triggerOnboarding/${jobId}`, jobApplications);
+        const response = await axios.post(`onboarding/triggerOnboarding/${jobId}`, jobApplications);
         return response.data;
     } catch (error) {
         console.error('Error triggering onboarding:', error);

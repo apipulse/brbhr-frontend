@@ -1,33 +1,35 @@
 import React, { useState } from "react";
 import { Box, FormControl, FormLabel, Input, Button, Select } from "@chakra-ui/react";
-import { addStageToJobPosting } from "../../services/CandidateService"; // Import the service function
+import { addStageToJobPosting, updateCandidateStage } from "../../services/CandidateService"; // Import the service function
 
-const StageForm = ({ jobPostingId, onStageAdded }) => {
-  const [stage, setStage] = useState({ 
-    id:Math.random(),
-    name: "",
+const StageForm = ({ id, stageName, onStageAdded }) => {
+  const [stage, setStage] = useState({
+    id:id,
+    name:stageName,
     description: "",
-    roundNumber: 1,
+    roundNumber: 2,
     recruitmentStageType:'',
     Manager:''
   });
-  console.log(stage.recruitmentStageType)
-  console.log(jobPostingId);
+
+
+
+
 
   const handleChange = (e) => {
     setStage({ ...stage, [e.target.name]: e.target.value });
   };
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addStageToJobPosting(jobPostingId, stage);
-      console.log("Stage added to job posting.", jobPostingId, stage);
-      onStageAdded(); // Callback to refresh the list or update UI
+      const res = updateCandidateStage(id, stage);
+      console.log("ApplicationStage has been updated", res);
+      console.log(id);
+      console.log(stage);
+      onStageAdded()
     } catch (error) {
-      console.error("Error adding stage:", error);
+      console.error("Failed to update stage of application", error)
     }
   };
 
@@ -35,17 +37,18 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
 
   return (
     <Box p={4}>
+      <Box p={4}>
       <form onSubmit={handleSubmit}>
         {/* Form fields for stage details */}
         <FormControl id="name" isRequired>
           <FormLabel>Stage</FormLabel>
           {/* <Input name="name" type="text" onChange={handleChange} /> */}
-          <Input type="text" name="name" borderRadius={0} onChange={handleChange}/>
+          <Input type="text" value={stage.name} name="name" borderRadius={0} onChange={handleChange}/>
         </FormControl>
         <FormControl mt={4} id="recruitmentStageType" isRequired>
           <FormLabel>Stage Type</FormLabel>
           {/* <Input name="name" type="text" onChange={handleChange} /> */}
-          <Select name="recruitmentStageType" borderRadius={0} onChange={handleChange}>
+          <Select name="recruitmentStageType" placeholder="----TYPE----" borderRadius={0} onChange={handleChange}>
             {/* <Input name="stageType" type="text" borderRadius={0}/> */}
             <option value={'INITIAL'} >INITIAL</option>
             <option value={'TEST'} >TEST</option>
@@ -77,9 +80,10 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
           />
         </FormControl>
         <Button mt={4} colorScheme="red" borderRadius={0} type="submit">
-          Add Stage
+          Update Stage
         </Button>
       </form>
+    </Box>
     </Box>
   );
 };

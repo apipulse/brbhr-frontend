@@ -139,7 +139,7 @@ const onBoarding = () => {
   }, [stg]);
 
   return (
-    <VStack
+    <VStack  bgColor={"rgb(250, 247, 247)"}
       minH={"100vh"}
       textAlign={"left"}
       spacing={4}
@@ -166,25 +166,11 @@ const onBoarding = () => {
             placeholder="search"
             borderRadius={"0"}
           />
-
-          <Button
-            // width={'100%'}
-            className="btn"
-            borderRadius={0}
-            fontSize={"14px"}
-            border={"none"}
-            outline={"none"}
-            colorScheme="red"
-            minWidth={"max-content"}
-            onClick={() => handleNewApplicationClick()}
-          >
-            + Recriutment
-          </Button>
         </Box>
       </Box>
       {/* ... (other JSX code) */}
       {!searchQuery ? (
-        <Box w={"100%"}>
+        <Box  bg={'white'} w={"100%"}>
           <Box
             // className="overflow w-100vw"
             overflow={"scroll"}
@@ -228,12 +214,15 @@ const onBoarding = () => {
                           bg={
                             active == job.title ? "white" : "rgb(239, 239, 239)"
                           }
-                          borderRight={"1px solid lightgray"}
+                          // borderRight={"1px solid lightgray"}
                           justifyContent={"space-between"}
                           alignItems={"center"}
                         >
                           <Text fontWeight={"600"}>{job?.title}</Text>
+                          <Text fontSize={'12px'}> 
+
                           {new Date(job?.postingDate).toLocaleDateString()}
+                          </Text>
                           <Text
                             fontSize={"10px"}
                             borderRadius={"100px"}
@@ -480,7 +469,7 @@ const onBoarding = () => {
           </Box>
         </Box>
       ) : (
-        <Table variant="simple" colorScheme="red">
+        <Table  bg={'white'} variant="simple" colorScheme="red">
           <Thead border={"1px solid lightgray"}>
             <Tr>
               <Th>Candidate</Th>
