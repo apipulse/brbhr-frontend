@@ -4,7 +4,7 @@ import {
   Button,
   Table,
   Thead,
-  TabList, 
+  TabList,
   Tbody,
   Tr,
   Th,
@@ -19,15 +19,26 @@ import {
   triggerOnboarding,
 } from "../../services/onboardingService";
 
+import { getAllJobPostings } from "../../services/CandidateService";
+
 const candidateView = () => {
   const [hiredCandidates, setHiredCandidates] = useState([]);
+  const [selectedCandidates, setSelectedCandidates] = useState([]);
+  const [allCandidatesSelected, setAllCandidatesSelected] = useState(false);
+  const [searchQuery, setSearchQuery] = useState();
+  const [jobPostings, setJobPostings] = useState([]);
+
+  const filteredApplications = hiredCandidates?.filter((candidate) => {
+    return candidate?.applicantName
+      ?.toLowerCase()
+      ?.includes(searchQuery?.toLowerCase());
+  });
 
   const triggerBoarding = async () => {
-    console.log(hiredCandidates, hiredCandidates[0].appliedToJobId);
     try {
       const hiredCandidats = await triggerOnboarding(
-        hiredCandidates,
-        hiredCandidates[0].appliedToJobId
+        getSelectedCandidateObjects(),
+        getSelectedCandidateObjects()[0]?.appliedToJobId
       );
       console.log("OnBorading has been triggered", hiredCandidats);
     } catch (error) {
@@ -45,8 +56,38 @@ const candidateView = () => {
         console.error("Error fetching Hired candidates:", error);
       }
     };
+    const fetchJobPostings = async () => {
+      try {
+        const postings = await getAllJobPostings();
+        setJobPostings(postings);
+      } catch (error) {
+        console.error("Error fetching job postings:", error);
+      }
+    };
+    fetchJobPostings();
     fetchHiredCandidates();
   }, []);
+  const handleCandidateSelection = (candidateId) => {
+    if (selectedCandidates.includes(candidateId)) {
+      // Deselect
+      setSelectedCandidates(
+        selectedCandidates.filter((id) => id !== candidateId)
+      );
+    } else {
+      // Select
+      setSelectedCandidates([...selectedCandidates, candidateId]);
+    }
+  };
+  const getSelectedCandidateObjects = () => {
+    return selectedCandidates.map((id) =>
+      hiredCandidates.find((candidate) => candidate.id === id)
+    );
+  };
+  console.log(
+    getSelectedCandidateObjects(),
+    getSelectedCandidateObjects()[0]?.appliedToJobId
+  );
+
   return (
     <VStack p={4} minH={"100vh"} className="w-100vw">
       <Box
@@ -87,46 +128,153 @@ const candidateView = () => {
             >
               + Trigger Onboarding
             </Button>
-
-            <Button
-              // width={'100%'}
-              className="btn"
-              borderRadius={0}
-              fontSize={"14px"}
-              border={"none"}
-              outline={"none"}
-              colorScheme="red"
-              minWidth={"max-content"}
-              onClick={() => handleNewApplicationClick()}
-            >
-              + Create
-            </Button>
           </Box>
         </Box>
       </Box>
-
       <Box w={"100%"} overflow={"scroll"} border={"1px solid lightgray"}>
-        <Table minW={"max-content"} variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Candidate</Th>
-              <Th>Email</Th>
-              <Th>Date of joining</Th>
-              <Th>Job position</Th>
-              <Th>Recruitment</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {hiredCandidates?.map((candidate) => (
-              <Tr key={Math.random()}>
-                <Td>{candidate.applicantName} </Td>
-                <Td>{candidate.applicantEmail}</Td>
-                <Td>{candidate.appliedToJobId}</Td>
-                <Td>{candidate.mobileNumber}</Td>
+        {!searchQuery ? (
+          <Table minW={"max-content"} variant="simple">
+            <Thead>
+              <Tr>
+                <Th>
+                  <input
+                    type="checkbox"
+                    checked={allCandidatesSelected}
+                    onChange={() =>
+                      setAllCandidatesSelected(!allCandidatesSelected)
+                    }
+                  />
+                </Th>
+                <Th>candidate</Th>
+                <Th>Email</Th>
+                <Th>Date of joining</Th>
+                <Th>Job position</Th>
+                <Th>Recruitment</Th>
+                <Th>Contact</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {hiredCandidates?.map((candidate) => (
+                <Tr key={Math.random()}>
+                  <Td>
+                    <input
+                      type="checkbox"
+                      checked={
+                        allCandidatesSelected ||
+                        selectedCandidates.includes(candidate.id)
+                      }
+                      onChange={() => {
+                        if (allCandidatesSelected) {
+                          setSelectedCandidates(
+                            selectedCandidates.filter(
+                              (id) => id !== candidate.id
+                            )
+                          );
+                        } else {
+                          handleCandidateSelection(candidate.id);
+                        }
+                      }}
+                    />
+                  </Td>
+                  <Td>{candidate.applicantName} </Td>
+                  <Td>{candidate.applicantEmail}</Td>
+                  <Td>None</Td>
+                  <Td>
+                    {
+                      jobPostings.find(
+                        (job) => job.id === candidate.appliedToJobId
+                      )?.title
+                    }
+                  </Td>
+                  <Td>
+                    {
+                      jobPostings.find(
+                        (job) => job.id === candidate.appliedToJobId
+                      )?.title
+                    }{" "}
+                    {new Date(
+                      jobPostings?.find(
+                        (job) => job?.id === candidate?.appliedToJobId
+                      )?.postingDate
+                    ).toLocaleDateString()}
+                  </Td>
+                  <Td>{candidate.mobileNumber}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        ) : (
+          <Table minW={"max-content"} variant="simple">
+            <Thead>
+              <Tr>
+                <Th>
+                  <input
+                    type="checkbox"
+                    checked={allCandidatesSelected}
+                    onChange={() =>
+                      setAllCandidatesSelected(!allCandidatesSelected)
+                    }
+                  />
+                </Th>
+                <Th>candidate</Th>
+                <Th>Email</Th>
+                <Th>Date of joining</Th>
+                <Th>Job position</Th>
+                <Th>Recruitment</Th>
+                <Th>Contact</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {filteredApplications?.map((candidate) => (
+                <Tr key={Math.random()}>
+                  <Td>
+                    <input
+                      type="checkbox"
+                      checked={
+                        allCandidatesSelected ||
+                        selectedCandidates.includes(candidate.id)
+                      }
+                      onChange={() => {
+                        if (allCandidatesSelected) {
+                          setSelectedCandidates(
+                            selectedCandidates.filter(
+                              (id) => id !== candidate.id
+                            )
+                          );
+                        } else {
+                          handleCandidateSelection(candidate.id);
+                        }
+                      }}
+                    />
+                  </Td>
+                  <Td>{candidate.applicantName} </Td>
+                  <Td>{candidate.applicantEmail}</Td>
+                  <Td>None</Td>
+                  <Td>
+                    {
+                      jobPostings.find(
+                        (job) => job.id === candidate.appliedToJobId
+                      )?.title
+                    }
+                  </Td>
+                  <Td>
+                    {
+                      jobPostings.find(
+                        (job) => job.id === candidate.appliedToJobId
+                      )?.title
+                    }{" "}
+                    {new Date(
+                      jobPostings?.find(
+                        (job) => job?.id === candidate?.appliedToJobId
+                      )?.postingDate
+                    ).toLocaleDateString()}
+                  </Td>
+                  <Td>{candidate.mobileNumber}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        )}
       </Box>
     </VStack>
   );

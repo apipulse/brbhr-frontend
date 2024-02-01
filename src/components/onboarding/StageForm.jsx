@@ -15,7 +15,7 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
   };
 
   const handleSubmit = async (e) => {
-    const index = 104;
+    const index = 0;
     e.preventDefault();
     try {
       await createOnboardingStage(stage, jobPostingId, index);
