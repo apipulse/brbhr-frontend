@@ -20,6 +20,16 @@ export const getAllHiredCandidates = async () => {
     }
 };
 
+export const getHiredCandidates = async (jobId) => {
+    try {
+        const response = await axios.get(`onboarding/candidates/${jobId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching the specific hired candidate:', error);
+        throw error;
+    }
+};
+
 export const getAllOnboardingStages = async (jobId) => {
     try {
         const response = await axios.get(`onboarding/stages/${jobId}`);
