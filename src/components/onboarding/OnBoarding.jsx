@@ -25,14 +25,11 @@ import {
   FormControl,
   FormLabel,
 } from "@chakra-ui/react";
-import {
-  getAllJobPostings,
-  getCurrentStageOfApplication,
-  updateCandidateStage,
-} from "../../services/CandidateService";
+import { getAllJobPostings } from "../../services/CandidateService";
 import {
   getAllOnboardingStages,
-  getAllHiredCandidates,
+  updateCandidateStage,
+  getHiredCandidates,
 } from "../../services/onboardingService";
 import NoteContext from "../../Context/NoteContext";
 
@@ -111,7 +108,6 @@ const onBoarding = () => {
       console.error("Error fetching job posting stages for", jobid, error);
     }
   };
-  console.log(stages);
 
   useEffect(() => {
     abc.setName("ONBOARDING");
@@ -123,23 +119,33 @@ const onBoarding = () => {
         console.error("Error fetching job postings:", error);
       }
     };
-
-    const fetchHiredCandidates = async () => {
-      try {
-        const hiredCandidates = await getAllHiredCandidates();
-        setHiredCandidates(hiredCandidates);
-        console.log("HIRED CANDIDATES ARE:", hiredCandidates);
-      } catch (error) {
-        console.error("Error fetching Hired Candidates:", error);
-      }
-    };
     fetchOnboardingStages(jobid);
     fetchJobPostings();
-    fetchHiredCandidates();
   }, [stg]);
 
+  const updateStage = (candidateId) => {
+    console.log(candidateId,2,103,jobid,'Ali Husnain')
+    try {
+      const res = updateCandidateStage(candidateId,276,2987,jobid,'Ali Husna');
+      console.log(res);
+    } catch (error) {
+      console.error("Failed to update the stage of candidate", error);
+    }
+  };
+
+  const hiredCandidate = async (Id) => {
+    try {
+      const res = await getHiredCandidates(Id);
+      console.log(res);
+      setHiredCandidates(res);
+    } catch (error) {
+      console.error("Could Not get the hired candidate", error);
+    }
+  };
+
   return (
-    <VStack  bgColor={"rgb(250, 247, 247)"}
+    <VStack
+      bgColor={"rgb(250, 247, 247)"}
       minH={"100vh"}
       textAlign={"left"}
       spacing={4}
@@ -161,6 +167,7 @@ const onBoarding = () => {
 
         <Box display={"flex"} gap={"2"} alignItems={"center"}>
           <Input
+            bg={"white"}
             type="text"
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="search"
@@ -170,7 +177,7 @@ const onBoarding = () => {
       </Box>
       {/* ... (other JSX code) */}
       {!searchQuery ? (
-        <Box  bg={'white'} w={"100%"}>
+        <Box bg={"white"} w={"100%"}>
           <Box
             // className="overflow w-100vw"
             overflow={"scroll"}
@@ -201,6 +208,8 @@ const onBoarding = () => {
                             setJobId(job.id);
                             setjobName(job?.title);
                             setactive(job.title);
+                            fetchOnboardingStages(job.id);
+                            hiredCandidate(job.id);
                             // setstg(!stg)
                           }}
                           cursor={"pointer"}
@@ -219,9 +228,8 @@ const onBoarding = () => {
                           alignItems={"center"}
                         >
                           <Text fontWeight={"600"}>{job?.title}</Text>
-                          <Text fontSize={'12px'}> 
-
-                          {new Date(job?.postingDate).toLocaleDateString()}
+                          <Text fontSize={"12px"}>
+                            {new Date(job?.postingDate).toLocaleDateString()}
                           </Text>
                           <Text
                             fontSize={"10px"}
@@ -274,7 +282,7 @@ const onBoarding = () => {
                         </Tr>
                       </Thead>
                       <Tbody>
-                        {allCandidates?.map((candidate) =>
+                        {hiredCandidates?.map((candidate) =>
                           (candidate.country === jobName &&
                             // candidate.appliedToJobId === jobid
                             candidate.currentRecruitmentStage == null) ||
@@ -346,6 +354,7 @@ const onBoarding = () => {
                           w={"100%"}
                         >
                           <Box display={"flex"} alignItems={"center"} gap={2}>
+                            ---
                             <Text
                               fontSize={"10px"}
                               borderRadius={"100px"}
@@ -359,11 +368,9 @@ const onBoarding = () => {
                               bg={"red"}
                             >
                               {
-                                allCandidates?.filter(
+                                hiredCandidates?.filter(
                                   (candidate) =>
-                                    candidate.country === jobName &&
-                                    candidate.currentRecruitmentStage?.name ==
-                                      stage.name
+                                    candidate.appliedToJobId === jobid
                                 ).length
                               }
                             </Text>{" "}
@@ -406,24 +413,27 @@ const onBoarding = () => {
                               </Tr>
                             </Thead>
                             <Tbody>
-                              {allCandidates?.map((candidate) =>
-                                candidate.country === jobName &&
-                                // candidate.appliedToJobId === jobid
-                                candidate.currentRecruitmentStage?.name ==
-                                  stage.name ? (
+                              {hiredCandidates?.map((candidate) =>
+                                candidate.jobApplication.appliedToJobId ===
+                                jobid && stage.candidateIdVsManager.hasOwnProperty(candidate.id)? (
                                   <Tr key={candidate.id}>
-                                    <Td>{candidate.applicantName}</Td>
-                                    <Td>{candidate.applicantEmail}</Td>
-                                    <Td>{candidate.country}</Td>
-                                    <Td>{candidate.mobileNumber}</Td>
+                                    <Td>
+                                      {candidate.jobApplication.applicantName}
+                                    </Td>
+                                    <Td>
+                                      {candidate.jobApplication.applicantEmail}
+                                    </Td>
+                                    <Td>{candidate.jobApplication.country}</Td>
+                                    <Td>
+                                      {candidate.jobApplication.mobileNumber}
+                                    </Td>
                                     <Td>
                                       <Select
                                         onChange={(e) => {
-                                          updateApplicationStage(
-                                            candidate.id,
-                                            e.target.value
+                                          updateStage(
+                                            candidate.id
                                           );
-                                          console.log(e.target.value);
+                                          console.log(candidate.id,e.target.value);
                                         }}
                                         // value={currentValue}
                                         value={
@@ -469,7 +479,7 @@ const onBoarding = () => {
           </Box>
         </Box>
       ) : (
-        <Table  bg={'white'} variant="simple" colorScheme="red">
+        <Table bg={"white"} variant="simple" colorScheme="red">
           <Thead border={"1px solid lightgray"}>
             <Tr>
               <Th>Candidate</Th>

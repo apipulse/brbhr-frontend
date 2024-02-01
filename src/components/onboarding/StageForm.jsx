@@ -4,7 +4,7 @@ import { createOnboardingStage } from "../../services/onboardingService";
 const StageForm = ({ jobPostingId, onStageAdded }) => {
   const [stage, setStage] = useState({
     name: "",
-    description: "",
+    description: "", 
     defaultManager: "",
     candidateIdVsManager: {}
   });
@@ -14,15 +14,8 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
     setStage({ ...stage, [e.target.name]: e.target.value });
   };
 
-  // const onboardingStage = new OnboardingStage(
-  //   'Initial Stage',
-  //   'Description of the stage',
-  //   'Manager1',
-  //   { 'candidate1': 'Manager2', 'candidate2': 'Manager3' }
-  //   );
-
   const handleSubmit = async (e) => {
-    const index = 2;
+    const index = 104;
     e.preventDefault();
     try {
       await createOnboardingStage(stage, jobPostingId, index);
