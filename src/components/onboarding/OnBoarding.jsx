@@ -33,7 +33,7 @@ import {
 } from "../../services/onboardingService";
 import NoteContext from "../../Context/NoteContext";
 
-import { MdOutlineMailOutline } from "react-icons/md";
+import { GoDash } from "react-icons/go";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import StageForm from "./StageForm";
 import SendEmail from "../candidates/SendEmail";
@@ -45,6 +45,7 @@ const onBoarding = () => {
   const [hiredCandidates, setHiredCandidates] = useState();
   const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
   const [selectedEMail, setSelectedEMail] = useState(null);
+  const [allStages, setAllStages] = useState();
   const [jobid, setJobId] = useState();
   const [active, setactive] = useState();
   const [jobName, setjobName] = useState();
@@ -94,14 +95,16 @@ const onBoarding = () => {
   };
 
   const filteredApplications = hiredCandidates?.filter((candidate) => {
-    return candidate?.applicantName
+    return candidate?.jobApplication.applicantName
       ?.toLowerCase()
       ?.includes(searchQuery?.toLowerCase());
   });
+  console.log(searchQuery);
+  console.log(filteredApplications);
 
-  const fetchOnboardingStages = async (jobid) => {
+  const fetchOnboardingStages = async (id) => {
     try {
-      const res = await getAllOnboardingStages(jobid);
+      const res = await getAllOnboardingStages(id);
       setStages(res);
       console.log("ONBOARDING STAGES ARE:", res);
     } catch (error) {
@@ -111,6 +114,7 @@ const onBoarding = () => {
 
   useEffect(() => {
     abc.setName("ONBOARDING");
+
     const fetchJobPostings = async () => {
       try {
         const postings = await getAllJobPostings();
@@ -119,15 +123,48 @@ const onBoarding = () => {
         console.error("Error fetching job postings:", error);
       }
     };
-    fetchOnboardingStages(jobid);
+
     fetchJobPostings();
+    // fetchJobStages();
   }, [stg]);
 
-  const updateStage = (candidateId) => {
-    console.log(candidateId,2,103,jobid,'Ali Husnain')
+  useEffect(() => {
+    // Ensure jobid is defined here if needed for fetchOnboardingStages
+    const fetchJobStages = async () => {
+      try {
+        const jobIds = jobPostings.map((job) => job.id);
+        const stagesPromises = jobIds.map((id) => getAllOnboardingStages(id));
+        const allStages = await Promise.all(stagesPromises);
+        setAllStages(
+          allStages.reduce(
+            (acc, stages, index) => ({
+              ...acc,
+              [jobPostings[index].title]: stages,
+            }),
+            {}
+          )
+        );
+      } catch (error) {
+        console.error("Error fetching job posting stages:", error);
+      }
+    };
+
+    fetchJobStages();
+  }, [jobPostings]);
+
+  console.log(allStages);
+
+  const updateStage = (candidateId, fromIndex, toIndex) => {
     try {
-      const res = updateCandidateStage(candidateId,276,2987,jobid,'Ali Husna');
+      const res = updateCandidateStage(
+        candidateId,
+        fromIndex,
+        toIndex,
+        jobid,
+        ""
+      );
       console.log(res);
+      setstg(!stg);
     } catch (error) {
       console.error("Failed to update the stage of candidate", error);
     }
@@ -143,6 +180,7 @@ const onBoarding = () => {
     }
   };
 
+  console.log(allStages?.jobName);
   return (
     <VStack
       bgColor={"rgb(250, 247, 247)"}
@@ -200,17 +238,16 @@ const onBoarding = () => {
               >
                 {/* ********************************************************************* */}
                 {jobPostings &&
-                  jobPostings?.map((job) => {
+                  jobPostings?.map((job, index) => {
                     return (
-                      <Box key={job.id} minWidth={"max-content"} width={"100%"}>
-                        <Box
+                      <Box key={job.id}  minWidth={"max-content"} width={"100%"}>
+                        <Box 
                           onClick={() => {
                             setJobId(job.id);
                             setjobName(job?.title);
                             setactive(job.title);
                             fetchOnboardingStages(job.id);
                             hiredCandidate(job.id);
-                            // setstg(!stg)
                           }}
                           cursor={"pointer"}
                           display={"flex"}
@@ -223,9 +260,10 @@ const onBoarding = () => {
                           bg={
                             active == job.title ? "white" : "rgb(239, 239, 239)"
                           }
-                          // borderRight={"1px solid lightgray"}
                           justifyContent={"space-between"}
                           alignItems={"center"}
+                          minH={'100%'}
+                          px={1}
                         >
                           <Text fontWeight={"600"}>{job?.title}</Text>
                           <Text fontSize={"12px"}>
@@ -243,11 +281,7 @@ const onBoarding = () => {
                             color={"white"}
                             bg={"red"}
                           >
-                            {
-                              hiredCandidates?.filter(
-                                (candidate) => candidate.country === job.title
-                              ).length
-                            }
+                            {0}
                           </Text>
                         </Box>
                       </Box>
@@ -261,271 +295,166 @@ const onBoarding = () => {
                   borderRadius={"0"}
                   onClick={() => handleAddStageClick(jobid)}
                 >
-                  + Add Stage
+                  + stage
                 </Button>
-
-                {hiredCandidates?.some(
-                  (candidate) =>
-                    !candidate.currentRecruitmentStage?.name &&
-                    candidate.country === jobName
-                ) && (
-                  <Box shadow={"sm"}>
-                    <Table variant="simple" colorScheme="teal">
-                      <Thead>
-                        <Tr>
-                          <Th>Candidate</Th>
-                          <Th>Email</Th>
-                          <Th>Job position</Th>
-                          <Th>Contact</Th>
-                          <Th>Stage</Th>
-                          <Th>Actions</Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {hiredCandidates?.map((candidate) =>
-                          (candidate.country === jobName &&
-                            // candidate.appliedToJobId === jobid
-                            candidate.currentRecruitmentStage == null) ||
-                          candidate.currentRecruitmentStage == "" ? (
-                            <Tr key={Math.random()}>
-                              <Td>{candidate.applicantName} </Td>
-                              <Td>{candidate.applicantEmail}</Td>
-                              <Td>{candidate.country}</Td>
-                              <Td>{candidate.mobileNumber}</Td>
-                              <Td>
-                                <Select
-                                  onChange={(e) => {
-                                    updateApplicationStage(
-                                      candidate.id,
-                                      e.target.value
-                                    );
-                                  }}
-                                >
-                                  {stages &&
-                                    stages?.map((stage) => {
-                                      return (
-                                        <option
-                                          key={Math.random()}
-                                          value={stage.name}
-                                        >
-                                          {stage.name}
-                                        </option>
-                                      );
-                                    })}
-                                </Select>
-                              </Td>
-                              <Td>
-                                <MdOutlineMailOutline
-                                  onClick={() =>
-                                    handleSendMailClick(
-                                      candidate.applicantEmail
-                                    )
-                                  }
-                                  cursor={"pointer"}
-                                />
-                              </Td>
-                            </Tr>
-                          ) : (
-                            ""
-                          )
-                        )}
-                      </Tbody>
-                    </Table>
-                  </Box>
-                )}
-
-                {stages &&
-                  stages?.map((stage) => {
-                    return (
-                      <Box
-                        key={Math.random()}
-                        width={"100%"}
-                        // overflow={'hidden'}
-                        mb={3}
-                        border={"1px solid lightgray"}
-                        justifyContent={"space-between"}
-                      >
+                <Box>
+                  {stages &&
+                    stages?.map((stage, index) => {
+                      return (
                         <Box
-                          display={"flex"}
-                          borderBottom={"1px solid lightgray"}
-                          py={1}
+                          key={Math.random()}
+                          width={"100%"}
+                          // overflow={'hidden'}
+                          mb={3}
+                          border={"1px solid lightgray"}
                           justifyContent={"space-between"}
-                          px={4}
-                          w={"100%"}
                         >
-                          <Box display={"flex"} alignItems={"center"} gap={2}>
-                            ---
-                            <Text
-                              fontSize={"10px"}
-                              borderRadius={"100px"}
-                              width={"17px"}
-                              height={"17px"}
-                              display={"flex"}
-                              justifyContent={"center"}
-                              alignItems={"center"}
-                              textAlign="center"
-                              color={"white"}
-                              bg={"red"}
-                            >
-                              {
-                                hiredCandidates?.filter(
-                                  (candidate) =>
-                                    candidate.appliedToJobId === jobid
-                                ).length
-                              }
-                            </Text>{" "}
-                            <Text fontSize={"1rem"} fontWeight={"bold"}>
-                              {stage.name}
-                            </Text>
+                          <Box
+                            display={"flex"}
+                            borderBottom={"1px solid lightgray"}
+                            py={1}
+                            justifyContent={"space-between"}
+                            px={4}
+                            w={"100%"}
+                          >
+                            <Box display={"flex"} alignItems={"center"} gap={2}>
+                              <GoDash fontSize={"1.2rem"} fontWeight={"bold"} />
+                              <Text
+                                fontSize={"10px"}
+                                borderRadius={"100px"}
+                                width={"17px"}
+                                height={"17px"}
+                                display={"flex"}
+                                justifyContent={"center"}
+                                alignItems={"center"}
+                                textAlign="center"
+                                color={"white"}
+                                bg={"red"}
+                              >
+                                {
+                                  hiredCandidates?.filter(
+                                    (candidate) =>
+                                      candidate.jobApplication
+                                        .appliedToJobId === jobid &&
+                                      stage.candidateIdVsManager.hasOwnProperty(
+                                        candidate.id
+                                      )
+                                  ).length
+                                }
+                              </Text>{" "}
+                              <Text fontSize={"1rem"} fontWeight={"bold"}>
+                                {stage.name}
+                              </Text>
+                            </Box>
+                            <Box display={"flex"} gap={2} alignItems={"center"}>
+                              {/* ********************************************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\lljnnkeeeeeed*********** */}
+                              <BsThreeDotsVertical
+                                onClick={() => handleDeleteStage(stage.name)}
+                                cursor={"pointer"}
+                                bg="blue"
+                                width={"10px"}
+                                height={"10px"}
+                              />
+                            </Box>
                           </Box>
-                          <Box display={"flex"} gap={2} alignItems={"center"}>
-                            {/* ********************************************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\lljnnkeeeeeed*********** */}
-
-                            <Button
-                              bg={"transparent"}
-                              color={"red"}
-                              fontSize={"22px"}
-                              outline={"none"}
-                              border={"1px solid red"}
-                              onClick={() => handleNewJobApplicationClick()}
-                            >
-                              +
-                            </Button>
-                            <BsThreeDotsVertical
-                              onClick={() => handleDeleteStage(stage.name)}
-                              cursor={"pointer"}
-                              bg="blue"
-                              width={"10px"}
-                              height={"10px"}
-                            />
+                          <Box>
+                            <Table variant="simple" colorScheme="red">
+                              <Thead>
+                                <Tr>
+                                  <Th>candidate</Th>
+                                  <Th>Email</Th>
+                                  <Th>Mobile</Th>
+                                  <Th>Joining Date</Th>
+                                  <Th>stage</Th>
+                                </Tr>
+                              </Thead>
+                              <Tbody>
+                                {hiredCandidates?.map((candidate) =>
+                                  candidate.jobApplication.appliedToJobId ===
+                                    jobid &&
+                                  stage.candidateIdVsManager.hasOwnProperty(
+                                    candidate.id
+                                  ) ? (
+                                    <Tr key={candidate.id}>
+                                      <Td>
+                                        {candidate.jobApplication.applicantName}
+                                      </Td>
+                                      <Td>
+                                        {
+                                          candidate.jobApplication
+                                            .applicantEmail
+                                        }
+                                      </Td>
+                                      <Td>
+                                        {candidate.jobApplication.mobileNumber}
+                                      </Td>
+                                      <Td>None</Td>
+                                      <Td>
+                                        <Select
+                                          onChange={(e) => {
+                                            updateStage(
+                                              candidate.id,
+                                              index,
+                                              e.target.value
+                                            );
+                                            console.log(
+                                              candidate.id,
+                                              index,
+                                              e.target.value
+                                            );
+                                          }}
+                                          value={index}
+                                        >
+                                          {stages?.map((stage, index) => {
+                                            return (
+                                              <option
+                                                key={Math.random()}
+                                                value={index}
+                                              >
+                                                {stage.name}
+                                              </option>
+                                            );
+                                          })}
+                                        </Select>
+                                      </Td>
+                                    </Tr>
+                                  ) : (
+                                    ""
+                                  )
+                                )}
+                              </Tbody>
+                            </Table>
                           </Box>
                         </Box>
-                        <Box>
-                          <Table variant="simple" colorScheme="red">
-                            <Thead>
-                              <Tr>
-                                <Th>candidate</Th>
-                                <Th>Email</Th>
-                                <Th>Job position</Th>
-                                <Th>Contact</Th>
-                                <Th>stage</Th>
-                                <Th>Actions</Th>
-                              </Tr>
-                            </Thead>
-                            <Tbody>
-                              {hiredCandidates?.map((candidate) =>
-                                candidate.jobApplication.appliedToJobId ===
-                                jobid && stage.candidateIdVsManager.hasOwnProperty(candidate.id)? (
-                                  <Tr key={candidate.id}>
-                                    <Td>
-                                      {candidate.jobApplication.applicantName}
-                                    </Td>
-                                    <Td>
-                                      {candidate.jobApplication.applicantEmail}
-                                    </Td>
-                                    <Td>{candidate.jobApplication.country}</Td>
-                                    <Td>
-                                      {candidate.jobApplication.mobileNumber}
-                                    </Td>
-                                    <Td>
-                                      <Select
-                                        onChange={(e) => {
-                                          updateStage(
-                                            candidate.id
-                                          );
-                                          console.log(candidate.id,e.target.value);
-                                        }}
-                                        // value={currentValue}
-                                        value={
-                                          candidate.currentRecruitmentStage
-                                            ?.name
-                                        }
-                                      >
-                                        {stages?.map((stage) => {
-                                          return (
-                                            <option
-                                              key={Math.random()}
-                                              value={stage.name}
-                                            >
-                                              {stage.name}
-                                            </option>
-                                          );
-                                        })}
-                                      </Select>
-                                    </Td>
-                                    <Td>
-                                      <MdOutlineMailOutline
-                                        onClick={() =>
-                                          handleSendMailClick(
-                                            candidate.applicantEmail
-                                          )
-                                        }
-                                        cursor={"pointer"}
-                                      />
-                                    </Td>
-                                  </Tr>
-                                ) : (
-                                  ""
-                                )
-                              )}
-                            </Tbody>
-                          </Table>
-                        </Box>
-                      </Box>
-                    );
-                  })}
+                      );
+                    })}
+                </Box>
               </Box>
             </Box>
           </Box>
         </Box>
       ) : (
-        <Table bg={"white"} variant="simple" colorScheme="red">
-          <Thead border={"1px solid lightgray"}>
-            <Tr>
-              <Th>Candidate</Th>
-              <Th>Email</Th>
-              <Th>Job position</Th>
-              <Th>Contact</Th>
-              <Th>Stage</Th>
-              <Th>Actions</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {filteredApplications &&
-              filteredApplications?.map((candidate) => (
-                <Tr key={Math.random()}>
-                  <Td>{candidate.applicantName} </Td>
-                  <Td>{candidate.applicantEmail}</Td>
-                  <Td>{candidate.country}</Td>
-                  <Td>{candidate.mobileNumber}</Td>
-                  <Td>
-                    <Select
-                      onChange={(e) => {
-                        updateApplicationStage(candidate.id, e.target.value);
-                      }}
-                    >
-                      {stages &&
-                        stages?.map((stage) => {
-                          return (
-                            <option key={Math.random()} value={stage.name}>
-                              {stage.name}
-                            </option>
-                          );
-                        })}
-                    </Select>
-                  </Td>
-                  <Td>
-                    <MdOutlineMailOutline
-                      onClick={() =>
-                        handleSendMailClick(candidate.applicantEmail)
-                      }
-                      cursor={"pointer"}
-                    />
-                  </Td>
-                </Tr>
-              ))}
-          </Tbody>
-        </Table>
+        <Box border={"1px solid lightgray"} w={"100%"} overflowX={"scroll"}>
+          <Table bg={"white"} variant="simple">
+            <Thead>
+              <Tr>
+                <Th>Candidate</Th>
+                <Th>Email</Th>
+                <Th>Contact</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {filteredApplications &&
+                filteredApplications?.map((candidate) => (
+                  <Tr key={candidate.id}>
+                    <Td>{candidate.jobApplication.applicantName} </Td>
+                    <Td>{candidate.jobApplication.applicantEmail}</Td>
+                    <Td>{candidate.jobApplication.mobileNumber}</Td>
+                  </Tr>
+                ))}
+            </Tbody>
+          </Table>
+        </Box>
       )}
 
       <Modal isOpen={isOpen1} onClose={onClose1}>
