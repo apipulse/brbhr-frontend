@@ -10,27 +10,19 @@ export const getLeavesByEmployee = async (employeeId) => {
   }
 };
 
-// export const applyForLeave = async (leaveData) => {
-//   try {
-//     const response = await axios.post("leave", leaveData);
-//     return response.data;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-export const applyForLeave = async (leaveData) => {
+export const applyForLeave = async (employeeId, leaveRequest) => {
   try {
-    const response = await axios.post("leave", leaveData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return response.data;
+  const url = `/leave/myleaves/apply/${employeeId}`;
+  const response = await axios.post(url, leaveRequest, {
+  headers: {
+  "Content-Type": "application/json",
+  },
+  });
+  return response.data;
   } catch (error) {
-    throw error;
+  throw error;
   }
-};
+  };
 
 export const updateLeave = async (id, leaveData) => {
   try {
@@ -48,7 +40,7 @@ export const deleteLeave = async (id) => {
     throw error;
   }
 };
-// Fetch Leaves by Employee
+
 export const getMyLeaves = async (employeeId) => {
   try {
     const response = await axios.get(`leave/myleaves/${employeeId}`);
@@ -111,6 +103,15 @@ export const getAllLeaveRequests = async () => {
 export const createCompanyLeave = async (companyLeaveData) => {
   try {
     const response = await axios.post("leave/company-leaves", companyLeaveData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getCompanyLeaves = async () => {
+  try {
+    const response = await axios.get("leave/company-leaves");
     return response.data;
   } catch (error) {
     throw error;

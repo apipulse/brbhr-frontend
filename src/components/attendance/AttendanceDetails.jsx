@@ -81,6 +81,7 @@ const AttendanceDetails = () => {
     };
 
     const fetchByMonth = async () => {
+      console.log(year, currentMonth)
       const data = await getAttendanceByMonth(year, currentMonth);
       setMonthlyAttendance(data);
       console.log(data);

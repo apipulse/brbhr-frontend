@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { getMyLeaves } from "../../services/LeaveService";
 import { Box, Input, Text,Table,
@@ -10,7 +10,8 @@ import { Box, Input, Text,Table,
   Td, } from "@chakra-ui/react";
 function MyLeaves() {
   const [id, setId] = useState();
-  const [leaves, setLeaves] = useState();
+  const [leaves, setLeaves] = useState([]);
+useEffect(()=>{
 
   const MyLeves = async () => {
     try {
@@ -21,16 +22,18 @@ function MyLeaves() {
       console.error(error);
     }
   };
+  MyLeves()
+},[])
   return (
-    <Box minH={"100vh"} className="w-100vw" p={4}>
+    <Box minH={"100vh"} mt={4} className="w-100vw" p={4}>
       <Box>
         <Text fontWeight={"600"} fontSize={"1.4rem"}>
           My Leaves
         </Text>
-        <Input value={id} onChange={(e)=>setId(e.target.value)} placeholder="Empoyee Id" type="text" borderRadius={0} />
+        <Input mt={3} value={id} onChange={(e)=>setId(e.target.value)} placeholder="Empoyee Id" type="text" borderRadius={0} />
       </Box>
       <Box onClick={()=>MyLeaves()} mt={4} shadow={"sm"} overflow={'scroll'} border={'1px solid lightgray'}>
-        <Table minW={'max-content'} variant="simple" colorScheme="teal">
+        <Table minW={'max-content'} variant="simple" >
           <Thead>
             <Tr>
               <Th>Candidate</Th>
@@ -42,7 +45,7 @@ function MyLeaves() {
             </Tr>
           </Thead>
           <Tbody>
-            {leaves?.map((candidate) =>
+            {/* {leaves?.map((candidate) =>
               (candidate.country === jobName &&
                 // candidate.appliedToJobId === jobid
                 candidate.currentRecruitmentStage == null) ||
@@ -65,7 +68,7 @@ function MyLeaves() {
               ) : (
                 ""
               )
-            )}
+            )} */}
           </Tbody>
         </Table>
       </Box>

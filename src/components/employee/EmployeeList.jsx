@@ -26,18 +26,20 @@ import {
   Td,
   VStack,
   Button,
+  useToast,
 } from "@chakra-ui/react";
+import { randomColor } from "@chakra-ui/theme-tools";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import NoteContext from "../../Context/NoteContext";
 
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaList } from "react-icons/fa6";
-import StageForm from "./AddEmployeeForm";
+import StageForm from "./AddEmployee";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 const EmployeeList = () => {
   const abc = useContext(NoteContext);
-
+  const toast = useToast();
   const {
     isOpen: isOpen1,
     onOpen: onOpen1,
@@ -49,10 +51,12 @@ const EmployeeList = () => {
     onClose: onClose2,
   } = useDisclosure();
   const [employees, setEmployees] = useState([]);
-  const [employeeid, setEmployeeId] = useState(null);
+  const [employeeInfo, setEmployeeInfo] = useState();
   const [listview, setListView] = useState(true);
   const [searchQuery, SetSearchQuery] = useState();
-  //   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+  const [id, setId] = useState(null);
+  const [change, setChange] = useState(false);
+  const [open, setOpen] = useState(false);
   const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
   useEffect(() => {
     abc.setName("EMPLOYEE");
@@ -66,17 +70,19 @@ const EmployeeList = () => {
       }
     };
     fetchEmployees();
-  }, []);
+  }, [change]);
 
   const filteredEmployees = employees?.filter((employee) => {
     return employee?.name?.toLowerCase()?.includes(searchQuery?.toLowerCase());
   });
 
-  console.log(employeeid);
-  const seeEmployee = (id) => {
+  const seeEmployee = async (id) => {
+    onOpen2();
+    console.log(id);
     try {
-      const res = getEmployeeById(id);
+      const res = await getEmployeeById(id);
       console.log(res);
+      setEmployeeInfo(res);
       console.log("Employee's Information has been fetchend");
     } catch (error) {
       console.log("Failed to fetch the Employee's Information", error);
@@ -85,12 +91,24 @@ const EmployeeList = () => {
 
   console.log(searchQuery);
   const deleteAnEmployee = async (id) => {
-    console.log(id);
     try {
-      const response = await deleteEmployee(1);
-      console.log(response);
+      const response = await deleteEmployee(id);
+      console.log("Employee has been deleted", response);
+      toast({
+        title: "Employee has been deleted",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setChange(!change);
     } catch (error) {
       console.log("Can't delete the Employee: Error", error);
+      toast({
+        title: "Error deleting employee",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
   const handleAddStageClick = (jobPostingId) => {
@@ -98,17 +116,11 @@ const EmployeeList = () => {
     setSelectedJobPostingId(jobPostingId);
     onOpen1();
   };
-
-  const seeEmployeeInfo = (id) => {
-    console.log("Opening modal to see employee information", id);
-    setEmployeeId(id);
-
-    onOpen2();
-  };
-console.log(filteredEmployees)
+  console.log(filteredEmployees);
   console.log(employees);
+  console.log(id);
   return (
-    <VStack spacing={4} minH={'100vh'}>
+    <VStack spacing={4} minH={"100vh"}>
       <Box
         className="changeDir gap"
         p={2}
@@ -140,12 +152,12 @@ console.log(filteredEmployees)
             <Box display={"flex"} gap={2} p={1} border={"1px solid lightgray"}>
               <FaList
                 fontSize={"1.5rem"}
-                onClick={() => setListView(!listview)}
+                onClick={() => setListView(false)}
                 cursor={"pointer"}
                 color={listview ? "gray" : "black"}
               />
               <MdOutlineDashboardCustomize
-                onClick={() => setListView(!listview)}
+                onClick={() => setListView(true)}
                 cursor={"pointer"}
                 fontSize={"1.5rem"}
                 color={!listview ? "gray" : "black"}
@@ -180,13 +192,13 @@ console.log(filteredEmployees)
                 <Box
                   key={employee.emailId}
                   w={"17rem"}
+                  minW={"max-content"}
                   display={"flex"}
                   p={2}
                   gap={2}
                   border={"1px solid lightgray"}
                   cursor={"pointer"}
                   onClick={() => {
-                    seeEmployeeInfo(employee.id);
                     seeEmployee(employee.id);
                   }}
                 >
@@ -197,7 +209,7 @@ console.log(filteredEmployees)
                   >
                     <Box gap={2} display={"flex"} alignItems={"center"}>
                       <Box
-                        bg={"burlywood"}
+                        bgColor={randomColor()}
                         borderRadius={"100px"}
                         w={"4rem"}
                         h={"4rem"}
@@ -231,24 +243,24 @@ console.log(filteredEmployees)
               <Box
                 key={employee.emailId}
                 w={"17rem"}
+                minW={"max-content"}
                 display={"flex"}
                 p={2}
                 gap={2}
                 border={"1px solid lightgray"}
                 cursor={"pointer"}
-                onClick={() => {
-                  seeEmployeeInfo(employee.id);
-                  seeEmployee(employee.id);
-                }}
               >
                 <Box
                   w={"100%"}
                   display={"flex"}
                   justifyContent={"space-between"}
+                  onClick={() => {
+                    seeEmployee(employee.id);
+                  }}
                 >
                   <Box gap={2} display={"flex"} alignItems={"center"}>
                     <Box
-                      bg={"burlywood"}
+                      bg={randomColor()}
                       borderRadius={"100px"}
                       w={"4rem"}
                       h={"4rem"}
@@ -273,64 +285,109 @@ console.log(filteredEmployees)
                     </Box>
                   </Box>
                 </Box>
-                <BsThreeDotsVertical />
+                {/* // onClick={() => deleteEmployee(employee.id)} */}
+                <Box position={"relative"}>
+                  <Box w={'20px'} h={'20px'} display={'flex'} alignItems={'center'} justifyContent={'center'} borderRadius={'100px'} _hover={{bgColor:'lightgray'}} onClick={()=>setOpen({...open,[employee.id]:!open})}>
+                  <BsThreeDotsVertical color="black"/>
+                  </Box>
+                 {open[employee.id]?<Box
+                    position={"absolute"}
+                    top={2}
+                    right={3}
+                    border={"1px solid lightgray"}
+                    p={1} 
+                     bgColor={'Highlight'} textColor={'white'}
+                  >
+                  <Text cursor={'pointer'} borderBottom={'1px solid lightgray'} _hover={{textColor:'lightgray'}}>Delete</Text>
+                  <Text cursor={'pointer'} _hover={{textColor:'lightgray'}}>Edit</Text>
+                  </Box>:''}
+                </Box>
               </Box>
             ))
           )
         ) : (
-          <Table variant="simple" colorScheme="red">
-            <Thead>
-              <Tr>
-                <Th>Employe Name</Th>
-                <Th>Email</Th>
-                <Th>Postion</Th>
-                <Th>ACtions</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {!searchQuery
-                ? employees.map((employee) => (
-                    <Tr key={employee.id}>
-                      <Td>{employee.name ? employee.name : "Not Entered"}</Td>
-                      <Td>{employee.emailId}</Td>
-                      <Td>{employee.position}</Td>
-                      <Td display={"flex"} minHeight={"100%"} gap={"10px"}>
-                        <MdDelete
-                          onClick={() => deleteAnEmployee(employee.id)}
-                          cursor={"pointer"}
-                          fontSize={"1.4rem"}
-                        />
-                        <FaEdit cursor={"pointer"} fontSize={"1.3rem"} />{" "}
-                      </Td>
-                    </Tr>
-                  ))
-                  
-                : filteredEmployees?.map((employee) => {
-                   return <Tr key={employee.id}>
-                      <Td>{employee.name ? employee.name : "Not Entered"}</Td>
-                      <Td>{employee.emailId}</Td>
-                      <Td>{employee.position}</Td>
-                      <Td display={"flex"} minHeight={"100%"} gap={"10px"}>
-                        <MdDelete
-                          onClick={() => deleteAnEmployee(employee.id)}
-                          cursor={"pointer"}
-                          fontSize={"1.4rem"}
-                        />
-                        <FaEdit cursor={"pointer"} fontSize={"1.3rem"} />{" "}
-                      </Td>
-                    </Tr>;
-                  })}
-            </Tbody>
-          </Table>
+          <Box border={"1px solid lightgray"} width={"100%"}>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>Employe Name</Th>
+                  <Th>Email</Th>
+                  <Th>Postion</Th>
+                  <Th>ACtions</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {!searchQuery
+                  ? employees.map((employee) => (
+                      <Tr key={employee.id}>
+                        <Td>{employee.name ? employee.name : "Not Entered"}</Td>
+                        <Td>{employee.emailId}</Td>
+                        <Td>{employee.position}</Td>
+                        <Td display={"flex"} minHeight={"100%"} gap={"10px"}>
+                          <MdDelete
+                            onClick={() => deleteAnEmployee(employee.id)}
+                            cursor={"pointer"}
+                            fontSize={"1.4rem"}
+                          />
+                          <FaEdit
+                            cursor={"pointer"}
+                            onClick={() => {
+                              handleAddStageClick();
+                              setId(employee.id);
+                              console.log("Edit button has been clicked");
+                            }}
+                            fontSize={"1.3rem"}
+                          />{" "}
+                        </Td>
+                      </Tr>
+                    ))
+                  : filteredEmployees?.map((employee) => {
+                      return (
+                        <Tr key={employee.id}>
+                          <Td>
+                            {employee.name ? employee.name : "Not Entered"}
+                          </Td>
+                          <Td>{employee.emailId}</Td>
+                          <Td>{employee.position}</Td>
+                          <Td display={"flex"} minHeight={"100%"} gap={"10px"}>
+                            <MdDelete
+                              onClick={() => deleteAnEmployee(employee.id)}
+                              cursor={"pointer"}
+                              fontSize={"1.4rem"}
+                            />
+                            <FaEdit
+                              onClick={() => {
+                                handleAddStageClick();
+                                setId(employee.id);
+                                console.log("Edit button has been clicked");
+                              }}
+                              cursor={"pointer"}
+                              fontSize={"1.3rem"}
+                            />{" "}
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+              </Tbody>
+            </Table>
+          </Box>
         )}
       </Box>
+
+
+
+      
       <Modal isOpen={isOpen1} onClose={onClose1}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add Employee</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <StageForm onStageAdded={onClose1} />
+            <StageForm
+              id={id}
+              setChange={setChange}
+              change={change}
+              onAdded={onClose1}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -340,7 +397,7 @@ console.log(filteredEmployees)
         <ModalContent>
           <ModalHeader>Employee</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>{/* <StageForm onStageAdded={onClose2} /> */}</ModalBody>
+          <ModalBody></ModalBody>
         </ModalContent>
       </Modal>
     </VStack>
