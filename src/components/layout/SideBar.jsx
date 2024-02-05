@@ -218,13 +218,13 @@ const Sidebar = () => {
             Attendance
           </Link>
 
-          <Link
+          {/* <Link
             as={RouterLink}
             _hover={{ color: "lightgray" }}
             to="/attendance/records"
           >
             Attendance Records
-          </Link>
+          </Link> */}
           <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/attendance/add-update">
             Add Attendance
           </Link>
@@ -247,7 +247,7 @@ const Sidebar = () => {
         {/* Leaves */}
         <SidebarLinkGroup title="Leaves">
         <Link as={RouterLink}   _hover={{ color: "lightgray" }} to="/leaves">
-            Leave List
+            Leave Requests
           </Link>
           <Link as={RouterLink}   _hover={{ color: "lightgray" }} to="/add-leave">
             Apply for Leave
@@ -264,9 +264,9 @@ const Sidebar = () => {
           <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/assigned-leaves">
             Assigned Leaves
           </Link>
-          <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/leave-requests">
+          {/* <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/leave-requests">
             Leave Requests
-          </Link>
+          </Link> */}
           <Link as={RouterLink}  _hover={{ color: "lightgray" }} to="/leaves/holidays">
             Holidays
           </Link>

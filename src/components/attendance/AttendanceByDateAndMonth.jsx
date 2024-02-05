@@ -16,13 +16,15 @@ import {
 import {
   getAttendanceByDate,
   getAttendanceByMonth,
+  validateAttendance,
+  invalidateAttendance,
 } from "../../services/AttendanceService";
 
 const AttendanceByDateAndMonth = () => {
   const [date, setDate] = useState("");
   const [yearMonth, setYearMonth] = useState({ year: "", month: "" });
   const [records, setRecords] = useState([]);
-console.log(records)
+  console.log(records);
   const fetchByDate = async () => {
     const data = await getAttendanceByDate(date);
     setRecords(data);
@@ -32,6 +34,28 @@ console.log(records)
     const { year, month } = yearMonth;
     const data = await getAttendanceByMonth(year, month);
     setRecords(data);
+  };
+
+  const handleValidate = async (employeeId, ValidatorId) => {
+    console.log(employeeId);
+    console.log(ValidatorId);
+    try {
+      const res = await validateAttendance(employeeId, ValidatorId);
+      console.log(res);
+    } catch (error) {
+      console.log("Could not validate the attendance of Employer", error);
+    }
+  };
+
+  const handleInValidate = async (employeeId, ValidatorId) => {
+    console.log(employeeId);
+    console.log(ValidatorId);
+    try {
+      const res = await invalidateAttendance(employeeId, ValidatorId);
+      console.log(res);
+    } catch (error) {
+      console.log("Could not Invalidate the attendance of Employer", error);
+    }
   };
 
   return (
@@ -73,51 +97,68 @@ console.log(records)
         </Button>
       </Box>
 
-     <Box mt={6} w={'100%'} overflowX={'scroll'} border={'1px solid lightgray'}>
-      <Table variant="simple" minW={"max-content"}>
-        <Thead>
-          <Tr shadow={"sm"}>
-            <Th py={1}>Employee Name</Th>
-            <Th py={1}>Date</Th>
-            <Th py={1}>Day</Th>
-            <Th py={1}>Clock in</Th>
-            <Th py={1}>In Date</Th>
-            <Th py={1}>Clock out</Th>
-            <Th py={1}>Out Date</Th>
-            <Th py={1}>Shift</Th>
-            <Th py={1}>Work Type</Th>
-            <Th py={1}>Min Hour</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {records?.map((data) =>{
-              return<Tr key={data.id}>
-                <Td py={1}>{data.employeeId}</Td>
-                <Td py={1}>{data.date}</Td>
-                <Td py={1}>{data.date}</Td>
-                <Td py={1}>{data.checkInTime}</Td>
-                <Td py={1}>{data.checkInDate}</Td>
-                <Td py={1}>{data.checkOutTime}</Td>
-                <Td py={1}>{data.checkOutDate}</Td>
-                <Td py={1}>{data.shift}</Td>
-                <Td py={1}>{data.overTime}</Td>
-                <Td py={1}>{data.minimumHour}</Td>
-                <Td display={"flex"} gap={3}>
-                  <Button
-                    borderRadius={0}
-                    colorScheme="blue"
-                    onClick={() => {
-                      handleValidate(data.id, data.validatorId);
-                    }}
-                  >
-                    Validate
-                  </Button>
-                </Td>
-              </Tr>
-           }
-          )}
-        </Tbody>
-      </Table>
+      <Box
+        mt={6}
+        w={"100%"}
+        overflowX={"scroll"}
+        border={"1px solid lightgray"}
+      >
+        <Table variant="simple" minW={"max-content"}>
+          <Thead>
+            <Tr shadow={"sm"}>
+              <Th py={1}>Employee Name</Th>
+              <Th py={1}>Date</Th>
+              <Th py={1}>Day</Th>
+              <Th py={1}>Clock in</Th>
+              <Th py={1}>In Date</Th>
+              <Th py={1}>Clock out</Th>
+              <Th py={1}>Out Date</Th>
+              <Th py={1}>Shift</Th>
+              <Th py={1}>Work Type</Th>
+              <Th py={1}>Min Hour</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {records?.map((data) => {
+              return (
+                <Tr key={data.id}>
+                  <Td py={1}>{data.employeeId}</Td>
+                  <Td py={1}>{data.date}</Td>
+                  <Td py={1}>{data.date}</Td>
+                  <Td py={1}>{data.checkInTime}</Td>
+                  <Td py={1}>{data.checkInDate}</Td>
+                  <Td py={1}>{data.checkOutTime}</Td>
+                  <Td py={1}>{data.checkOutDate}</Td>
+                  <Td py={1}>{data.shift}</Td>
+                  <Td py={1}>{data.overTime}</Td>
+                  <Td py={1}>{data.minimumHour}</Td>
+                  
+                  <Td display={"flex"} gap={3}>
+                    {!data.isValidated?
+                    <Button
+                      borderRadius={0}
+                      colorScheme="blue"
+                      onClick={() => {
+                        handleValidate(data.id, data.validatorId);
+                      }}
+                    >
+                      Validate
+                    </Button>:<Button
+                      borderRadius={0}
+                      colorScheme="blue"
+                      onClick={() =>
+                        handleInValidate(data.id, data.validatorId)
+                      }
+                    >
+                      InValidate
+                    </Button>
+            }
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </Table>
       </Box>
     </Box>
   );

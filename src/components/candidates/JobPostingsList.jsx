@@ -218,6 +218,7 @@ const JobPostingsList = () => {
 
   return (
     <VStack
+      bgColor={"rgb(250, 247, 247)"}
       minH={"100vh"}
       textAlign={"left"}
       spacing={4}
@@ -262,7 +263,7 @@ const JobPostingsList = () => {
       </Box>
       {/* ... (other JSX code) */}
       {!searchQuery ? (
-        <Box w={"100%"}>
+        <Box w={"100%"} bg={"white"}>
           <Box
             // className="overflow w-100vw"
             overflow={"scroll"}
@@ -301,19 +302,29 @@ const JobPostingsList = () => {
                           width={"100%"}
                           minWidth={"max-content"}
                           flex={1}
-                          px={"5%"}
                           py={1}
                           _hover={{ bg: "white" }}
                           bg={
-                            active == job.title ? "white" : "rgb(239, 239, 239)"
+                            active == job.title ? "white" : "rgb(250, 247, 247)"
                           }
-                          borderRight={"1px solid lightgray"}
                           justifyContent={"space-between"}
                           alignItems={"center"}
+                          minH={"100%"}
+                          px={2}
+                          gap={2}
+                          borderRight={
+                            active == job.title ? "1px solid lightgray" : ""
+                          }
+                          borderLeft={
+                            active == job.title ? "1px solid lightgray" : ""
+                          }
+                          borderBottom={
+                            active == job.title ? "" : "1px solid lightgray"
+                          }
                         >
                           <Text fontWeight={"600"}>{job?.title}</Text>
-                          <Text fontSize={'12px'}>
-                          {new Date(job?.postingDate).toLocaleDateString()}
+                          <Text fontSize={"12px"}>
+                            {new Date(job?.postingDate).toLocaleDateString()}
                           </Text>
                           <Text
                             fontSize={"10px"}
@@ -346,12 +357,13 @@ const JobPostingsList = () => {
                   borderRadius={"0"}
                   onClick={() => handleAddStageClick(jobid)}
                 >
-                  + Add Stage
+                  + Add
                 </Button>
 
                 {allCandidates?.some(
                   (candidate) =>
-                    !candidate.currentRecruitmentStage?.name && candidate.appliedToJobId === jobid
+                    !candidate.currentRecruitmentStage?.name &&
+                    candidate.appliedToJobId === jobid
                 ) && (
                   <Box shadow={"sm"} mb={4} border={"1px solid lightgray"}>
                     <Table variant="simple">
@@ -368,7 +380,7 @@ const JobPostingsList = () => {
                       <Tbody>
                         {allCandidates?.map((candidate) =>
                           candidate.appliedToJobId === jobid &&
-                            candidate.currentRecruitmentStage == null? (
+                          candidate.currentRecruitmentStage == null ? (
                             <Tr key={Math.random()}>
                               <Td>{candidate.applicantName} </Td>
                               <Td>{candidate.applicantEmail}</Td>
@@ -452,9 +464,9 @@ const JobPostingsList = () => {
                               {
                                 allCandidates?.filter(
                                   (candidate) =>
-                                    (candidate.appliedToJobId === jobid &&
-                                      candidate.currentRecruitmentStage?.name ==
-                                        stage.name)
+                                    candidate.appliedToJobId === jobid &&
+                                    candidate.currentRecruitmentStage?.name ==
+                                      stage.name
                                 ).length
                               }
                             </Text>{" "}
@@ -500,9 +512,9 @@ const JobPostingsList = () => {
                             </Thead>
                             <Tbody>
                               {allCandidates?.map((candidate) =>
-                                (candidate.appliedToJobId === jobid &&
-                                  candidate.currentRecruitmentStage?.name ==
-                                    stage.name) ? (
+                                candidate.appliedToJobId === jobid &&
+                                candidate.currentRecruitmentStage?.name ==
+                                  stage.name ? (
                                   <Tr key={candidate.id}>
                                     <Td>{candidate.applicantName}</Td>
                                     <Td>{candidate.applicantEmail}</Td>

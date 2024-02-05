@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Box,
-  Input,
+  Input, 
   useToast,
   Table,
   Thead,
@@ -97,7 +97,7 @@ const AttendanceValidation = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {/* {attDetails?.map((data) =>{ */}
+            {attDetails && attDetails?.map((data) =>{
             <Tr>
               <Td py={1}>{attDetails?.employeeId}</Td>
               <Td py={1}>{new Date(attDetails?.date).toLocaleDateString()}</Td>
@@ -128,12 +128,10 @@ const AttendanceValidation = () => {
                     >
                       Validate
                     </Button>
-                    
-                  
                 }
               </Td>
             </Tr>
-            {/* })} */}
+            })}
           </Tbody>
         </Table>
       </Box>

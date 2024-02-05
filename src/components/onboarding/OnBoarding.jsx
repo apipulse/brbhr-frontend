@@ -236,11 +236,10 @@ const onBoarding = () => {
                 width={"100%"}
                 mb={3}
               >
-                {/* ********************************************************************* */}
                 {jobPostings &&
                   jobPostings?.map((job, index) => {
                     return (
-                      <Box key={job.id}  minWidth={"max-content"} width={"100%"}>
+                      <Box key={job.id}   minWidth={"max-content"} width={"100%"}>
                         <Box 
                           onClick={() => {
                             setJobId(job.id);
@@ -256,14 +255,25 @@ const onBoarding = () => {
                           flex={1}
                           // px={"5%"}
                           py={1}
-                          _hover={{ bg: "white" }}
+                          _hover={{ bg: "rgb(219, 219, 219)" }}
                           bg={
-                            active == job.title ? "white" : "rgb(239, 239, 239)"
+                            active == job.title ? "white" : "rgb(250, 247, 247)"
                           }
                           justifyContent={"space-between"}
                           alignItems={"center"}
                           minH={'100%'}
-                          px={1}
+                          px={2}
+                          gap={2}
+                          borderRight={
+                            active == job.title ? "1px solid lightgray" : ""
+                          }
+                          borderLeft={
+                            active == job.title ? "1px solid lightgray" : ""
+                          }
+                          borderBottom={
+                            active == job.title ? "" : "1px solid lightgray"
+                          }
+
                         >
                           <Text fontWeight={"600"}>{job?.title}</Text>
                           <Text fontSize={"12px"}>
@@ -308,6 +318,7 @@ const onBoarding = () => {
                           mb={3}
                           border={"1px solid lightgray"}
                           justifyContent={"space-between"}
+                          
                         >
                           <Box
                             display={"flex"}
@@ -358,7 +369,7 @@ const onBoarding = () => {
                             </Box>
                           </Box>
                           <Box>
-                            <Table variant="simple" colorScheme="red">
+                            <Table variant="simple">
                               <Thead>
                                 <Tr>
                                   <Th>candidate</Th>

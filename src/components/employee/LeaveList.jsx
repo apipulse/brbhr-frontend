@@ -1,5 +1,8 @@
-import React, { useState, useEffect,useContext } from "react";
-import { getLeavesByEmployee } from "../../services/LeaveService";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  getLeavesByEmployee,
+  getAllLeaveRequests, deleteLeave
+} from "../../services/LeaveService";
 import {
   Box,
   VStack,
@@ -20,12 +23,16 @@ import {
   Tr,
   Th,
   Td,
+  useToast,
 } from "@chakra-ui/react";
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 import { getEmployees } from "../../services/EmployeeService";
 import LeaveForm from "./LeaveForm";
 import NoteContext from "../../Context/NoteContext";
 
-const LeaveList = ({ employeeId }) => {
+const LeaveList = () => {
+  const toast = useToast();
   const {
     isOpen: isOpen2,
     onOpen: onOpen2,
@@ -34,20 +41,31 @@ const LeaveList = ({ employeeId }) => {
 
   const [leaves, setLeaves] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [change, setchange] = useState(false);
+  const [id, setId] = useState();
   const abc = useContext(NoteContext);
-  console.log(employees);
   useEffect(() => {
-    abc.setName('LEAVE')
+    abc.setName("LEAVE");
 
     const fetchLeaves = async () => {
       try {
-        const data = await getLeavesByEmployee("ali");
+        const data = await getAllLeaveRequests();
+        console.log("All leaves has been fetched");
         setLeaves(data);
       } catch (error) {
         console.error("Error fetching leaves:", error);
       }
     };
-    
+
+    const fetchLeave = async () => {
+      const id = "65be5c823ad88f331ba9ad97";
+      try {
+        const data = await getLeavesByEmployee(parseInt(id));
+        console.log("Leave Info has been fetched", data);
+      } catch (error) {
+        console.error("Error fetching leaves:", error);
+      }
+    };
 
     const fetchEmployees = async () => {
       try {
@@ -59,41 +77,85 @@ const LeaveList = ({ employeeId }) => {
     };
     fetchEmployees();
     fetchLeaves();
-  }, [employeeId]);
+    // fetchLeave();
+  }, [change]);
 
-  const handleSendMailClick = () => {
+  const deletLeave = async (id) => {
+    console.log(id);
+    try {
+      const res = await deleteLeave(id);
+      console.log(res);
+      toast({
+        title: "Succes",
+        description: "Leave request has been deleted.",
+        status: "success", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "Error deleting Leave",
+        status: "error", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 3000,
+      });
+    }
+  };
+
+  const handleClick = () => {
     console.log("Opening modal for Leave Request");
     onOpen2();
   };
   console.log(leaves);
   return (
-    <VStack minH={'100vh'} className="w-100vw" spacing={4} bg={"rgb(250, 247, 247)"} p={"1rem"}>
-      <Box className="changeDir" pt={"2rem"} w={"100%"} display={"flex"} gap={4}>
+    <VStack
+      minH={"100vh"}
+      className="w-100vw"
+      spacing={4}
+      bg={"rgb(250, 247, 247)"}
+      p={"1rem"}
+    >
+      <Box
+        className="changeDir"
+        pt={"2rem"}
+        w={"100%"}
+        display={"flex"}
+        gap={4}
+      >
         <Box bg={"white"} borderTop={"3px solid green"} p={"1rem"} flex={1}>
           <Text fontWeight={"500"}>New Requests</Text>
-          <Text fontSize={"2.5rem"}>1</Text>
+          <Text fontSize={"2.5rem"}>
+            {
+              leaves.filter(
+                (leave) => leave.status === null || leave.status === undefined
+              ).length
+            }
+          </Text>
         </Box>
         <Box bg={"white"} borderTop={"3px solid gray"} p={"1rem"} flex={1}>
           <Text>Approved Requests</Text>
-          <Text fontSize={"2.5rem"}>1</Text>
+          <Text fontSize={"2.5rem"}>
+            {leaves.filter((leave) => leave.status === "approved").length}
+          </Text>
         </Box>
         <Box bg={"white"} borderTop={"3px solid red"} p={"1rem"} flex={1}>
           <Text>Rejected Requests</Text>
-          <Text fontSize={"2.5rem"}>1</Text>
+          <Text fontSize={"2.5rem"}>
+            {leaves.filter((leave) => leave.status === "rejected").length}
+          </Text>
         </Box>
       </Box>
       <Box
-      className="changeDir gap"
+        className="changeDir gap"
         pt={"1rem"}
         w={"100%"}
         display={"flex"}
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Text
-          fontWeight={"bold"}
-          fontSize={"1.5rem"}
-        >
+        <Text fontWeight={"bold"} fontSize={"1.5rem"}>
           Leaves Requests
         </Text>
         <Box display={"flex"} gap={2}>
@@ -101,7 +163,8 @@ const LeaveList = ({ employeeId }) => {
           <Button
             colorScheme={"red"}
             borderRadius={0}
-            onClick={() => handleSendMailClick()} minWidth={'max-content'}
+            onClick={() => handleClick()}
+            minWidth={"max-content"}
           >
             + Create
           </Button>
@@ -116,10 +179,10 @@ const LeaveList = ({ employeeId }) => {
       >
         {/* <Text>{`Type: ${leave.type}, Status: ${leave.status}`}</Text> */}
 
-        <Table variant="striped" colorScheme="teal">
+        <Table variant="simple" minW={"max-content"}>
           <Thead>
             <Tr>
-              <Th>Employee</Th> 
+              <Th>Employee</Th>
               <Th>Leave Type</Th>
               <Th>From</Th>
               <Th>To</Th>
@@ -131,21 +194,40 @@ const LeaveList = ({ employeeId }) => {
           <Tbody>
             {leaves.map((leave) => (
               <Tr key={Math.random()}>
-                <Td>{leave.employeeId}w</Td>
-                <Td>{leave.type}s</Td>
-                <Td>s{new Date(leave.startDate).toLocaleDateString()}</Td>
-                <Td>s{new Date(leave.endDate).toLocaleDateString()}</Td>
-                <Td>s{leave.reason}</Td>
-                <Td display={"flex"} >
-                  <Button p={1} borderRadius={0} flex={1}>
+                <Td>{leave.employeeId}</Td>
+                <Td>{leave.type}</Td>
+                <Td>{new Date(leave.startDate).toLocaleDateString()}</Td>
+                <Td>{new Date(leave.endDate).toLocaleDateString()}</Td>
+                <Td>{leave.reason}</Td>
+
+                <Td display={"flex"} gap={2}>
+                  <Button colorScheme="blue" borderRadius={0} flex={1}>
                     Accept
                   </Button>
-                  <Button p={1} borderRadius={0} flex={1}>
+                  <Button colorScheme="red" borderRadius={0} flex={1}>
                     Reject
                   </Button>
                 </Td>
+
+                <Td >
+                  <MdDelete
+                    fontSize={"1.5rem"}
+                    onClick={() => deletLeave(leave.id)}
+                    fontWeight={600}
+                    cursor={"pointer"}
+                  />
+                  <FaEdit
+                    fontSize={"1.5rem"}
+                    onClick={() => {onOpen2()
+                      setId(leave.id)
+                    }}
+                    fontWeight={600}
+                    cursor={"pointer"}
+                  />
+                </Td>
+                
               </Tr>
-            ))} 
+            ))}
           </Tbody>
         </Table>
       </Box>
@@ -156,7 +238,11 @@ const LeaveList = ({ employeeId }) => {
           <ModalHeader>Leave Request</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <LeaveForm onStageAdded={onClose2} />
+            <LeaveForm leaveId={id}
+              onAdded={onClose2}
+              change={change}
+              setchange={setchange}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -165,57 +251,3 @@ const LeaveList = ({ employeeId }) => {
 };
 
 export default LeaveList;
-// ////////////////////////////////////
-// /////////////////////////////////
-// ///////////////////////////////
-// ////////////////////////////
-// ////////////////////////
-///////////////////////
-///////////////////
-////////////////
-///
-//
-
-// import React, { useState, useEffect } from "react";
-// import { getLeavesByEmployee } from "../../services/LeaveService";
-// import { Box, VStack, Text } from "@chakra-ui/react";
-// import { getEmployees } from "../../services/EmployeeService";
-// const LeaveList = ({ employeeId }) => {
-//   const [leaves, setLeaves] = useState([]);
-//   const [employees, setEmployees] = useState([]);
-
-//   useEffect(() => {
-//     const fetchLeaves = async () => {
-//       try {
-//         const data = await getLeavesByEmployee(employeeId);
-//         setLeaves(data);
-//       } catch (error) {
-//         console.error("Error fetching leaves:", error);
-//       }
-//     };
-
-//     const fetchEmployees = async () => {
-//       try {
-//         const data = await getEmployees();
-//         setEmployees(data);
-//       } catch (error) {
-//         console.error("Failed to fetch employees:", error);
-//       }
-//     };
-//     fetchEmployees();
-//     fetchLeaves();
-//   }, [employeeId]);
-// console.log(leaves)
-//   return (
-//     <VStack spacing={4}>
-//       {leaves.map((leave) => (
-//         <Box key={leave.id} p={4} shadow="md" borderWidth="1px">
-//           <Text>{`Type: ${leave.type}, Status: ${leave.status}`}</Text>
-
-//         </Box>
-//       ))}
-//     </VStack>
-//   );
-// };
-
-// export default LeaveList;
