@@ -110,7 +110,7 @@ const AddType = ({ id, onAdded, setChange }) => {
           <Input
             type="text"
             borderRadius={0}
-            value={details.name}
+            value={details.holidayName}
             name="holidayName"
             onChange={handleChange}
           />

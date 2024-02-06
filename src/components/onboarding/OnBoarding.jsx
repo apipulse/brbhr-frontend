@@ -139,7 +139,7 @@ const onBoarding = () => {
           allStages.reduce(
             (acc, stages, index) => ({
               ...acc,
-              [jobPostings[index].title]: stages,
+              [jobPostings[index].title]: stages.length,
             }),
             {}
           )
@@ -179,8 +179,7 @@ const onBoarding = () => {
       console.error("Could Not get the hired candidate", error);
     }
   };
-
-  console.log(allStages?.jobName);
+  
   return (
     <VStack
       bgColor={"rgb(250, 247, 247)"}
@@ -291,7 +290,8 @@ const onBoarding = () => {
                             color={"white"}
                             bg={"red"}
                           >
-                            {0}
+                            {allStages?.[job?.title]}
+                           {/* {allStages?.find((jobStages) => jobStages.title === job.title).length}; */}
                           </Text>
                         </Box>
                       </Box>
