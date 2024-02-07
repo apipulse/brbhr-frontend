@@ -62,7 +62,7 @@ const LeaveList = () => {
     const fetchLeave = async () => {
       const id = "65be5c823ad88f331ba9ad97";
       try {
-        const data = await getLeavesByEmployee(parseInt(id));
+        const data = await getLeavesByEmployee(id);
         console.log("Leave Info has been fetched", data);
       } catch (error) {
         console.error("Error fetching leaves:", error);
@@ -176,8 +176,7 @@ const LeaveList = () => {
               <Th>From</Th>
               <Th>To</Th>
               <Th>Requested Days</Th>
-              <Th>Status</Th>
-              <Th>Options</Th>
+              <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -207,18 +206,6 @@ const LeaveList = () => {
                     Reject
                   </Button>
                 </Td>
-
-                <Td>
-                  <FaEdit
-                    fontSize={"1.5rem"}
-                    onClick={() => {
-                      onOpen2();
-                      setId(leave.id);
-                    }}
-                    fontWeight={600}
-                    cursor={"pointer"}
-                  />
-                </Td>
               </Tr>
             ))}
           </Tbody>
@@ -232,7 +219,6 @@ const LeaveList = () => {
           <ModalCloseButton />
           <ModalBody>
             <LeaveForm
-              leaveId={id}
               onAdded={onClose2}
               change={change}
               setchange={setchange}

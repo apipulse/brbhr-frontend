@@ -43,17 +43,13 @@ function LeaveTypes() {
     LeaveType();
   }, []);
 
-  const assignLeave =()=>{
-    try{
-      
-
-    } catch(err){
-      console.error(err)
+  const assignLeave = () => {
+    try {
+    } catch (err) {
+      console.error(err);
     }
+  };
 
-  }
-  
-  
   console.log(types);
   return (
     <Box minH={"100vh"} className="w-100vw" mt={4} p={4}>
@@ -84,7 +80,7 @@ function LeaveTypes() {
       >
         {types?.map((type) => {
           return (
-            <Box 
+            <Box
               key={Math.random()}
               gap={3}
               border={"1px solid lightgray"}
@@ -122,7 +118,7 @@ function LeaveTypes() {
                   {type?.name}
                 </Text>
               </Box>
-              <BsThreeDotsVertical onClick={()=>alignLeave()}/>
+              <BsThreeDotsVertical onClick={() => alignLeave()} />
             </Box>
           );
         })}

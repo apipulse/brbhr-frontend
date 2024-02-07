@@ -14,7 +14,7 @@ import {
 import { FiUpload } from "react-icons/fi";
 import { applyForJob } from "../../services/CandidateService";
 import { getAllJobPostings } from "../../services/CandidateService";
-const JobApplicationForm = (jobid) => {
+const JobApplicationForm = ({jobid, onAdded, change, setChange}) => {
   const toast = useToast();
   const [id, setId] = useState(jobid);
   const [application, setApplication] = useState({
@@ -34,15 +34,12 @@ const JobApplicationForm = (jobid) => {
     // Add other fields as necessary
   });
 
-  console.log(application);
   const [selectedValue, setSelectedValue] = useState(application.country);
   const [jobPostings, setJobPostings] = useState([]);
 
   const jobPostingWithId = jobPostings.find(
     (posting) => posting.name == application.country
   )?.id;
-  console.log(jobPostings);
-  console.log(jobPostingWithId);
   useEffect(() => {
     const fetchJobPostings = async () => {
       try {
@@ -64,30 +61,27 @@ const JobApplicationForm = (jobid) => {
     try {
       const response = await applyForJob(application);
       console.log("Application Submitted:", response);
-      toast({ title: "Email has been sent successfully!", status: "success" });
-      setApplication({
-        applicantName: "",
-        applicantEmail: "",
-        resume: "",
-        coverLetter: "",
-        address: "",
-        pincode: "",
-        nationality: "",
-        category: "",
-        mobileNumber: "",
-        countryCode: "",
-        visaStatu: "",
-        country: "",
-        applicantName: "",
-      });
+      toast({
+        title: "Succes",
+        description: "Application submitted",
+        status: "success", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 3000,
+      });;
+      setChange(!change)
+      onAdded()
       // Handle success (e.g., clear form, show success message)
     } catch (error) {
-      console.error("Error applying for job:", error);
-      // Handle error (e.g., show error message)
+      console.error("Error applying for job:", error)
+      toast({
+        title: "Error",
+        description: "Error submitting application",
+        status: "error", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 5000,
+      });
     }
   };
-
-
 
   return (
     <Box p={4}>

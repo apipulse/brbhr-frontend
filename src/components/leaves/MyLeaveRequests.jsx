@@ -1,26 +1,61 @@
 import React, { useEffect, useState } from "react";
-
-import { getMyLeaveRequests, getMyLeaves } from "../../services/LeaveService";
-import { Box, Input, Text,Table,
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import {
+  getMyLeaveRequests,
+  getMyLeaves,
+  deleteLeave,
+} from "../../services/LeaveService";
+import LeaveForm from "../employee/LeaveForm";
+import {
+  Box,
+  Input,
+  Text,
+  Table,
   Thead,
   TabList,
   Tbody,
-  Tr,Button,
+  Tr,
+  Button,
   Th,
-  Td, } from "@chakra-ui/react";
+  Td,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+} from "@chakra-ui/react";
 import { format } from "date-fns";
 function MyLeaveRequests() {
-  const [id, setId] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [leaves, setLeaves] = useState([]);
-useEffect(()=>{
-},[])
+  const [change, setChange] = useState(false);
+  const [id, setId] = useState(false);
+
+  useEffect(() => {}, []);
+  const {
+    isOpen: isOpen2,
+    onOpen: onOpen2,
+    onClose: onClose2,
+  } = useDisclosure();
 
   const MyLeves = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const res = await getMyLeaveRequests(id);
+      const res = await getMyLeaveRequests(searchQuery);
       console.log(res);
-      setLeaves(res)
+      setLeaves(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const leaveDelete = async (leaveId) => {
+    try {
+      const res = await deleteLeave(id);
+      console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -49,8 +84,8 @@ useEffect(()=>{
           }}
         >
           <Input
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Name"
             type="text"
             borderRadius={0}
@@ -60,8 +95,13 @@ useEffect(()=>{
           </Button>
         </form>
       </Box>
-      <Box mt={4} shadow={"sm"} overflow={'scroll'} border={'1px solid lightgray'}>
-        <Table minW={'max-content'} variant="simple" >
+      <Box
+        mt={4}
+        shadow={"sm"}
+        overflow={"scroll"}
+        border={"1px solid lightgray"}
+      >
+        <Table minW={"max-content"} variant="simple">
           <Thead>
             <Tr>
               <Th>Name</Th>
@@ -73,21 +113,65 @@ useEffect(()=>{
             </Tr>
           </Thead>
           <Tbody>
-            {leaves?.map((leave) =>
-            (
-                <Tr key={Math.random()}>
-                  <Td>{leave.employeeId} </Td>
-                  <Td>{format(new Date(leave.startDate).toLocaleDateString(),"MMMM dd, yyyy")}</Td>
-                  <Td>{format(new Date(leave.endDate).toLocaleDateString(),"MMMM dd, yyyy")}</Td>
-                  <Td>{leave.type}</Td>
-                  <Td>{leave.status?leave.status:'Pending'}</Td>
-                  <Td></Td>
-                </Tr>
-              )
-            )}
+            {leaves?.map((leave) => (
+              <Tr key={Math.random()}>
+                <Td>{leave.employeeId} </Td>
+                <Td>
+                  {format(
+                    new Date(leave.startDate).toLocaleDateString(),
+                    "MMMM dd, yyyy"
+                  )}
+                </Td>
+                <Td>
+                  {format(
+                    new Date(leave.endDate).toLocaleDateString(),
+                    "MMMM dd, yyyy"
+                  )}
+                </Td>
+                <Td>{leave.type}</Td>
+                <Td>{leave.status ? leave.status : "Pending"}</Td>
+                <Td display={"flex"} p={1} gap={3}>
+                  <Button
+                    isDisabled={!leave.status ? false : true}
+                    my={"auto"}
+                    borderRadius={0}
+                    onClick={() => leaveDelete(leave.id)}
+                  >
+                    <MdDelete style={{ flex: 1, fontSize: "1.5rem" }} />{" "}
+                  </Button>
+                  <Button
+                    borderRadius={0}
+                    isDisabled={!leave.status ? false : true}
+                  >
+                    <FaEdit
+                      onClick={() => {
+                        onOpen2();
+                        setId(leave.id);
+                      }}
+                      style={{ flex: 1, fontSize: "1.5rem" }}
+                    />
+                  </Button>
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </Box>
+      <Modal isOpen={isOpen2} onClose={onClose2}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Leave Request</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <LeaveForm
+              leaveId={id}
+              onAdded={onClose2}
+              change={change}
+              setchange={setChange}
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }

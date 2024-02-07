@@ -31,7 +31,6 @@ import {
 import { randomColor } from "@chakra-ui/theme-tools";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import NoteContext from "../../Context/NoteContext";
-
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaList } from "react-icons/fa6";
 import StageForm from "./AddEmployee";
@@ -168,7 +167,6 @@ const EmployeeList = () => {
                 color={!listview ? "gray" : "black"}
               />
             </Box>
-
             <Button
               colorScheme="red"
               borderRadius={0}
@@ -240,63 +238,63 @@ const EmployeeList = () => {
                     </Box>
                   </Box>
                   <Box position={"relative"}>
-                  <Box
-                    w={"20px"}
-                    h={"20px"}
-                    display={"flex"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    borderRadius={"100px"}
-                    _hover={{ bgColor: "lightgray" }}
-                    onClick={() =>
-                      setEmployeeIds({
-                        ...employeeIds,
-                        [employee.id]: !employeeIds?.[employee?.id],
-                      })
-                    }
-                  >
-                    <BsThreeDotsVertical color="black" />
-                  </Box>
-                  {employeeIds[employee.id] ? (
                     <Box
-                      position={"absolute"}
-                      top={3}
-                      right={3}
-                      border={"1px solid lightgray"}
-                      p={1}
-                      bgColor={"Highlight"}
-                      textColor={"white"}
+                      w={"20px"}
+                      h={"20px"}
+                      display={"flex"}
+                      alignItems={"center"}
+                      justifyContent={"center"}
+                      borderRadius={"100px"}
+                      _hover={{ bgColor: "lightgray" }}
+                      onClick={() =>
+                        setEmployeeIds({
+                          ...employeeIds,
+                          [employee.id]: !employeeIds?.[employee?.id],
+                        })
+                      }
                     >
-                      <Text
-                        onClick={() => deleteAnEmployee(employee.id)}
-                        cursor={"pointer"}
-                        borderBottom={"1px solid lightgray"}
-                        _hover={{ textColor: "lightgray" }}
-                      >
-                        Delete
-                      </Text>
-                      <Text
-                        onClick={() => {
-                          handleAddStageClick();
-                          setId(employee.id);
-                          console.log("Edit button has been clicked");
-                        }}
-                        cursor={"pointer"}
-                        _hover={{ textColor: "lightgray" }}
-                      >
-                        Edit
-                      </Text>
+                      <BsThreeDotsVertical color="black" />
                     </Box>
-                  ) : (
-                    ""
-                  )}
-                </Box>
+                    {employeeIds[employee.id] ? (
+                      <Box
+                        position={"absolute"}
+                        top={3}
+                        right={3}
+                        border={"1px solid lightgray"}
+                        p={1}
+                        bgColor={"Highlight"}
+                        textColor={"white"}
+                      >
+                        <Text
+                          onClick={() => deleteAnEmployee(employee.id)}
+                          cursor={"pointer"}
+                          borderBottom={"1px solid lightgray"}
+                          _hover={{ textColor: "lightgray" }}
+                        >
+                          Delete
+                        </Text>
+                        <Text
+                          onClick={() => {
+                            handleAddStageClick();
+                            setId(employee.id);
+                            console.log("Edit button has been clicked");
+                          }}
+                          cursor={"pointer"}
+                          _hover={{ textColor: "lightgray" }}
+                        >
+                          Edit
+                        </Text>
+                      </Box>
+                    ) : (
+                      ""
+                    )}
+                  </Box>
                 </Box>
               );
             })
           ) : (
             employees.map((employee) => (
-              <Box
+              <Box 
                 key={employee.emailId}
                 w={"17rem"}
                 minW={"max-content"}
