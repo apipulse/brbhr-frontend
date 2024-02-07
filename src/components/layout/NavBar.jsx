@@ -35,7 +35,6 @@ const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [employeeId, setEmployeeId] = useState();
-  console.log(employeeId)
   const toast = useToast();
 
   const abc = useContext(NoteContext);
@@ -130,7 +129,7 @@ const NavBar = () => {
         <Box textAlign="center" display={"flex"}>
           {!isCheckedIn ? (
             <Button
-              // colorScheme="green"
+              className="btn"
               color={"green"}
               title="You are currently checked out."
               borderRadius={0}

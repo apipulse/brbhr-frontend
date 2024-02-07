@@ -23,7 +23,7 @@ import {
   Select,
   Input,
   FormControl,
-  FormLabel,
+  FormLabel,useToast
 } from "@chakra-ui/react";
 import {
   getAllJobPostings,
@@ -34,7 +34,7 @@ import {
   deleteStageFromJobPosting,
 } from "../../services/CandidateService";
 import NoteContext from "../../Context/NoteContext";
-
+import { MdDelete } from "react-icons/md";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import StageForm from "./StageForm";
@@ -52,9 +52,7 @@ const JobPostingsList = () => {
   const [active, setactive] = useState();
   const [jobName, setjobName] = useState();
   const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
-  const [manager, setmanager] = useState();
-
-  const [stg, setstg] = useState(true);
+  const [change, setChange] = useState(true);
   const [updateCandidate, setUpdateCandidate] = useState(true);
   const [candidateStage, setCandidateStage] = useState();
   const [currentValue, setCurrentValue] = useState();
@@ -62,8 +60,8 @@ const JobPostingsList = () => {
     id: "",
     name: "",
   });
+  const toast = useToast()
   const abc = useContext(NoteContext);
-  console.log(stages);
 
   const {
     isOpen: isOpen1,
@@ -115,32 +113,12 @@ const JobPostingsList = () => {
       ?.toLowerCase()
       ?.includes(searchQuery?.toLowerCase());
   });
-  console.log(filteredApplications);
-  console.log(stageInfo);
   const updateApplicationStage = (id, stage) => {
     console.log("Opening modal for changing stage of application");
     setStageInfo({ id: id, name: stage });
     onOpen4();
     setCurrentValue(stage);
     fetchJonpostingStages(jobid);
-    // try {
-    //   const res = updateCandidateStage(id, {
-    //     id: "",
-    //     name: stage,
-    //     description: "Empty",
-    //     roundNumber: 2,
-    //     manager: "",
-    //     recruitmentStageType: "",
-
-    //   });
-
-    //   console.log("ApplicationStage has been updated", res);
-    //   console.log(id);
-    //   console.log(stage);
-    //   setstg(!stg);
-    // } catch (error) {
-    //   "Failed to update stage of application", error;
-    // }
   };
 
   useEffect(() => {
@@ -166,7 +144,7 @@ const JobPostingsList = () => {
     fetchJonpostingStages(jobid);
     fetchJobPostings();
     fetchCandidates();
-  }, [stg]);
+  }, [change]);
 
   const fetchJonpostingStages = async (id) => {
     const res = await getStagesForJobPosting(id);
@@ -186,11 +164,9 @@ const JobPostingsList = () => {
             });
             candidate.currentStage = stage;
             return candidate;
-            // console.log(object)
           })
         ));
       setUpdateCandidate(updatedCandidates);
-      console.log(updatedCandidates);
       return updatedCandidates;
     } catch (error) {
       // Handle errors gracefully, e.g., display user-friendly error messages
@@ -198,21 +174,28 @@ const JobPostingsList = () => {
       return []; // Return an empty array or handle the error differently
     }
   };
-  console.log(searchQuery);
-  console.log(allCandidates);
-  console.log(candidateStage);
-  console.log(manager);
-  console.log(updateCandidate);
-  console.log(jobPostings);
-
-  const handleDeleteStage = (stageId) => {
-    console.log(stageId);
-    console.log(jobid);
+console.log(stages)
+  const handleDeleteStage = async(stageId) => {
     try {
-      const res = deleteStageFromJobPosting(jobid, stageId);
+      const res = await deleteStageFromJobPosting(jobid, stageId);
       console.log("Stage has beeen deleted", res);
+      toast({
+        title: "Succes",
+        description: "Job has been deleted.",
+        status: "success", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 3000,
+      });
+      setChange(!change)
     } catch (err) {
-      console.log("Could not delete the stage from job posting", err);
+      console.log(jobid,stageId,"Could not delete the stage from job posting", err);
+      toast({
+        title: "Error",
+        description: "Error deleting the job",
+        status: "error", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 3000,
+      });
     }
   };
 
@@ -474,7 +457,7 @@ const JobPostingsList = () => {
                               {stage.name}
                             </Text>
                           </Box>
-                          <Box display={"flex"} gap={2} alignItems={"center"}>
+                          <Box display={"flex"} gap={4} alignItems={"center"}>
                             {/* ********************************************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\lljnnkeeeeeed*********** */}
 
                             <Button
@@ -487,7 +470,7 @@ const JobPostingsList = () => {
                             >
                               +
                             </Button>
-                            <BsThreeDotsVertical
+                            <MdDelete fontSize={'1.5rem'}
                               onClick={() => {
                                 handleDeleteStage(stage.id);
                               }}
@@ -527,7 +510,6 @@ const JobPostingsList = () => {
                                             candidate.id,
                                             e.target.value
                                           );
-                                          console.log(e.target.value);
                                         }}
                                         value={
                                           candidate.currentRecruitmentStage
@@ -573,53 +555,56 @@ const JobPostingsList = () => {
           </Box>
         </Box>
       ) : (
-        <Table variant="simple" colorScheme="red">
-          <Thead border={"1px solid lightgray"}>
-            <Tr>
-              <Th>Candidate</Th>
-              <Th>Email</Th>
-              <Th>Job position</Th>
-              <Th>Contact</Th>
-              <Th>Stage</Th>
-              <Th>Actions</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {filteredApplications &&
-              filteredApplications?.map((candidate) => (
-                <Tr key={Math.random()}>
-                  <Td>{candidate.applicantName} </Td>
-                  <Td>{candidate.applicantEmail}</Td>
-                  <Td>{candidate.country}</Td>
-                  <Td>{candidate.mobileNumber}</Td>
-                  <Td>
-                    <Select
-                      onChange={(e) => {
-                        updateApplicationStage(candidate.id, e.target.value);
-                      }}
-                    >
-                      {stages &&
-                        stages?.map((stage) => {
-                          return (
-                            <option key={Math.random()} value={stage.name}>
-                              {stage.name}
-                            </option>
-                          );
-                        })}
-                    </Select>
-                  </Td>
-                  <Td>
-                    <MdOutlineMailOutline
-                      onClick={() =>
-                        handleSendMailClick(candidate.applicantEmail)
-                      }
-                      cursor={"pointer"}
-                    />
-                  </Td>
-                </Tr>
-              ))}
-          </Tbody>
-        </Table>
+        <Box overflow={'scroll'}  w={"100%"} shadow={"sm"} border={"1px solid lightgray"}>
+          <Table variant="simple" minW={'max-content'}>
+            <Thead>
+              <Tr>
+                <Th>Candidate</Th>
+                <Th>Email</Th>
+                <Th>Job position</Th>
+                <Th>Contact</Th>
+                <Th>Stage</Th>
+                <Th>Actions</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {filteredApplications &&
+                filteredApplications?.map((candidate) => (
+                  <Tr key={Math.random()}>
+                    <Td>{candidate.applicantName} </Td>
+                    <Td>{candidate.applicantEmail}</Td>
+                    <Td>{candidate.country}</Td>
+                    <Td>{candidate.mobileNumber}</Td>
+                    <Td>
+                      <Select
+                        onChange={(e) => {
+                          updateApplicationStage(candidate.id, e.target.value);
+                        }}
+                        value={candidate?.currentRecruitmentStage?.name}
+                      >
+                        {stages &&
+                          stages?.map((stage) => {
+                            return (
+                              <option key={Math.random()} value={stage.name}>
+                                {stage.name}
+                              </option>
+                            );
+                          })}
+                      </Select>
+                    </Td>
+                    <Td>
+                      <MdOutlineMailOutline
+                        onClick={() =>
+                          handleSendMailClick(candidate.applicantEmail)
+                        }
+                        cursor={"pointer"}
+                      />
+                    </Td>
+                  </Tr>
+                ))}
+            </Tbody>
+          </Table>
+        </Box>
       )}
 
       <Modal isOpen={isOpen1} onClose={onClose1}>
@@ -628,7 +613,7 @@ const JobPostingsList = () => {
           <ModalHeader>Add Stage</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <StageForm
+            <StageForm  change={change} setChange={setChange}
               jobPostingId={selectedJobPostingId}
               onStageAdded={onClose1}
             />
@@ -642,7 +627,7 @@ const JobPostingsList = () => {
           <ModalHeader>Send Message</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <SendEmail EMailId={selectedEMail} onStageAdded={onClose2} />
+            <SendEmail  EMailId={selectedEMail} onStageAdded={onClose2} />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -652,7 +637,7 @@ const JobPostingsList = () => {
           {/* <ModalHeader>New-Job Post</ModalHeader> */}
           <ModalCloseButton />
           <ModalBody>
-            <JobPostingForm onStageAdded={onClose3} />
+            <JobPostingForm change={change} setChange={setChange} onStageAdded={onClose3} />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -662,7 +647,7 @@ const JobPostingsList = () => {
           <ModalHeader>Manager Name</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <UpdateStageForm
+            <UpdateStageForm change={change} setChange={setChange}
               id={stageInfo.id}
               onStageAdded={onClose4}
               stageName={stageInfo.name}
@@ -677,7 +662,7 @@ const JobPostingsList = () => {
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
-              <JobAplicationForm jobid={jobid} />
+              <JobAplicationForm onAdded={onClose5} change={change} setChange={setChange} jobid={jobid} />
             </FormControl>
           </ModalBody>
         </ModalContent>

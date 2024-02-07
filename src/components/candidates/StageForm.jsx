@@ -1,38 +1,54 @@
 import React, { useState } from "react";
-import { Box, FormControl, FormLabel, Input, Button, Select } from "@chakra-ui/react";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Select,
+  useToast,
+} from "@chakra-ui/react";
 import { addStageToJobPosting } from "../../services/CandidateService"; // Import the service function
 
-const StageForm = ({ jobPostingId, onStageAdded }) => {
-  const [stage, setStage] = useState({ 
-    id:Math.random(),
+const StageForm = ({ jobPostingId, onStageAdded,change, setChange }) => {
+  const [stage, setStage] = useState({
+    id: Math.random(),
     name: "",
     description: "",
     roundNumber: 1,
-    recruitmentStageType:'',
-    Manager:''
+    recruitmentStageType: "",
+    Manager: "",
   });
-  console.log(stage.recruitmentStageType)
-  console.log(jobPostingId);
-
+  const toast = useToast();
   const handleChange = (e) => {
     setStage({ ...stage, [e.target.name]: e.target.value });
   };
-
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await addStageToJobPosting(jobPostingId, stage);
       console.log("Stage added to job posting.", jobPostingId, stage);
+      toast({
+        title: "Succes",
+        description: "stage has been added.",
+        status: "success", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 4000,
+      });
+      setChange(!change)
       onStageAdded(); // Callback to refresh the list or update UI
     } catch (error) {
       console.error("Error adding stage:", error);
+      toast({
+        title: "Error",
+        description: "Error adding stage.",
+        status: "error", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 5000,
+      });
     }
   };
-
-  console.log(stage)
-
   return (
     <Box p={4}>
       <form onSubmit={handleSubmit}>
@@ -40,22 +56,36 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
         <FormControl id="name" isRequired>
           <FormLabel>Stage</FormLabel>
           {/* <Input name="name" type="text" onChange={handleChange} /> */}
-          <Input type="text" name="name" borderRadius={0} onChange={handleChange}/>
+          <Input
+            type="text"
+            name="name"
+            borderRadius={0}
+            onChange={handleChange}
+          />
         </FormControl>
         <FormControl mt={4} id="recruitmentStageType" isRequired>
           <FormLabel>Stage Type</FormLabel>
           {/* <Input name="name" type="text" onChange={handleChange} /> */}
-          <Select name="recruitmentStageType" borderRadius={0} onChange={handleChange}>
+          <Select
+            name="recruitmentStageType"
+            borderRadius={0}
+            onChange={handleChange}
+          >
             {/* <Input name="stageType" type="text" borderRadius={0}/> */}
-            <option value={'INITIAL'} >INITIAL</option>
-            <option value={'TEST'} >TEST</option>
-            <option value={'INTERVIEW'} >INTERVIEW</option>
-            <option value={'HIRED'} >HIRED</option>
+            <option value={"INITIAL"}>INITIAL</option>
+            <option value={"TEST"}>TEST</option>
+            <option value={"INTERVIEW"}>INTERVIEW</option>
+            <option value={"HIRED"}>HIRED</option>
           </Select>
         </FormControl>
         <FormControl id="description" mt={4}>
           <FormLabel>Description</FormLabel>
-          <Input name="description" type="text" borderRadius={0} onChange={handleChange} />
+          <Input
+            name="description"
+            type="text"
+            borderRadius={0}
+            onChange={handleChange}
+          />
         </FormControl>
         <FormControl id="roundNumber" mt={4}>
           <FormLabel>Round Number</FormLabel>
@@ -63,13 +93,15 @@ const StageForm = ({ jobPostingId, onStageAdded }) => {
             name="roundNumber"
             type="number"
             min={1}
-           borderRadius={0}  onChange={handleChange}
+            borderRadius={0}
+            onChange={handleChange}
           />
         </FormControl>
 
         <FormControl id="roundNumber" mt={4}>
           <FormLabel>Manager</FormLabel>
-          <Input borderRadius={0}
+          <Input
+            borderRadius={0}
             name="Manager"
             type="text"
             min={1}

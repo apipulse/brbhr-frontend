@@ -139,7 +139,7 @@ const onBoarding = () => {
           allStages.reduce(
             (acc, stages, index) => ({
               ...acc,
-              [jobPostings[index].title]: stages,
+              [jobPostings[index].title]: stages.length,
             }),
             {}
           )
@@ -179,8 +179,7 @@ const onBoarding = () => {
       console.error("Could Not get the hired candidate", error);
     }
   };
-
-  console.log(allStages?.jobName);
+console.log(filteredApplications)
   return (
     <VStack
       bgColor={"rgb(250, 247, 247)"}
@@ -239,8 +238,8 @@ const onBoarding = () => {
                 {jobPostings &&
                   jobPostings?.map((job, index) => {
                     return (
-                      <Box key={job.id}   minWidth={"max-content"} width={"100%"}>
-                        <Box 
+                      <Box key={job.id} minWidth={"max-content"} width={"100%"}>
+                        <Box
                           onClick={() => {
                             setJobId(job.id);
                             setjobName(job?.title);
@@ -261,7 +260,7 @@ const onBoarding = () => {
                           }
                           justifyContent={"space-between"}
                           alignItems={"center"}
-                          minH={'100%'}
+                          minH={"100%"}
                           px={2}
                           gap={2}
                           borderRight={
@@ -273,7 +272,6 @@ const onBoarding = () => {
                           borderBottom={
                             active == job.title ? "" : "1px solid lightgray"
                           }
-
                         >
                           <Text fontWeight={"600"}>{job?.title}</Text>
                           <Text fontSize={"12px"}>
@@ -291,7 +289,8 @@ const onBoarding = () => {
                             color={"white"}
                             bg={"red"}
                           >
-                            {0}
+                            {allStages?.[job?.title]}
+                            {/* {allStages?.find((jobStages) => jobStages.title === job.title).length}; */}
                           </Text>
                         </Box>
                       </Box>
@@ -318,7 +317,6 @@ const onBoarding = () => {
                           mb={3}
                           border={"1px solid lightgray"}
                           justifyContent={"space-between"}
-                          
                         >
                           <Box
                             display={"flex"}
@@ -360,7 +358,9 @@ const onBoarding = () => {
                             <Box display={"flex"} gap={2} alignItems={"center"}>
                               {/* ********************************************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\lljnnkeeeeeed*********** */}
                               <BsThreeDotsVertical
-                                onClick={() => handleDeleteStage(stage.name)}
+                                onClick={() =>
+                                  console.log("Nothing to do with this button")
+                                }
                                 cursor={"pointer"}
                                 bg="blue"
                                 width={"10px"}
@@ -408,11 +408,6 @@ const onBoarding = () => {
                                               index,
                                               e.target.value
                                             );
-                                            console.log(
-                                              candidate.id,
-                                              index,
-                                              e.target.value
-                                            );
                                           }}
                                           value={index}
                                         >
@@ -451,7 +446,8 @@ const onBoarding = () => {
               <Tr>
                 <Th>Candidate</Th>
                 <Th>Email</Th>
-                <Th>Contact</Th>
+                <Th>Job</Th>
+                <Th>Mobile</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -460,7 +456,11 @@ const onBoarding = () => {
                   <Tr key={candidate.id}>
                     <Td>{candidate.jobApplication.applicantName} </Td>
                     <Td>{candidate.jobApplication.applicantEmail}</Td>
+                    <Td>
+                      {jobName}
+                    </Td>
                     <Td>{candidate.jobApplication.mobileNumber}</Td>
+                    <Td>{candidate?.stage?.name}</Td>
                   </Tr>
                 ))}
             </Tbody>

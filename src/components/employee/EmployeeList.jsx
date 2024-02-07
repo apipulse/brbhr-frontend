@@ -31,7 +31,6 @@ import {
 import { randomColor } from "@chakra-ui/theme-tools";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import NoteContext from "../../Context/NoteContext";
-
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaList } from "react-icons/fa6";
 import StageForm from "./AddEmployee";
@@ -57,6 +56,7 @@ const EmployeeList = () => {
   const [id, setId] = useState(null);
   const [change, setChange] = useState(false);
   const [open, setOpen] = useState(false);
+  const [employeeIds, setEmployeeIds] = useState();
   const [selectedJobPostingId, setSelectedJobPostingId] = useState(null);
   useEffect(() => {
     abc.setName("EMPLOYEE");
@@ -65,6 +65,9 @@ const EmployeeList = () => {
       try {
         const data = await getEmployees();
         setEmployees(data);
+        data.map((one) => {
+          setEmployeeIds({ ...employeeIds, [one.id]: false });
+        });
       } catch (error) {
         console.error("Failed to fetch employees:", error);
       }
@@ -119,6 +122,7 @@ const EmployeeList = () => {
   console.log(filteredEmployees);
   console.log(employees);
   console.log(id);
+
   return (
     <VStack spacing={4} minH={"100vh"}>
       <Box
@@ -163,7 +167,6 @@ const EmployeeList = () => {
                 color={!listview ? "gray" : "black"}
               />
             </Box>
-
             <Button
               colorScheme="red"
               borderRadius={0}
@@ -234,13 +237,64 @@ const EmployeeList = () => {
                       </Box>
                     </Box>
                   </Box>
-                  <BsThreeDotsVertical />
+                  <Box position={"relative"}>
+                    <Box
+                      w={"20px"}
+                      h={"20px"}
+                      display={"flex"}
+                      alignItems={"center"}
+                      justifyContent={"center"}
+                      borderRadius={"100px"}
+                      _hover={{ bgColor: "lightgray" }}
+                      onClick={() =>
+                        setEmployeeIds({
+                          ...employeeIds,
+                          [employee.id]: !employeeIds?.[employee?.id],
+                        })
+                      }
+                    >
+                      <BsThreeDotsVertical color="black" />
+                    </Box>
+                    {employeeIds[employee.id] ? (
+                      <Box
+                        position={"absolute"}
+                        top={3}
+                        right={3}
+                        border={"1px solid lightgray"}
+                        p={1}
+                        bgColor={"Highlight"}
+                        textColor={"white"}
+                      >
+                        <Text
+                          onClick={() => deleteAnEmployee(employee.id)}
+                          cursor={"pointer"}
+                          borderBottom={"1px solid lightgray"}
+                          _hover={{ textColor: "lightgray" }}
+                        >
+                          Delete
+                        </Text>
+                        <Text
+                          onClick={() => {
+                            handleAddStageClick();
+                            setId(employee.id);
+                            console.log("Edit button has been clicked");
+                          }}
+                          cursor={"pointer"}
+                          _hover={{ textColor: "lightgray" }}
+                        >
+                          Edit
+                        </Text>
+                      </Box>
+                    ) : (
+                      ""
+                    )}
+                  </Box>
                 </Box>
               );
             })
           ) : (
             employees.map((employee) => (
-              <Box
+              <Box 
                 key={employee.emailId}
                 w={"17rem"}
                 minW={"max-content"}
@@ -287,20 +341,56 @@ const EmployeeList = () => {
                 </Box>
                 {/* // onClick={() => deleteEmployee(employee.id)} */}
                 <Box position={"relative"}>
-                  <Box w={'20px'} h={'20px'} display={'flex'} alignItems={'center'} justifyContent={'center'} borderRadius={'100px'} _hover={{bgColor:'lightgray'}} onClick={()=>setOpen({...open,[employee.id]:!open})}>
-                  <BsThreeDotsVertical color="black"/>
-                  </Box>
-                 {open[employee.id]?<Box
-                    position={"absolute"}
-                    top={2}
-                    right={3}
-                    border={"1px solid lightgray"}
-                    p={1} 
-                     bgColor={'Highlight'} textColor={'white'}
+                  <Box
+                    w={"20px"}
+                    h={"20px"}
+                    display={"flex"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                    borderRadius={"100px"}
+                    _hover={{ bgColor: "lightgray" }}
+                    onClick={() =>
+                      setEmployeeIds({
+                        ...employeeIds,
+                        [employee.id]: !employeeIds?.[employee?.id],
+                      })
+                    }
                   >
-                  <Text cursor={'pointer'} borderBottom={'1px solid lightgray'} _hover={{textColor:'lightgray'}}>Delete</Text>
-                  <Text cursor={'pointer'} _hover={{textColor:'lightgray'}}>Edit</Text>
-                  </Box>:''}
+                    <BsThreeDotsVertical color="black" />
+                  </Box>
+                  {employeeIds[employee.id] ? (
+                    <Box
+                      position={"absolute"}
+                      top={3}
+                      right={3}
+                      border={"1px solid lightgray"}
+                      p={1}
+                      bgColor={"white"}
+                      textColor={"black"}
+                    >
+                      <Text
+                        onClick={() => deleteAnEmployee(employee.id)}
+                        cursor={"pointer"}
+                        borderBottom={"1px solid lightgray"}
+                        _hover={{ textColor: "gray" }}
+                      >
+                        Delete
+                      </Text>
+                      <Text
+                        onClick={() => {
+                          handleAddStageClick();
+                          setId(employee.id);
+                          console.log("Edit button has been clicked");
+                        }}
+                        cursor={"pointer"}
+                        _hover={{ textColor: "gray" }}
+                      >
+                        Edit
+                      </Text>
+                    </Box>
+                  ) : (
+                    ""
+                  )}
                 </Box>
               </Box>
             ))
@@ -374,9 +464,6 @@ const EmployeeList = () => {
         )}
       </Box>
 
-
-
-      
       <Modal isOpen={isOpen1} onClose={onClose1}>
         <ModalOverlay />
         <ModalContent>

@@ -143,7 +143,7 @@ const LeaveForm = ({ onAdded, change, setChange, leaveId }) => {
           Apply for leave
         </Text>
 
-        <form onSubmit={id?handleUpdate:handleSubmit}>
+        <form onSubmit={leaveId?handleUpdate:handleSubmit}>
           <FormControl id="employee" isRequired>
             <FormLabel>Employee</FormLabel>
             <Select
@@ -222,7 +222,7 @@ const LeaveForm = ({ onAdded, change, setChange, leaveId }) => {
             />
           </FormControl>
           <Button mt={4} borderRadius={0} colorScheme="red" type="submit">
-           {id?'Update':'Apply'}
+           {leaveId?'Update':'Apply'}
           </Button>
         </form>
       </Box>

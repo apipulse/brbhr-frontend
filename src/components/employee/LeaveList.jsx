@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import {
   getLeavesByEmployee,
-  getAllLeaveRequests, deleteLeave
+  getAllLeaveRequests,
+  deleteLeave,
+  updateLeaveStatus,
 } from "../../services/LeaveService";
 import {
   Box,
@@ -60,7 +62,7 @@ const LeaveList = () => {
     const fetchLeave = async () => {
       const id = "65be5c823ad88f331ba9ad97";
       try {
-        const data = await getLeavesByEmployee(parseInt(id));
+        const data = await getLeavesByEmployee(id);
         console.log("Leave Info has been fetched", data);
       } catch (error) {
         console.error("Error fetching leaves:", error);
@@ -80,34 +82,21 @@ const LeaveList = () => {
     // fetchLeave();
   }, [change]);
 
-  const deletLeave = async (id) => {
-    console.log(id);
-    try {
-      const res = await deleteLeave(id);
-      console.log(res);
-      toast({
-        title: "Succes",
-        description: "Leave request has been deleted.",
-        status: "success", // Options: 'info', 'warning', 'error', 'success'
-        isClosable: true,
-        duration: 3000,
-      });
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: "Error",
-        description: "Error deleting Leave",
-        status: "error", // Options: 'info', 'warning', 'error', 'success'
-        isClosable: true,
-        duration: 3000,
-      });
-    }
-  };
-
   const handleClick = () => {
     console.log("Opening modal for Leave Request");
     onOpen2();
   };
+
+  const updateStatus = async (id, status, reason) => {
+    try {
+      const res = await updateLeaveStatus(id, status, reason);
+      console.log(res);
+      setchange(!change)
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   console.log(leaves);
   return (
     <VStack
@@ -137,13 +126,13 @@ const LeaveList = () => {
         <Box bg={"white"} borderTop={"3px solid gray"} p={"1rem"} flex={1}>
           <Text>Approved Requests</Text>
           <Text fontSize={"2.5rem"}>
-            {leaves.filter((leave) => leave.status === "approved").length}
+            {leaves.filter((leave) => leave.status === "Accepted").length}
           </Text>
         </Box>
         <Box bg={"white"} borderTop={"3px solid red"} p={"1rem"} flex={1}>
           <Text>Rejected Requests</Text>
           <Text fontSize={"2.5rem"}>
-            {leaves.filter((leave) => leave.status === "rejected").length}
+            {leaves.filter((leave) => leave.status === "Rejected").length}
           </Text>
         </Box>
       </Box>
@@ -187,8 +176,7 @@ const LeaveList = () => {
               <Th>From</Th>
               <Th>To</Th>
               <Th>Requested Days</Th>
-              <Th>Status</Th>
-              <Th>Options</Th>
+              <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -201,31 +189,23 @@ const LeaveList = () => {
                 <Td>{leave.reason}</Td>
 
                 <Td display={"flex"} gap={2}>
-                  <Button colorScheme="blue" borderRadius={0} flex={1}>
+                  <Button
+                    onClick={() => updateStatus(leave.id, "Accepted", "Reason")}
+                    colorScheme="blue"
+                    borderRadius={0}
+                    flex={1} isDisabled={leave.status=='Accepted'?true:''}
+                  >
                     Accept
                   </Button>
-                  <Button colorScheme="red" borderRadius={0} flex={1}>
+                  <Button
+                    onClick={() => updateStatus(leave.id, "Rejected", "reason")}
+                    colorScheme="red"
+                    borderRadius={0}
+                    flex={1} isDisabled={leave.status=='Rejected'?true:''}
+                  >
                     Reject
                   </Button>
                 </Td>
-
-                <Td >
-                  <MdDelete
-                    fontSize={"1.5rem"}
-                    onClick={() => deletLeave(leave.id)}
-                    fontWeight={600}
-                    cursor={"pointer"}
-                  />
-                  <FaEdit
-                    fontSize={"1.5rem"}
-                    onClick={() => {onOpen2()
-                      setId(leave.id)
-                    }}
-                    fontWeight={600}
-                    cursor={"pointer"}
-                  />
-                </Td>
-                
               </Tr>
             ))}
           </Tbody>
@@ -238,7 +218,7 @@ const LeaveList = () => {
           <ModalHeader>Leave Request</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <LeaveForm leaveId={id}
+            <LeaveForm
               onAdded={onClose2}
               change={change}
               setchange={setchange}

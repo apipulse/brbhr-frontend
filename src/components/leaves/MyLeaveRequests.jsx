@@ -1,78 +1,177 @@
 import React, { useEffect, useState } from "react";
-
-import { getMyLeaveRequests, getMyLeaves } from "../../services/LeaveService";
-import { Box, Input, Text,Table,
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import {
+  getMyLeaveRequests,
+  getMyLeaves,
+  deleteLeave,
+} from "../../services/LeaveService";
+import LeaveForm from "../employee/LeaveForm";
+import {
+  Box,
+  Input,
+  Text,
+  Table,
   Thead,
   TabList,
   Tbody,
   Tr,
+  Button,
   Th,
-  Td, } from "@chakra-ui/react";
+  Td,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+} from "@chakra-ui/react";
+import { format } from "date-fns";
 function MyLeaveRequests() {
-  const [id, setId] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [leaves, setLeaves] = useState([]);
-useEffect(()=>{
+  const [change, setChange] = useState(false);
+  const [id, setId] = useState(false);
 
-  const MyLeves = async () => {
+  useEffect(() => {}, []);
+  const {
+    isOpen: isOpen2,
+    onOpen: onOpen2,
+    onClose: onClose2,
+  } = useDisclosure();
+
+  const MyLeves = async (e) => {
+    e.preventDefault();
     try {
-      const res = await getMyLeaveRequests(id);
+      const res = await getMyLeaveRequests(searchQuery);
       console.log(res);
-      setLeaves(res)
+      setLeaves(res);
     } catch (error) {
       console.error(error);
     }
   };
-  MyLeves()
-},[])
+
+  const leaveDelete = async (leaveId) => {
+    try {
+      const res = await deleteLeave(id);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Box minH={"100vh"} mt={4} className="w-100vw" p={4}>
-      <Box>
+      <Box
+        className="changeDir"
+        display={"flex"}
+        w={"100%"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
         <Text fontWeight={"600"} fontSize={"1.4rem"}>
           My Leave Requests
         </Text>
-        <Input mt={3} value={id} onChange={(e)=>setId(e.target.value)} placeholder="Empoyee Id" type="text" borderRadius={0} />
+        <form
+          onSubmit={MyLeves}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: ".75rem",
+            justifyContent: "space-between",
+            gap: "1rem",
+          }}
+        >
+          <Input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Name"
+            type="text"
+            borderRadius={0}
+          />
+          <Button colorScheme="red" borderRadius={0} type="submit">
+            Submit
+          </Button>
+        </form>
       </Box>
-      <Box onClick={()=>MyLeaves()} mt={4} shadow={"sm"} overflow={'scroll'} border={'1px solid lightgray'}>
-        <Table minW={'max-content'} variant="simple" >
+      <Box
+        mt={4}
+        shadow={"sm"}
+        overflow={"scroll"}
+        border={"1px solid lightgray"}
+      >
+        <Table minW={"max-content"} variant="simple">
           <Thead>
             <Tr>
-              <Th>Candidate</Th>
-              <Th>Email</Th>
-              <Th>Job position</Th>
-              <Th>Contact</Th>
-              <Th>Stage</Th>
+              <Th>Name</Th>
+              <Th>Start Date</Th>
+              <Th>End Date</Th>
+              <Th>Type</Th>
+              <Th>Status</Th>
               <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {/* {leaves?.map((candidate) =>
-              (candidate.country === jobName &&
-                // candidate.appliedToJobId === jobid
-                candidate.currentRecruitmentStage == null) ||
-              candidate.currentRecruitmentStage == "" ? (
-                <Tr key={Math.random()}>
-                  <Td>{candidate.applicantName} </Td>
-                  <Td>{candidate.applicantEmail}</Td>
-                  <Td>{candidate.country}</Td>
-                  <Td>{candidate.mobileNumber}</Td>
-                  <Td></Td>
-                  <Td>
-                    <MdOutlineMailOutline
-                      onClick={() =>
-                        handleSendMailClick(candidate.applicantEmail)
-                      }
-                      cursor={"pointer"}
+            {leaves?.map((leave) => (
+              <Tr key={Math.random()}>
+                <Td>{leave.employeeId} </Td>
+                <Td>
+                  {format(
+                    new Date(leave.startDate).toLocaleDateString(),
+                    "MMMM dd, yyyy"
+                  )}
+                </Td>
+                <Td>
+                  {format(
+                    new Date(leave.endDate).toLocaleDateString(),
+                    "MMMM dd, yyyy"
+                  )}
+                </Td>
+                <Td>{leave.type}</Td>
+                <Td>{leave.status ? leave.status : "Pending"}</Td>
+                <Td display={"flex"} p={1} gap={3}>
+                  <Button
+                    isDisabled={!leave.status ? false : true}
+                    my={"auto"}
+                    borderRadius={0}
+                    onClick={() => leaveDelete(leave.id)}
+                  >
+                    <MdDelete style={{ flex: 1, fontSize: "1.5rem" }} />{" "}
+                  </Button>
+                  <Button
+                    borderRadius={0}
+                    isDisabled={!leave.status ? false : true}
+                  >
+                    <FaEdit
+                      onClick={() => {
+                        onOpen2();
+                        setId(leave.id);
+                      }}
+                      style={{ flex: 1, fontSize: "1.5rem" }}
                     />
-                  </Td>
-                </Tr>
-              ) : (
-                ""
-              )
-            )} */}
+                  </Button>
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </Box>
+      <Modal isOpen={isOpen2} onClose={onClose2}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Leave Request</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <LeaveForm
+              leaveId={id}
+              onAdded={onClose2}
+              change={change}
+              setchange={setChange}
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }

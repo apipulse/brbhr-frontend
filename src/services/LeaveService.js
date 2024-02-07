@@ -10,19 +10,39 @@ export const getLeavesByEmployee = async (employeeId) => {
   }
 };
 
+export const updateLeaveStatus = async (leaveId, status, reason) => {
+  const url = `leave/leaves/${leaveId}/status`; // Adjust the base URL as per your application's requirement
+  const requestBody = {
+    status: status,
+    reason: reason,
+  };
+
+  try {
+    const response = await axios.put(url, requestBody);
+    console.log("Leave status updated successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error updating leave status:",
+      error.response ? error.response.data : error.message
+    );
+    throw error;
+  }
+};
+
 export const applyForLeave = async (employeeId, leaveRequest) => {
   try {
-  const url = `/leave/myleaves/apply/${employeeId}`;
-  const response = await axios.post(url, leaveRequest, {
-  headers: {
-  "Content-Type": "application/json",
-  },
-  });
-  return response.data;
+    const url = `/leave/myleaves/apply/${employeeId}`;
+    const response = await axios.post(url, leaveRequest, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
   } catch (error) {
-  throw error;
+    throw error;
   }
-  };
+};
 
 export const updateLeave = async (id, leaveData) => {
   try {

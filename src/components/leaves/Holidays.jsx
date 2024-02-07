@@ -23,6 +23,7 @@ import {
   ModalBody,
   useDisclosure,
 } from "@chakra-ui/react";
+import { format } from "date-fns";
 import AddHoliday from "./AddHoliday";
 import { getHolidays } from "../../services/LeaveService";
 function MyLeaves() {
@@ -142,7 +143,7 @@ function MyLeaves() {
       <Modal isOpen={isOpen2} onClose={onClose2}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add Type</ModalHeader>
+          <ModalHeader>Holiday</ModalHeader>
           <ModalCloseButton />
           <AddHoliday id={id} setChange={setChange} onAdded={onClose2} />
         </ModalContent>

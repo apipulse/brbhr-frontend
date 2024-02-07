@@ -8,12 +8,13 @@ import {
   Textarea,
   NumberInput,
   Text,
-  NumberInputField,
+  NumberInputField,useToast
 } from "@chakra-ui/react";
 import { postJob } from "../../services/CandidateService";
 import NoteContext from "../../Context/NoteContext";
 
-const JobPostingForm = () => {
+const JobPostingForm = ({onStageAdded,change, setChange}) => {
+  const toast = useToast()
   const abc = useContext(NoteContext);
   abc.setName("RECRUITMENT");
 
@@ -58,10 +59,24 @@ const JobPostingForm = () => {
         requiredSkills: "",
         experienceRequired: 1,
       });
-      alert("Job Has Been Posted.");
+      onStageAdded()
+      setChange(!change)
+      toast({
+        title: "Succes",
+        description: "Job has been posted",
+        status: "success", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 3000,
+      });
     } catch (error) {
       console.error("Error posting job:", error);
-      // Handle error
+      toast({
+        title: "Error",
+        description: "Error Job",
+        status: "error", // Options: 'info', 'warning', 'error', 'success'
+        isClosable: true,
+        duration: 3000,
+      });
     }
   };
 

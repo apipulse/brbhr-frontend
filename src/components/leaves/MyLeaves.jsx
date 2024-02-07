@@ -1,39 +1,75 @@
 import React, { useEffect, useState } from "react";
-
 import { getMyLeaves } from "../../services/LeaveService";
-import { Box, Input, Text,Table,
+import {
+  Box,
+  Input,
+  Text,
+  Table,
   Thead,
   TabList,
+  Button,
   Tbody,
   Tr,
   Th,
-  Td, } from "@chakra-ui/react";
+  Td,
+} from "@chakra-ui/react";
 function MyLeaves() {
-  const [id, setId] = useState();
+  const [id, setId] = useState("");
   const [leaves, setLeaves] = useState([]);
-useEffect(()=>{
 
-  const MyLeves = async () => {
+  const MyLeves = async (e) => {
+    e.preventDefault();
     try {
       const res = await getMyLeaves(id);
       console.log(res);
-      setLeaves(res)
+      setLeaves(res);
     } catch (error) {
       console.error(error);
     }
   };
-  MyLeves()
-},[])
+  // MyLeves()
   return (
     <Box minH={"100vh"} mt={4} className="w-100vw" p={4}>
-      <Box>
+      <Box
+        className="changeDir"
+        display={"flex"}
+        w={"100%"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
         <Text fontWeight={"600"} fontSize={"1.4rem"}>
           My Leaves
         </Text>
-        <Input mt={3} value={id} onChange={(e)=>setId(e.target.value)} placeholder="Empoyee Id" type="text" borderRadius={0} />
+        <form
+          onSubmit={MyLeves}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: ".75rem",
+            justifyContent: "space-between",
+            gap: "1rem",
+          }}
+        >
+          <Input
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            placeholder="Empoyee Id"
+            type="text"
+            borderRadius={0}
+          />
+          <Button colorScheme="red" borderRadius={0} type="submit">
+            Submit
+          </Button>
+        </form>
       </Box>
-      <Box onClick={()=>MyLeaves()} mt={4} shadow={"sm"} overflow={'scroll'} border={'1px solid lightgray'}>
-        <Table minW={'max-content'} variant="simple" >
+      <Box
+        onClick={() => MyLeaves()}
+        mt={4}
+        shadow={"sm"}
+        overflow={"scroll"}
+        border={"1px solid lightgray"}
+      >
+        <Table minW={"max-content"} variant="simple">
           <Thead>
             <Tr>
               <Th>Candidate</Th>

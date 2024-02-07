@@ -11,6 +11,10 @@
   box-sizing: border-box;
 }
 
+.center{
+  text-align: center;
+}
+
 
 .logo {
   height: 6em;
